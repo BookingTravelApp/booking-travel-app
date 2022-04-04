@@ -1,10 +1,11 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database/config');
-
+const User = require('./User');
+const Role = require('./Role');
 const Account = sequelize.define('account', {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
         allowNULL: false,
         primaryKey: true,        
     },
@@ -31,4 +32,8 @@ const Account = sequelize.define('account', {
         allowNULL: true,
     }
 });
+
+Account.hasOne(User);
+Account.hasOne(Role);
+
 module.exports = Account;

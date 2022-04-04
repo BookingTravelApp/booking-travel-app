@@ -1,5 +1,4 @@
 const { Sequelize, DataTypes } = require('sequelize');
-
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: 'mysql',
     host: 'localhost',
@@ -10,7 +9,9 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
 // force = true recreates a table
 
 
-sequelize.sync({ force: false });
+
+sequelize.sync({ force: false, alter: true });
+
 
 (async() => {
   try {
@@ -20,5 +21,7 @@ sequelize.sync({ force: false });
     console.log(error);
   }
 })();
+
+
 
 module.exports = sequelize;
