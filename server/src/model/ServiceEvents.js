@@ -1,28 +1,28 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/config");
-const Role = require("./Role");
-const Permission = require("./Permission");
+const Service = require("./Service");
+const Event = require("./Event");
 
-const RolePermissions = sequelize.define("role_permission", {
+const ServiceEvents = sequelize.define("service_event", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
-  role_id: {
+  service_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: Role,
+      model: Service,
       key: "id",
     },
   },
-  permission_id: {
+  Event: {
     type: DataTypes.INTEGER,
     references: {
-      model: Permission,
+      model: Event,
       key: "id",
     },
   },
 });
-module.exports = RolePermissions;
+module.exports = ServiceEvents;
