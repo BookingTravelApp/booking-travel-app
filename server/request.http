@@ -17,6 +17,11 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username": "qhuy4919",
+    "username": "user123",
     "password": "12345678"
 }
+
+###
+GET http://localhost:4000/tour
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
+

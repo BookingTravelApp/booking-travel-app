@@ -33,7 +33,7 @@ const Account = sequelize.define('account', {
     }
 });
 
-Account.hasOne(User);
-Account.hasOne(Role);
+Account.hasOne(User, {foreignKey: 'accoundId', sourceKey: 'id'});
+Account.hasOne(Role, {foreignKey: 'accoundId', sourceKey: 'id'});
 
 module.exports = Account;

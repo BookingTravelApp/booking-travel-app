@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: 'mysql',
     host: 'localhost',
@@ -7,11 +7,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, pr
 // ----- IMPORTANT -----
 // If force = true, everytime the server runs we will lose the data for the table
 // force = true recreates a table
-
-
-
-sequelize.sync({ force: false, alter: true });
-
+sequelize.sync({ force: false });
 
 (async() => {
   try {
@@ -21,7 +17,5 @@ sequelize.sync({ force: false, alter: true });
     console.log(error);
   }
 })();
-
-
 
 module.exports = sequelize;

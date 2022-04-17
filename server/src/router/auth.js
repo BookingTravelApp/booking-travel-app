@@ -39,7 +39,6 @@ router.post('/register', validator.register() ,async(req, res) => {
     //return token
     const accessToken = jwt.sign({userId: newAccount._id}, process.env.DB_ACCESS_TOKEN_SECRET);
     
-    console.log('@@@@@@@', );
     //create instance Role and User table
     try {
       let userId = newAccount.getDataValue('id');
@@ -94,7 +93,7 @@ router.post('/login', async(req, res) => {
         message: 'User not found'
       }); 
     }
-    //user found
+
     const passwordValid = await argon2.verify(user.password, password);
     if(!passwordValid){
       return res.status(400).json({
@@ -102,8 +101,9 @@ router.post('/login', async(req, res) => {
         message: 'Password not valid',
       });
     }
-
-    const accessToken = jwt.sign({userId: user._id},  process.env.DB_ACCESS_TOKEN_SECRET);
+    
+    const userId = user.getDataValue('id');
+    const accessToken = generateToken({id: userId, username: username});
     return res.json({
       success: true,
       message: 'Login successful',
@@ -118,4 +118,27 @@ router.post('/login', async(req, res) => {
     });
   }
 });
+
+//util
+const generateToken = (payload) => {
+  const { id, username } = payload;
+
+  const accessToken = jwt.sign(
+    {id, username},
+    process.env.DB_ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: '10s'
+    }
+  );
+
+  const refreshToken = jwt.sign(
+    { id, username },
+    process.env.DB_ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: '10s',
+    }
+  );
+
+  return { accessToken, refreshToken};
+};
 module.exports = router;
