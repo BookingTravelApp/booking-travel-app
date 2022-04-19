@@ -23,5 +23,5 @@ const Permission = sequelize.define("permission", {
     allowNull: true,
   },
 });
-Permission.belongsToMany(Role, { through: RolePermissions });
+// Permission.belongsToMany(Role, { through: RolePermissions });
 module.exports = Permission;

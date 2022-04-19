@@ -6,17 +6,9 @@ const Bill = sequelize.define(
   "bill",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: false,
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    manager_id: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     date: {
@@ -42,8 +34,8 @@ const Bill = sequelize.define(
   },
   { timestamps: false }
 );
-Bill.hasMany(BillDetail);
-Bill.belongsTo(User, {
-  foreignKey: user_id,
-});
+// Bill.hasMany(BillDetail);
+// Bill.belongsTo(User, {
+//   foreignKey: user_id,
+// });
 module.exports = Bill;

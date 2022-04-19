@@ -40,10 +40,10 @@ const Cart = sequelize.define(
   },
   { timestamps: false }
 );
-Cart.belongsTo(User, {
-  foreignKey: "user_id",
-});
-Cart.belongsTo(Service, {
-  foreignKey: "service_id",
-});
+// Cart.belongsTo(User, {
+//   foreignKey: "user_id",
+// });
+// Cart.belongsTo(Service, {
+//   foreignKey: "service_id",
+// });
 module.exports = Cart;

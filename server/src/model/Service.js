@@ -49,10 +49,10 @@ const Service = sequelize.define(
   },
   { timestamps: false }
 );
-Service.belongsTo(Role, {
-  foreignKey: "role_id",
-});
-Service.belongsToMany(Event, { through: ServiceEvents });
-Service.hasMany(BillDetail);
-Service.hasMany(Rate);
+// Service.belongsTo(Role, {
+//   foreignKey: "role_id",
+// });
+// Service.belongsToMany(Event, { through: ServiceEvents });
+// Service.hasMany(BillDetail);
+// Service.hasMany(Rate);
 module.exports = Service;

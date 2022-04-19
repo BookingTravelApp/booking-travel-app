@@ -54,6 +54,6 @@ const Account = sequelize.define(
   },
   { timestamps: false }
 );
-Account.hasOne(User);
-Account.belongsToMany(Role, { through: "RoleAccounts" });
+// Account.hasOne(User);
+// Account.belongsToMany(Role, { through: "RoleAccounts" });
 module.exports = Account;

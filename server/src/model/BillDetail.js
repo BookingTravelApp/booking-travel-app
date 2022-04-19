@@ -30,7 +30,7 @@ const BillDetail = sequelize.define("billDetail", {
   },
 });
 
-BillDetail.belongsTo(Bill, { foreignKey: "bill_id" });
-BillDetail.belongsTo(Service, { foreignKey: "service_id" });
+// BillDetail.belongsTo(Bill, { foreignKey: "bill_id" });
+// BillDetail.belongsTo(Service, { foreignKey: "service_id" });
 
 module.exports = BillDetail;

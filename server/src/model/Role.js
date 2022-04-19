@@ -22,7 +22,7 @@ const Role = sequelize.define("role", {
     allowNull: true,
   },
 });
-Role.hasOne(Service);
-Role.belongsToMany(Account, { through: RoleAccounts });
-Role.belongsToMany(Permission, { through: RolePermissions });
+// Role.hasOne(Service);
+// Role.belongsToMany(Account, { through: RoleAccounts });
+// Role.belongsToMany(Permission, { through: RolePermissions });
 module.exports = Role;

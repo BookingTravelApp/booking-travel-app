@@ -30,9 +30,9 @@ const User = sequelize.define("user", {
     allowNULL: false,
   },
 });
-User.belongsTo(Account, {
-  foreignKey: "account_id",
-});
-User.hasMany(Rate);
-User.hasOne(Cart);
+// User.belongsTo(Account, {
+//   foreignKey: "account_id",
+// });
+// User.hasMany(Rate);
+// User.hasOne(Cart);
 module.exports = User;

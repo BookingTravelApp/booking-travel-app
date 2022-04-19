@@ -48,5 +48,5 @@ const Event = sequelize.define(
   },
   { timestamps: false }
 );
-Event.belongsToMany(Service, { through: ServiceEvents });
+// Event.belongsToMany(Service, { through: ServiceEvents });
 module.exports = Service;

@@ -41,10 +41,10 @@ const Rate = sequelize.define(
   },
   { timestamps: false }
 );
-Rate.belongsTo(User, {
-  foreignKey: "user_id",
-});
-Rate.belongsTo(Service, {
-  foreignKey: "service_id",
-});
+// Rate.belongsTo(User, {
+//   foreignKey: "user_id",
+// });
+// Rate.belongsTo(Service, {
+//   foreignKey: "service_id",
+// });
 module.exports = Rate;
