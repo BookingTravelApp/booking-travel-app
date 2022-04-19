@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/config");
 const User = require("./User");
@@ -12,6 +13,18 @@ const Account = sequelize.define(
       autoIncrement: true,
       allowNULL: false,
       primaryKey: true,
+=======
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database/config');
+const User = require('./User');
+const Role = require('./Role');
+const Account = sequelize.define('account', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNULL: false,
+        primaryKey: true,        
+>>>>>>> dev-backend
     },
     username: {
       type: DataTypes.STRING,
@@ -31,29 +44,12 @@ const Account = sequelize.define(
       },
     },
     facebook_id: {
-      type: DataTypes.STRING,
-      allowNULL: true,
-    },
-    is_active: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
-    },
-    createdAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      allowNull: false,
-    },
-    updatedAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
-        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-      ),
-      allowNull: false,
-    },
-  },
-  { timestamps: false }
-);
-// Account.hasOne(User);
-// Account.belongsToMany(Role, { through: "RoleAccounts" });
+        type: DataTypes.STRING,
+        allowNULL: true,
+    }
+});
+
+Account.hasOne(User);
+Account.hasOne(Role);
+
 module.exports = Account;

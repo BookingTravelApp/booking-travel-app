@@ -4,7 +4,7 @@ const argon2= require('argon2');
 const jwt = require('jsonwebtoken');
 const validator = require('../middleware/validator');
 const { validationResult } = require('express-validator');
-const Account = require('../model/Account');
+const { Account, User, Role } = require('../model');
 const { where } = require('sequelize');
 
 // @router POST /register
@@ -38,7 +38,25 @@ router.post('/register', validator.register() ,async(req, res) => {
 
     //return token
     const accessToken = jwt.sign({userId: newAccount._id}, process.env.DB_ACCESS_TOKEN_SECRET);
+    
+    console.log('@@@@@@@', );
+    //create instance Role and User table
+    try {
+      let userId = newAccount.getDataValue('id');
+      await User.create({
+        accountId: userId
+      });
 
+      await Role.create({
+        accountId: userId
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: 'Create user and role fail'
+      });
+    }
     return res.json({
       success: true,
       message: 'User created successfully',
