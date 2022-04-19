@@ -1,27 +1,25 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Service = require("./Service");
-const ServiceEvents = require("./ServiceEvents");
 
 const Event = sequelize.define(
   "event",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
     event_name: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     },
     description: {
-      type: DataTypes.TEXT,
+      type: Sequelize.TEXT,
       allowNull: true,
     },
     discount: {
-      type: Datatypes.INTEGER,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     endAt: {
@@ -29,7 +27,7 @@ const Event = sequelize.define(
       allowNull: true,
     },
     is_active: {
-      type: DataTypes.BOOLEAN,
+      type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
@@ -48,5 +46,4 @@ const Event = sequelize.define(
   },
   { timestamps: false }
 );
-// Event.belongsToMany(Service, { through: ServiceEvents });
 module.exports = Service;

@@ -1,36 +1,29 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Role = require("./Role");
-const Rate = require("./Rate");
-const ServiceEvents = require("./ServiceEvents");
 
 const Service = sequelize.define(
   "service",
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: Sequelize.UUID,
+      autoIncrement: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
     service_name: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     },
     description: {
-      type: DataTypes.TEXT,
+      type: Sequelize.TEXT,
       allowNull: true,
     },
-    role_id: {
-      type: Datatypes.INTEGER,
-      allowNull: false,
-    },
     price: {
-      type: DataTypes.DOUBLE,
+      type: Sequelize.DOUBLE,
       allowNull: true,
     },
     is_active: {
-      type: DataTypes.BOOLEAN,
+      type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: true,
     },
@@ -49,10 +42,4 @@ const Service = sequelize.define(
   },
   { timestamps: false }
 );
-// Service.belongsTo(Role, {
-//   foreignKey: "role_id",
-// });
-// Service.belongsToMany(Event, { through: ServiceEvents });
-// Service.hasMany(BillDetail);
-// Service.hasMany(Rate);
 module.exports = Service;

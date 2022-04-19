@@ -1,5 +1,17 @@
-module.exports ={
-    Account: require('./Account'),
-    User: require('./User'),
-    Role: require('./Role'),
+module.exports = {
+  Account: require("./Account"),
+  User: require("./User"),
+  Role: require("./Role"),
+  Bill: require("./Bill"),
+  BillDetail: require("./BillDetail"),
+  Cart: require("./Cart"),
+  Event: require("./Event"),
+  Image: require("./Image"),
+  Permission: require("./Permission"),
+  Rate: require("./Rate"),
+  RoleAccounts: require("./RoleAccounts"),
+  RolePermissions: require("./RolePermissions"),
+  Service: require("./Service"),
+  ServiceEvents: require("./ServiceEvents"),
+  User: require("./User"),
 };

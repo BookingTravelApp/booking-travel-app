@@ -1,29 +1,21 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Service = require("../database/Service");
 
 const Image = sequelize.define("image", {
   id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
     autoIncrement: true,
     primaryKey: true,
   },
-  service_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
   is_avatar: {
-    type: DataTypes.BOOLEAN,
+    type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false,
   },
   path: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
-});
-Image.belongsTo(Service, {
-  foreignKey: "service_id",
 });
 module.exports = Image;

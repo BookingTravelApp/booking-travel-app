@@ -1,27 +1,24 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Role = require("./Role");
-const RolePermissions = require("./RolePermissions");
 
 const Permission = sequelize.define("permission", {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: Sequelize.UUID,
+    autoIncrement: Sequelize.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   action: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   description: {
-    type: DataTypes.TEXT,
+    type: Sequelize.TEXT,
     allowNull: true,
   },
 });
-// Permission.belongsToMany(Role, { through: RolePermissions });
 module.exports = Permission;

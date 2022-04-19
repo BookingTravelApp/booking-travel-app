@@ -1,29 +1,29 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
 
 const User = sequelize.define(
   "user",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
     phone_number: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     },
     gender: {
-      type: DataTypes.ENUM("male", "female", "undefined"),
+      type: Sequelize.ENUM("male", "female", "undefined"),
       allowNull: true,
     },
     data_of_birth: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
       allowNull: true,
     },
     active: {
-      type: DataTypes.BOOLEAN,
+      type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
   },

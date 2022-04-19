@@ -1,21 +1,20 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const BillDetail = require("./BillDetail");
 
 const Bill = sequelize.define(
   "bill",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
     date: {
-      type: DataTypes.NOW,
+      type: Sequelize.NOW,
     },
     total_amount: {
-      type: DataTypes.DOUBLE,
+      type: Sequelize.DOUBLE,
       allowNull: true,
       defaultValue: 0,
     },
@@ -34,8 +33,5 @@ const Bill = sequelize.define(
   },
   { timestamps: false }
 );
-// Bill.hasMany(BillDetail);
-// Bill.belongsTo(User, {
-//   foreignKey: user_id,
-// });
+
 module.exports = Bill;

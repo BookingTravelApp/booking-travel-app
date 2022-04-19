@@ -1,22 +1,21 @@
-const { DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
 
 const Role = sequelize.define(
   "role",
   {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
     role: {
-      type: DataTypes.STRING,
-      // eslint-disable-next-line quotes
+      type: Sequelize.STRING,
       defaultValue: "user",
     },
     description: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       allowNull: true,
     },
   },
