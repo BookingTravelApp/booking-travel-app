@@ -1,31 +1,22 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
 
-const Service = sequelize.define(
-  "service",
+const Bill = sequelize.define(
+  "bill",
   {
     id: {
       type: Sequelize.UUID,
-      autoIncrement: Sequelize.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
-    service_name: {
-      type: Sequelize.STRING,
-      allowNull: true,
+    date: {
+      type: Sequelize.NOW,
     },
-    description: {
-      type: Sequelize.TEXT,
-      allowNull: true,
-    },
-    price: {
+    total_amount: {
       type: Sequelize.DOUBLE,
       allowNull: true,
-    },
-    is_active: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
+      defaultValue: 0,
     },
     createdAt: {
       type: "TIMESTAMP",
@@ -42,4 +33,5 @@ const Service = sequelize.define(
   },
   { timestamps: false }
 );
-module.exports = Service;
+
+module.exports = Bill;

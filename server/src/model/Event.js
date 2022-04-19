@@ -1,31 +1,33 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database/config');
-const Service_event = require('./Service-event');
+const { DataTypes } = require("sequelize");
+const sequelize = require("../database/config");
+const Service_event = require("./Service-event");
 
-const Event = sequelize.define('event', {
+const Event = sequelize.define(
+  "event",
+  {
     id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
     },
     date: {
-        type: DataTypes.DATE,
+      type: DataTypes.DATE,
     },
     event_name: {
-        type: DataTypes.STRING,
+      type: DataTypes.STRING,
     },
     discount: {
-        type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL,
     },
     end_at: {
-        type: DataTypes.DATE
-    }
+      type: DataTypes.DATE,
+    },
+  },
+  { timestamps: false }
+);
 
-
-}, { timestamps: false });
-
-Event.belongsTo(Service_event, {foreignKey: 'eventId', targetKey: 'id'});
+Event.belongsTo(Service_event, { foreignKey: "eventId", targetKey: "id" });
 Service_event.hasOne(Event);
 
 module.exports = Event;
