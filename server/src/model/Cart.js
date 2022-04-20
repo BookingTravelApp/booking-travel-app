@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
+const Bill = require("./Bill");
+const Service = require("./Service");
 
 const Cart = sequelize.define(
   "cart",
@@ -30,4 +32,8 @@ const Cart = sequelize.define(
   },
   { timestamps: false }
 );
+
+BillDetail.belongsTo(Bill, { foreignKey: "billId", targetKey: "id" });
+BillDetail.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
+
 module.exports = Cart;

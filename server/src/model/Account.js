@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const User = require("./User");
-const Role = require("./Role");
+const RoleAccounts = require("./RoleAccounts");
+
 const Account = sequelize.define("account", {
   id: {
     type: Sequelize.UUID,
@@ -32,7 +32,6 @@ const Account = sequelize.define("account", {
   },
 });
 
-Account.hasOne(User, {foreignKey: 'accoundId', sourceKey: 'id'});
-Account.hasOne(Role, {foreignKey: 'accoundId', sourceKey: 'id'});
-
+// Account.hasOne(User, {foreignKey: 'accoundId', sourceKey: 'id'});
+// Account.hasOne(Role, {foreignKey: 'accoundId', sourceKey: 'id'});
 module.exports = Account;

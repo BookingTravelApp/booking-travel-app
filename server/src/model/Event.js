@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/config");
-const Service_event = require("./Service-event");
 
 const Event = sequelize.define(
   "event",
@@ -26,8 +25,5 @@ const Event = sequelize.define(
   },
   { timestamps: false }
 );
-
-Event.belongsTo(Service_event, { foreignKey: "eventId", targetKey: "id" });
-Service_event.hasOne(Event);
 
 module.exports = Event;

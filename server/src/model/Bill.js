@@ -34,4 +34,6 @@ const Bill = sequelize.define(
   { timestamps: false }
 );
 
+Bill.belongsTo(User, { foreignKey: "UserId", targetKey: "id" });
+
 module.exports = Bill;

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
+const Service = require("./Service");
 
 const Image = sequelize.define("image", {
   id: {
@@ -18,4 +19,5 @@ const Image = sequelize.define("image", {
     allowNull: false,
   },
 });
+Image.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 module.exports = Image;

@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-
+const User = require("./User");
+const Service = require("./Service");
 const Rate = sequelize.define(
   "rate",
   {
@@ -30,4 +31,6 @@ const Rate = sequelize.define(
   },
   { timestamps: false }
 );
+Rate.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+Rate.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 module.exports = Rate;

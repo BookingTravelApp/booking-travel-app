@@ -26,8 +26,12 @@ const User = sequelize.define(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
+    avatar_path: {
+      type: Sequelize.STRING,
+      defaultValue: null,
+    },
   },
   { timestamps: false }
 );
-
+User.belongsTo(Account, { foreignKey: "accountId", targetKey: "id" });
 module.exports = User;
