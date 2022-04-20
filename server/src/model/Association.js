@@ -1,60 +1,41 @@
-// const Account = require("./Account");
-// const Bill = require("./Bill");
-// const BillDetail = require("./BillDetail");
-// const Cart = require("./Cart");
-// const Event = require("./Event");
-// const Image = require("./Image");
-// const Permission = require("./Permission");
-// const Rate = require("./Rate");
-// const Role = require("./Role");
-// const RoleAccounts = require("./RoleAccounts");
-// const RolePermissions = require("./RolePermissions");
-// const Service = require("./Service");
-// const ServiceEvents = require("./ServiceEvents");
-// const User = require("./User");
+const Account = require("./Account");
+const Bill = require("./Bill");
+const BillDetail = require("./BillDetail");
+const Cart = require("./Cart");
+const Event = require("./Event");
+const Image = require("./Image");
+const Permission = require("./Permission");
+const Rate = require("./Rate");
+const Role = require("./Role");
+const RoleAccounts = require("./RoleAccounts");
+const RolePermissions = require("./RolePermissions");
+const Service = require("./Service");
+const ServiceEvents = require("./ServiceEvents");
+const User = require("./User");
 
-// Account.hasOne(User);
-// Account.belongsToMany(Role, { through: "RoleAccounts" });
+User.belongsTo(Account, { foreignKey: "accountId", targetKey: "id" });
 
-// Bill.hasMany(BillDetail);
-// Bill.belongsTo(User, {
-//   foreignKey: user_id,
-// });
+Bill.belongsTo(User, { foreignKey: "UserId", targetKey: "id" });
 
-// BillDetail.belongsTo(Bill, { foreignKey: "bill_id" });
-// BillDetail.belongsTo(Service, { foreignKey: "service_id" });
+BillDetail.belongsTo(Bill, { foreignKey: "billId", targetKey: "id" });
+BillDetail.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 
-// Cart.belongsTo(User, {
-//   foreignKey: "user_id",
-// });
-// Cart.belongsTo(Service, {
-//   foreignKey: "service_id",
-// });
+Cart.belongsTo(Bill, { foreignKey: "billId", targetKey: "id" });
+Cart.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 
-// Event.belongsToMany(Service, { through: ServiceEvents });
+Image.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 
-// Permission.belongsToMany(Role, { through: RolePermissions });
+Rate.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
+Rate.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 
-// Rate.belongsTo(User, {
-//   foreignKey: "user_id",
-// });
-// Rate.belongsTo(Service, {
-//   foreignKey: "service_id",
-// });
+RoleAccounts.belongsTo(Role, { foreignKey: "roleId", targetKey: "id" });
+RoleAccounts.belongsTo(Account, { foreignKey: "accountId", targetKey: "id" });
 
-// Role.hasOne(Service);
-// Role.belongsToMany(Account, { through: RoleAccounts });
-// Role.belongsToMany(Permission, { through: RolePermissions });
+RolePermissions.belongsTo(Role, { foreignKey: "roleId", targetKey: "id" });
+RolePermissions.belongsTo(Permission, {
+  foreignKey: "permissionId",
+  targetKey: "id",
+});
 
-// Service.belongsTo(Role, {
-//   foreignKey: "role_id",
-// });
-// Service.belongsToMany(Event, { through: ServiceEvents });
-// Service.hasMany(BillDetail);
-// Service.hasMany(Rate);
-
-// User.belongsTo(Account, {
-//   foreignKey: "account_id",
-// });
-// User.hasMany(Rate);
-// User.hasOne(Cart);
+ServiceEvents.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
+ServiceEvents.belongsTo(Event, { foreignKey: "eventId", targetKey: "id" });

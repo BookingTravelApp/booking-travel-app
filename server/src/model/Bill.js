@@ -11,29 +11,16 @@ const Bill = sequelize.define(
       allowNull: false,
     },
     date: {
-      type: Sequelize.NOW,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW,
     },
     total_amount: {
       type: Sequelize.DOUBLE,
       allowNull: true,
       defaultValue: 0,
     },
-    createdAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      allowNull: false,
-    },
-    updatedAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
-        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-      ),
-      allowNull: false,
-    },
   },
-  { timestamps: false }
+  { timestamps: true }
 );
-
-Bill.belongsTo(User, { foreignKey: "UserId", targetKey: "id" });
 
 module.exports = Bill;

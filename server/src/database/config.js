@@ -13,7 +13,7 @@ const sequelize = new Sequelize(
 // If force = true, everytime the server runs we will lose the data for the table
 // force = true recreates a table
 
-sequelize.sync({ force: false, alter: true });
+sequelize.sync({ alter: true, force: false });
 
 (async () => {
   try {

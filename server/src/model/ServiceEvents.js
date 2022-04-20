@@ -1,7 +1,5 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Service = require("./Service");
-const Event = require("./Event");
 
 const ServiceEvents = sequelize.define("service_event", {
   id: {
@@ -11,6 +9,4 @@ const ServiceEvents = sequelize.define("service_event", {
     allowNull: false,
   },
 });
-ServiceEvents.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
-ServiceEvents.belongsTo(Event, { foreignKey: "eventId", targetKey: "id" });
 module.exports = ServiceEvents;

@@ -6,7 +6,7 @@ const Service = sequelize.define(
   {
     id: {
       type: Sequelize.UUID,
-      autoIncrement: Sequelize.UUIDV4,
+      defaultValue: Sequelize.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
@@ -27,19 +27,7 @@ const Service = sequelize.define(
       allowNull: false,
       defaultValue: true,
     },
-    createdAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      allowNull: false,
-    },
-    updatedAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
-        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-      ),
-      allowNull: false,
-    },
   },
-  { timestamps: false }
+  { timestamps: true }
 );
 module.exports = Service;

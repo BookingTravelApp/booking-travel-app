@@ -1,13 +1,11 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const Bill = require("./Bill");
-const Service = require("./Service");
 
 const BillDetail = sequelize.define("billDetail", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
-    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
   amount: {
@@ -21,8 +19,5 @@ const BillDetail = sequelize.define("billDetail", {
     defaultValue: 0,
   },
 });
-
-BillDetail.belongsTo(Bill, { foreignKey: "billId", targetKey: "id" });
-BillDetail.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 
 module.exports = BillDetail;

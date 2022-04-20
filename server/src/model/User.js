@@ -33,5 +33,4 @@ const User = sequelize.define(
   },
   { timestamps: false }
 );
-User.belongsTo(Account, { foreignKey: "accountId", targetKey: "id" });
 module.exports = User;
