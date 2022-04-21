@@ -4,7 +4,7 @@ const argon2= require('argon2');
 const jwt = require('jsonwebtoken');
 const validator = require('../middleware/validator');
 const { validationResult } = require('express-validator');
-const { Account, User, Role } = require('../model');
+const db = require('../database/config');
 const { where } = require('sequelize');
 
 // @router POST /register
@@ -22,8 +22,8 @@ router.post('/register', validator.register() ,async(req, res) => {
   }
 
   try {
-    const existingUsername = await Account.findOne({ where:{ username } });
-    const existingEmail = await Account.findOne( {where: { email } });
+    const existingUsername = await db.Account.findOne({ where:{ username } });
+    const existingEmail = await db.Account.findOne( {where: { email } });
     if(existingUsername || existingEmail) {
       return res.status(400).json({
         success: false,
@@ -33,7 +33,7 @@ router.post('/register', validator.register() ,async(req, res) => {
     //hash password
     const hashPassword = await argon2.hash(password);
 
-    const newAccount = new Account({ username, email,password: hashPassword });
+    const newAccount = new db.Account({ username, email,password: hashPassword });
     await newAccount.save();
 
     //return token
@@ -42,11 +42,11 @@ router.post('/register', validator.register() ,async(req, res) => {
     //create instance Role and User table
     try {
       let userId = newAccount.getDataValue('id');
-      await User.create({
+      await db.User.create({
         accountId: userId
       });
 
-      await Role.create({
+      await db.Role.create({
         accountId: userId
       });
 
@@ -86,7 +86,7 @@ router.post('/login', async(req, res) => {
   }
 
   try {
-    const user = await Account.findOne({ where: { username }});
+    const user = await db.Account.findOne({ where: { username }});
     if(!user) {
       return res.status(404).json({
         success: false,
@@ -103,7 +103,7 @@ router.post('/login', async(req, res) => {
     }
     
     const userId = user.getDataValue('id');
-    const accessToken = generateToken({id: userId, username: username});
+    const accessToken = generateToken({id: userId, username: username})['accessToken'];
     return res.json({
       success: true,
       message: 'Login successful',

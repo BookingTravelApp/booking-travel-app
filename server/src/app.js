@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-require('./model');
+require('./database/config');
 const authRouter = require('./router/auth');
 const tourRouter = require('./router/event');
 
