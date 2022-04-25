@@ -1,14 +1,18 @@
 
 GET http://localhost:4000
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTA3MjQ5MzQsImV4cCI6MTY1MDcyODUzNH0.4A7C5-uAh2yvJMuz9BfkRsqDImVMVpu0AWCQA8f1OR0
 
 ###
 POST http://localhost:4000/register
 Content-Type: application/json
 
 {
-    "username": "user123",
-    "email": "user123@gmail.com",
-    "password": "12345678"
+    
+    "username": "user1234",
+    "email": "user1234@gmail.com",
+    "password": "12345678",
+    "listRole": ["admin"]
+    
 }
 
 ###
@@ -17,11 +21,62 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username": "user123",
+    "username": "user1234",
     "password": "12345678"
+}
+###
+
+GET http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username": "user1234",
+    "password": "12345678"
+}
+###
+GET http://localhost:4000/role
+Content-Type: application/json
+###
+POST http://localhost:4000/role
+Content-Type: application/json
+
+{
+    "role": "admin",
+    "description": "role nguoi quan ly"
 }
 
 ###
 GET http://localhost:4000/tour
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
 
+###
+GET http://localhost:4000/service
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNjZmRkOTAwLWQyOTQtNDIwNi04OThhLWI3MDFmZDI5N2EwMyIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTA2MDIwNzQsImV4cCI6MTY1MDYwMjA4NH0.InvYqSsS242Ekme6oiU7VRKttPnpLfWt69gfoN2RNJA
+
+###
+GET http://localhost:4000/service/b308c4ef-a7fe-4b3e-a067-e70103dbecbc/
+Content-Type: application/json
+
+###
+POST http://localhost:4000/service/
+Content-Type: application/json
+
+{
+    "service_name": "Bai bien Da Nang",
+    "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
+    "price": 1000000000
+}
+###
+PUT http://localhost:4000/service/
+Content-Type: application/json
+
+{
+    "id":"95df8654-69f6-442-bf39-6aed9b9df6f4",
+    "service_name": "Bai bien hoa hong",
+    "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
+    "price": 99
+}
+
+###
+DELETE http://localhost:4000/service/95df8654-69f6-4452-bf39-6aed9b9df6f4/

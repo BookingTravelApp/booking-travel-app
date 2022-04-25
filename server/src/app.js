@@ -1,17 +1,18 @@
-const express = require('express');
-require('dotenv').config();
-require('./model');
-const authRouter = require('./router/auth');
-const tourRouter = require('./router/event');
+const express = require("express");
+require("dotenv").config();
+require("./model");
+const authRouter = require("./router/auth");
+const serviceRouter = require("./router/service");
+const roleRouter = require("./router/role");
 
 const app = express();
-const PORT = process.env.PORT || 4000; 
+const PORT = process.env.PORT || 4000;
 app.use(express.json());
 //router
-app.use('/', authRouter);
-app.use('/', tourRouter);
-
+app.use("/", authRouter);
+app.use("/service", serviceRouter);
+app.use("/role", roleRouter);
 
 app.listen(PORT, () => {
-    console.log(`Listening: http://localhost:${PORT}`);
+  console.log(`Listening: http://localhost:${PORT}`);
 });

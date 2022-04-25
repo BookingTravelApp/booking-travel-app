@@ -1,20 +1,47 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const argon2= require('argon2');
-const jwt = require('jsonwebtoken');
-const validator = require('../middleware/validator');
-const { validationResult } = require('express-validator');
-const { Account, User, Role } = require('../model');
-const { where } = require('sequelize');
+const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
+const validator = require("../middleware/validator");
+const role = require("../middleware/role");
+const verifyToken = require("../middleware/verify-token");
+const { validationResult } = require("express-validator");
+const { Account, User, Role, RoleAccounts } = require("../model");
+
+router.get("/", [verifyToken, role.adminRole], async (req, res) => {
+  try {
+    const listUser = await User.findAll({
+      attributes: {
+        exclude: [],
+      },
+      // raw: true,
+      include: [
+        {
+          model: Account,
+          attributes: {
+            exclude: ["password"],
+          },
+          include: [{ model: RoleAccounts, include: Role }],
+        },
+      ],
+    });
+    // const id = listUser.getDataValue("id");
+    // console.log(listUser[0]["account"]["role_accounts"][0]["role"]["role"]);
+    res.json({ success: true, listUser });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
 
 // @router POST /register
 // @public access
 
-router.post('/register', validator.register() ,async(req, res) => {
+router.post("/register", validator.register(), async (req, res) => {
   const error = validationResult(req);
-  const {username, email, password} = req.body;
+  const { username, email, password, listRole } = req.body;
 
-  if(!error.isEmpty()) {
+  if (!error.isEmpty()) {
     return res.status(400).json({
       success: false,
       message: error.array(),
@@ -22,51 +49,58 @@ router.post('/register', validator.register() ,async(req, res) => {
   }
 
   try {
-    const existingUsername = await Account.findOne({ where:{ username } });
-    const existingEmail = await Account.findOne( {where: { email } });
-    if(existingUsername || existingEmail) {
+    const existingUsername = await Account.findOne({ where: { username } });
+    const existingEmail = await Account.findOne({ where: { email } });
+    if (existingUsername || existingEmail) {
       return res.status(400).json({
         success: false,
-        message: 'username and/or email already taken'
+        message: "username and/or email already taken",
       });
     }
     //hash password
     const hashPassword = await argon2.hash(password);
 
-    const newAccount = new Account({ username, email,password: hashPassword });
+    const newAccount = new Account({ username, email, password: hashPassword });
     await newAccount.save();
 
+    // arrayRole = JSON.parse(listRole);
+    let roleTemp;
+    for (i = 0; i < listRole.length; i++) {
+      roleTemp = await Role.findOne({ where: { role: listRole[i] } });
+      await RoleAccounts.create({
+        roleId: roleTemp.id,
+        accountId: newAccount.getDataValue("id"),
+      });
+    }
+
     //return token
-    const accessToken = jwt.sign({userId: newAccount._id}, process.env.DB_ACCESS_TOKEN_SECRET);
-    
+    const accessToken = jwt.sign(
+      { userId: newAccount._id },
+      process.env.DB_ACCESS_TOKEN_SECRET
+    );
+
     //create instance Role and User table
     try {
-      let userId = newAccount.getDataValue('id');
+      let userId = newAccount.getDataValue("id");
       await User.create({
-        accountId: userId
+        accountId: userId,
       });
-
-      await Role.create({
-        accountId: userId
-      });
-
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: 'Create user and role fail'
+        message: "Create user fail",
       });
     }
     return res.json({
       success: true,
-      message: 'User created successfully',
-      token: accessToken
+      message: "User created successfully",
+      token: accessToken,
     });
-
-  }catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: 'Internal server error'
+      message: "Internal server error",
     });
   }
 });
@@ -74,47 +108,46 @@ router.post('/register', validator.register() ,async(req, res) => {
 // @router POST /login
 // @access public
 
-router.post('/login', async(req, res) => {
+router.post("/login", async (req, res) => {
   const error = validationResult(req);
   const { username, password } = req.body;
 
-  if(!error.isEmpty()) {
+  if (!error.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: error.array()
+      message: error.array(),
     });
   }
 
   try {
-    const user = await Account.findOne({ where: { username }});
-    if(!user) {
+    const user = await Account.findOne({ where: { username } });
+    if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'User not found'
-      }); 
+        message: "User not found",
+      });
     }
 
     const passwordValid = await argon2.verify(user.password, password);
-    if(!passwordValid){
+    if (!passwordValid) {
       return res.status(400).json({
         success: false,
-        message: 'Password not valid',
+        message: "Password not valid",
       });
     }
-    
-    const userId = user.getDataValue('id');
-    const accessToken = generateToken({id: userId, username: username});
+
+    const userId = user.getDataValue("id");
+    const accessToken = generateToken({ id: userId, username: username });
     return res.json({
       success: true,
-      message: 'Login successful',
+      message: "Login successful",
       accessToken,
     });
-
   } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: 'Interval server error',
+      message: "Interval server error",
     });
   }
 });
@@ -124,10 +157,10 @@ const generateToken = (payload) => {
   const { id, username } = payload;
 
   const accessToken = jwt.sign(
-    {id, username},
+    { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '10s'
+      expiresIn: "1h",
     }
   );
 
@@ -135,10 +168,10 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '10s',
+      expiresIn: "10s",
     }
   );
 
-  return { accessToken, refreshToken};
+  return { accessToken, refreshToken };
 };
 module.exports = router;
