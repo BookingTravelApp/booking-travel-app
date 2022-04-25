@@ -74,7 +74,7 @@ router.post('/register', validator.register() ,async(req, res) => {
 // @router POST /login
 // @access public
 
-router.post('/login', async(req, res) => {
+router.post('/login', validator.login() , async(req, res) => {
   const error = validationResult(req);
   const { username, password } = req.body;
 
@@ -128,7 +128,7 @@ const generateToken = (payload) => {
     {id, username},
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '2m'
+      expiresIn: '1h'
     }
   );
 
@@ -136,7 +136,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '2m',
+      expiresIn: '1h',
     }
   );
 

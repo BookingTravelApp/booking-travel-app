@@ -23,13 +23,14 @@ let loginValidator = () => {
 
 let serviceValidator = () => {
     return [
-        check('service_name', 'Service name does not empty').not().notEmpty(),
+        check('service_name', 'service name does not empty').not().isEmpty(),
     ];
 };
 
 validator = {
     register: registerValidator,
     login: loginValidator,
+    service: serviceValidator,
 };
 
 module.exports = validator;
