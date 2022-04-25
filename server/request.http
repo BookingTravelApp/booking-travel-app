@@ -22,6 +22,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:4000/tour
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
+GET http://localhost:4000/service
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWVkNzE2LTc4MjItNDIzNS05ZDYyLTczNDQxYTI0NDc0ZiIsInVzZXJuYW1lIjoidXNlcjEyNCIsImlhdCI6MTY1MDU1MDUxMCwiZXhwIjoxNjUwNTUwNjMwfQ.4XYnsSKXrpVOzU4ISucUE5RxI4nE5ZcmJtCakkcZZxY
 

@@ -4,7 +4,7 @@ let validator = {};
 
 let registerValidator = () => {
     return [
-        check('username', 'Username dost not empty').not().isEmpty(),
+        check('username', 'Username does not empty').not().isEmpty(),
         check('username', 'Username must be Alphanumeric').isAlphanumeric(),
         check('username', 'Username more than 6 degits').isLength({ min: 6 }),
         check('email', 'Invalid does not Empty').not().isEmpty(),
@@ -15,9 +15,15 @@ let registerValidator = () => {
 
 let loginValidator = () => {
     return [
-        check('username', 'Username dost not empty').not().isEmpty(),
+        check('username', 'Username does not empty').not().isEmpty(),
         check('username', 'Username must more than 6 digits').isLength({ min: 6 }),
         check('password', 'Password must more than 6 digits').isLength({ min: 6 }),
+    ];
+};
+
+let serviceValidator = () => {
+    return [
+        check('service_name', 'Service name does not empty').not().notEmpty(),
     ];
 };
 

@@ -103,7 +103,8 @@ router.post('/login', async(req, res) => {
     }
     
     const userId = user.getDataValue('id');
-    const accessToken = generateToken({id: userId, username: username})['accessToken'];
+    const accessToken = generateToken({id: userId, username: username})['accessToken'
+  ];
     return res.json({
       success: true,
       message: 'Login successful',
@@ -127,7 +128,7 @@ const generateToken = (payload) => {
     {id, username},
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '10s'
+      expiresIn: '2m'
     }
   );
 
@@ -135,7 +136,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '10s',
+      expiresIn: '2m',
     }
   );
 

@@ -12,9 +12,12 @@ module.exports = (sequelize, DataTypes) => (
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
         },
         role_service_id: {
+            type: DataTypes.STRING,
+        },
+        image_url: {
             type: DataTypes.STRING,
         },
         price: {
