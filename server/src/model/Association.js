@@ -11,6 +11,8 @@ const RoleAccounts = require("./RoleAccounts");
 const RolePermissions = require("./RolePermissions");
 const Service = require("./Service");
 const ServiceEvents = require("./ServiceEvents");
+const TagServices = require("./TagServices");
+const Tag = require("./Tag");
 const User = require("./User");
 
 // Belongsto index
@@ -67,3 +69,9 @@ ServiceEvents.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
 ServiceEvents.belongsTo(Event, { foreignKey: "eventId", targetKey: "id" });
 Service.hasMany(ServiceEvents, { foreignKey: "serviceId", sourceKey: "id" });
 Event.hasMany(ServiceEvents, { foreignKey: "eventId", sourceKey: "id" });
+
+//@TagServices
+TagServices.belongsTo(Tag, { foreignKey: "tagId", targetKey: "id" });
+TagServices.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
+Service.hasMany(TagServices, { foreignKey: "serviceId", sourceKey: "id" });
+Tag.hasMany(TagServices, { foreignKey: "tagId", sourceKey: "id" });

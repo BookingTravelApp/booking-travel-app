@@ -50,12 +50,13 @@ router.put("/", async (req, res) => {
   const { id, service_name, description, price, is_active } = req.body;
 
   try {
-    let oldService = await Service.update(
+    let oldService = await Service.findOne({ where: { id } });
+    await Service.update(
       {
-        service_name,
-        description: description || "",
-        price: price || 0,
-        is_active: is_active || true,
+        service_name: service_name || oldService.service_name,
+        description: description || oldService.description,
+        price: price || oldService.price,
+        is_active: is_active || oldService.is_active,
       },
       { where: { id } }
     );
