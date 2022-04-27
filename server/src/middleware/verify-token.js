@@ -15,8 +15,6 @@ const verifyToken = (req, res, next) => {
     //decode token ==> id
     const decoded = jwt.verify(token, process.env.DB_ACCESS_TOKEN_SECRET);
     req.userId = decoded.id;
-    // console.log(req.userId);
-    // console.log
 
     next();
   } catch (error) {

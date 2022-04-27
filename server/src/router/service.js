@@ -27,9 +27,9 @@ router.post("/", (req, res) => {
   try {
     const newService = new Service({
       service_name,
-      description,
-      price,
-      is_active,
+      description: description || "",
+      price: price || 0,
+      is_active: is_active || true,
     });
     newService.save();
     return res.json({

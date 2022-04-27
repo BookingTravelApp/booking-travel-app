@@ -1,6 +1,6 @@
 
 GET http://localhost:4000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTA3MjQ5MzQsImV4cCI6MTY1MDcyODUzNH0.4A7C5-uAh2yvJMuz9BfkRsqDImVMVpu0AWCQA8f1OR0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTEwNjc2MTEsImV4cCI6MTY1MTA3MTIxMX0.fb_WTyMXHzqXXvIvs0btSmaT59lIes6uuAWG1n8TrpI
 
 ###
 POST http://localhost:4000/register
@@ -8,10 +8,10 @@ Content-Type: application/json
 
 {
     
-    "username": "user1234",
-    "email": "user1234@gmail.com",
+    "username": "usersystem",
+    "email": "system@gmail.com",
     "password": "12345678",
-    "listRole": ["admin"]
+    "listRole": ["system"]
     
 }
 
@@ -33,18 +33,6 @@ Content-Type: application/json
     "username": "user1234",
     "password": "12345678"
 }
-###
-GET http://localhost:4000/role
-Content-Type: application/json
-###
-POST http://localhost:4000/role
-Content-Type: application/json
-
-{
-    "role": "admin",
-    "description": "role nguoi quan ly"
-}
-
 ###
 GET http://localhost:4000/tour
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
@@ -110,3 +98,64 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:4000/event/c17fe722-02cb-4905-8807-2c583eb11aeb
+
+###
+GET http://localhost:4000/bill/
+Content-Type: application/json
+
+###
+POST http://localhost:4000/bill/
+Content-Type: application/json
+
+{
+    "totalPrice":120000,
+    "listService":"",
+    "status":"unpaid",
+    "userId":"f9e89ec8-9e9f-4f7a-b440-9fe7a4a674ee"
+}
+###
+GET http://localhost:4000/role
+Content-Type: application/json
+###
+POST http://localhost:4000/role
+Content-Type: application/json
+
+{
+    "role": "system",
+    "description": "role he thong"
+}
+###
+PUT http://localhost:4000/role
+Content-Type: application/json
+
+{
+    "id":"6abb9c4f-6a74-4f51-82e3-afc17914a206",
+    "description":"role tu dong cua he thong"
+}
+###
+DELETE http://localhost:4000/role/6abb9c4f-6a74-4f51-82e3-afc17914a206
+
+###
+GET http://localhost:4000/permission/
+
+###
+POST http://localhost:4000/permission
+Content-Type: application/json
+
+{
+    "name":"Homepage",
+    "action":"accessHomePage",
+    "description":"Allow access to home page"
+}
+###
+PUT http://localhost:4000/permission
+Content-Type: application/json
+
+{
+    "id":"a0c8f354-08c9-4d9b-8f72-0704c444a457",
+    "name":"AdminPage",
+    "action":"accessHomePage",
+    "description":"Allow access to home page"
+}
+###
+DELETE http://localhost:4000/permission/f2cbdcc4-9578-4f22-811b-e5e844ab4728
