@@ -120,7 +120,7 @@ router.post("/rate", async (req, res) => {
     const rate = await Rate.findOne({ where: { userId, serviceId } });
     if (!rate) {
       const newRate = new Rate({
-        quality: "",
+        quality,
         userId,
         serviceId,
       });
