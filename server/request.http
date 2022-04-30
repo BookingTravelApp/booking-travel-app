@@ -1,6 +1,6 @@
 
 GET http://localhost:4000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTEwNjc2MTEsImV4cCI6MTY1MTA3MTIxMX0.fb_WTyMXHzqXXvIvs0btSmaT59lIes6uuAWG1n8TrpI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTEzMzg1MTgsImV4cCI6MTY1MTM0MjExOH0.-XunI2ATj0WFKQz01OA2SjJ150SxxYwid0L-QTqT5qQ
 
 ###
 POST http://localhost:4000/register
@@ -12,7 +12,6 @@ Content-Type: application/json
     "email": "system@gmail.com",
     "password": "12345678",
     "listRole": ["system"]
-    
 }
 
 ###
@@ -40,7 +39,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZ
 ###
 GET http://localhost:4000/service
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNjZmRkOTAwLWQyOTQtNDIwNi04OThhLWI3MDFmZDI5N2EwMyIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTA2MDIwNzQsImV4cCI6MTY1MDYwMjA4NH0.InvYqSsS242Ekme6oiU7VRKttPnpLfWt69gfoN2RNJA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
 
 ###
 GET http://localhost:4000/service/b308c4ef-a7fe-4b3e-a067-e70103dbecbc/
@@ -159,3 +158,37 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:4000/permission/f2cbdcc4-9578-4f22-811b-e5e844ab4728
+
+###
+GET http://localhost:4000/tag
+###
+POST http://localhost:4000/tag
+Content-Type: application/json
+
+{
+    "tag_name": "hot",
+    "description":"Dich vu dang hot"
+}
+###
+PUT http://localhost:4000/tag
+Content-Type: application/json
+
+{
+    "id":"4a299a8f-b925-4994-88f7-f20f06b5b3a7",
+    "tag_name": "hot",
+    "description":"Dich vu dang hot ne"
+}
+###
+DELETE http://localhost:4000/tag/cf1327b7-f828-4027-8b47-05db616393c6
+
+###
+GET http://localhost:4000/service/rate/b6c39c30-df95-4dd7-8f11-7c00787a19a2
+###
+POST http://localhost:4000/service/rate
+Content-Type: application/json
+
+{
+    "quality":"3",
+    "userId":"b55e12f7-548f-4a9f-8512-f5d5f0361ee6",
+    "serviceId":"b6c39c30-df95-4dd7-8f11-7c00787a19a2"
+}

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
-const { Service } = require("../model");
+const { Service, Rate, User } = require("../model");
 
 router.get("/", verifyToken, async (req, res) => {
   try {
@@ -86,6 +86,60 @@ router.delete("/:id", async (req, res) => {
       success: false,
       message: "Internal server error",
     });
+  }
+});
+
+//@Relationship
+//@Rate
+router.get("/rate/:id", async (req, res) => {
+  try {
+    const listRate = await Rate.findAll(
+      { include: [{ model: User }] },
+      {
+        where: { serviceId: req.params.id },
+      }
+    );
+    res.json({ success: true, listRate });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+router.post("/rate", async (req, res) => {
+  const { quality, userId, serviceId } = req.body;
+  try {
+    if (parseInt(quality) < 1 || parseInt(quality) > 5)
+      return res.json({ success: false, message: "Invalid quality" });
+    const user = User.findOne({ where: { id: userId } });
+    const service = Service.findOne({ where: { id: serviceId } });
+    if (!user || !service)
+      return res
+        .status(404)
+        .json({ success: false, message: "User or service is not exist" });
+    const rate = await Rate.findOne({ where: { userId, serviceId } });
+    if (!rate) {
+      const newRate = new Rate({
+        quality,
+        userId,
+        serviceId,
+      });
+      await newRate.save();
+    } else {
+      if (rate.quality == quality)
+        await Rate.destroy({ where: { id: rate.id } });
+      else
+        await Rate.update(
+          {
+            quality,
+          },
+          { where: { id: rate.id } }
+        );
+    }
+    res.json({ success: true, message: "Updated rate" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
 

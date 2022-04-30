@@ -34,7 +34,9 @@ router.put("/", async (req, res) => {
   try {
     const oldPermission = Permission.findOne({ where: { id } });
     if (!oldPermission)
-      return res.json({ success: false, message: "Permission is not exist" });
+      return res
+        .status(500)
+        .json({ success: false, message: "Permission is not exist" });
     await Permission.update(
       {
         name: name || oldPermission.name,
@@ -60,7 +62,7 @@ router.delete("/:id", async (req, res) => {
     if (!oldPermission)
       return res.json({ success: false, message: "Permission is not exist" });
     await Permission.destroy({ where: { id: req.params.id } });
-    res.json({ success: true, message: "Permission deleted successful" });
+    res.json({ success: true, message: "Deleted permission successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });

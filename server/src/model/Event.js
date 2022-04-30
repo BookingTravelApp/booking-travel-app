@@ -27,6 +27,10 @@ const Event = sequelize.define("event", {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
+  imagePath: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 module.exports = Event;

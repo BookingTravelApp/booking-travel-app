@@ -9,7 +9,7 @@ const Tag = sequelize.define("tag", {
     primaryKey: true,
   },
   tag_name: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allownull: true,
   },
   description: {
