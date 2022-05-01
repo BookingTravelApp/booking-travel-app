@@ -14,5 +14,6 @@ module.exports = {
   Service: require("./Service"),
   ServiceEvents: require("./ServiceEvents"),
   User: require("./User"),
+  Category: require("./Category"),
   Association: require("./Association"),
 };

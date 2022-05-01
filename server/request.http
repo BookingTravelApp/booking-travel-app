@@ -1,6 +1,6 @@
 
 GET http://localhost:4000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMDA3ZDYwLWM4YWItNGYzMS04OTI5LWQ0Y2E1YzkxM2UxMCIsInVzZXJuYW1lIjoidXNlcjEyMzQiLCJpYXQiOjE2NTEzMzg1MTgsImV4cCI6MTY1MTM0MjExOH0.-XunI2ATj0WFKQz01OA2SjJ150SxxYwid0L-QTqT5qQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMyMDlkNDk5LWEwODctNDRjZi05YzhhLTMwNWZmYzI4Mjg5MSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNDAxMzM2LCJleHAiOjE2NTE0MDQ5MzZ9.of77zqLsCZenKdSmVRHfSNZ_gy3NP_8q4V4hViq9GwE
 
 ###
 POST http://localhost:4000/register
@@ -8,10 +8,10 @@ Content-Type: application/json
 
 {
     
-    "username": "usersystem",
-    "email": "system@gmail.com",
+    "username": "userAdmin",
+    "email": "admin@gmail.com",
     "password": "12345678",
-    "listRole": ["system"]
+    "listRole": ["admin"]
 }
 
 ###
@@ -20,7 +20,7 @@ POST http://localhost:4000/login
 Content-Type: application/json
 
 {
-    "username": "user1234",
+    "username": "userAdmin",
     "password": "12345678"
 }
 ###
@@ -37,6 +37,28 @@ GET http://localhost:4000/tour
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
 
 ###
+GET http://localhost:4000/category
+###
+POST http://localhost:4000/category
+Content-Type: application/json
+
+{
+    "name":"hotel",
+    "description":"Dich vu cung cap thue khach san"
+}
+###
+PUT http://localhost:4000/category
+Content-Type: application/json
+
+{
+    "id":"88bef026-fd73-4756-9d6d-693f7c558720",
+    "name":"hotel",
+    "description":"Dich vu cung cap thue khach san, nha o"
+}
+###
+DELETE http://localhost:4000/category/
+
+###
 GET http://localhost:4000/service
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
@@ -50,9 +72,10 @@ POST http://localhost:4000/service/
 Content-Type: application/json
 
 {
-    "service_name": "Bai bien Da Nang",
+    "name": "Bai bien Da Nang",
     "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
-    "price": 1000000000
+    "price": 1000000000,
+    "categoryId":"88bef026-fd73-4756-9d6d-693f7c558720"
 }
 ###
 PUT http://localhost:4000/service/
@@ -60,7 +83,7 @@ Content-Type: application/json
 
 {
     "id":"95df8654-69f6-442-bf39-6aed9b9df6f4",
-    "service_name": "Bai bien hoa hong",
+    "name": "Bai bien hoa hong",
     "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
     "price": 99
 }
@@ -77,7 +100,7 @@ POST http://localhost:4000/event/
 Content-Type: application/json
 
 {
-    "event_name":"Gio to",
+    "name":"Gio to",
     "description":"Nhan ngay gio to hung vuong",
     "discount":10,
     "startAt":"20:20:23",
@@ -89,8 +112,8 @@ PUT http://localhost:4000/event/
 Content-Type: application/json
 
 {
-    "id": "7fcdd80f-068a-430e-bf64-2178a081cfc8",
-    "event_name":"30/4 1/5",
+    "id": "dbd137c2-e631-4833-aebc-4f8a188db8cd",
+    "name":"30/4 1/5",
     "discount":10,
     "startAt":"2022-04-26T13:56:43.000Z",
     "endAt":"2022-04-26T13:56:43.000Z"
@@ -166,7 +189,7 @@ POST http://localhost:4000/tag
 Content-Type: application/json
 
 {
-    "tag_name": "hot",
+    "name": "hot",
     "description":"Dich vu dang hot"
 }
 ###
@@ -175,7 +198,7 @@ Content-Type: application/json
 
 {
     "id":"4a299a8f-b925-4994-88f7-f20f06b5b3a7",
-    "tag_name": "hot",
+    "name": "hot",
     "description":"Dich vu dang hot ne"
 }
 ###
@@ -198,17 +221,31 @@ GET http://localhost:4000/user
 
 ###
 
-GET http://localhost:4000/user/b55e12f7-548f-4a9f-8512-f5d5f0361ee6
+GET http://localhost:4000/user/get-user/b55e12f7-548f-4a9f-8512-f5d5f0361ee6
 
 ###
 PUT http://localhost:4000/user/
 Content-Type: application/json
 
 {
-    "id":"b55e12f7-548f-4a9f-8512-f5d5f0361ee6",
+    "id":"5e2be697-67f9-4dcc-a56c-5dfb63829981",
     "phone_number":"0905112113",
     "gender": "male",
     "date_of_birth":"2022-04-26T13:56:43.000Z",
     "active":true,
     "avatar_path":"https://hoang.com"
+}
+
+###
+GET http://localhost:4000/user/cart
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMyMDlkNDk5LWEwODctNDRjZi05YzhhLTMwNWZmYzI4Mjg5MSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNDAxMzM2LCJleHAiOjE2NTE0MDQ5MzZ9.of77zqLsCZenKdSmVRHfSNZ_gy3NP_8q4V4hViq9GwE
+
+###
+POST http://localhost:4000/user/cart
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1ODMyNmY5LTRmZjYtNGUzZS1iY2Y3LWE2OTAzYzdlMzY4NSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNDA0MTQ2LCJleHAiOjE2NTE0MDc3NDZ9.AfbeW01PEBeEM66atothkS6ZdqKY4A4k9oP4FYG9ghY
+
+{
+    "amount":11,
+    "serviceId":"448e03a8-d836-47f9-930d-a3c198c18536"
 }

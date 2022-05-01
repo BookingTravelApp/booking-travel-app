@@ -11,7 +11,7 @@ var adminRole = async (req, res, next) => {
         include: [{ model: RoleAccounts, include: [Role] }],
       });
       user["role_accounts"].forEach((element) => {
-        if (element["role"]["role"] == "admin") {
+        if (element["role"]["name"] == "admin") {
           next();
         }
       });
@@ -33,7 +33,7 @@ var employeeRole = async (req, res, next) => {
       include: [{ model: RoleAccounts, include: [Role] }],
     });
     user["role_accounts"].forEach((element) => {
-      if (element["role"]["role"] == "employee") {
+      if (element["role"]["name"] == "employee") {
         next();
       }
     });
@@ -54,7 +54,7 @@ var userRole = async (req, res, next) => {
       include: [{ model: RoleAccounts, include: [Role] }],
     });
     user["role_accounts"].forEach((element) => {
-      if (element["role"]["role"] == "user") {
+      if (element["role"]["name"] == "user") {
         next();
       }
     });

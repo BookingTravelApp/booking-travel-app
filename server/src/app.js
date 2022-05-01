@@ -9,6 +9,7 @@ const billRouter = require("./router/bill");
 const permissionRouter = require("./router/permission");
 const tagRouter = require("./router/tag");
 const userRouter = require("./router/user");
+const categoryRouter = require("./router/category");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,6 +21,7 @@ app.use("/role", roleRouter);
 app.use("/event", eventRouter);
 app.use("/bill", billRouter);
 app.use("/permission", permissionRouter);
+app.use("/category", categoryRouter);
 app.use("/tag", tagRouter);
 app.use("/user", userRouter);
 

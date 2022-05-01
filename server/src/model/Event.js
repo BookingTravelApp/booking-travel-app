@@ -1,34 +1,34 @@
-const { DataTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
 const sequelize = require("../database/config");
 
 const Event = sequelize.define("event", {
   id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
-  event_name: {
-    type: DataTypes.STRING,
+  name: {
+    type: Sequelize.STRING,
   },
   description: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
   },
   discount: {
-    type: DataTypes.DECIMAL,
+    type: Sequelize.DECIMAL,
   },
   startAt: {
-    type: DataTypes.DATE,
+    type: Sequelize.DATE,
   },
   endAt: {
-    type: DataTypes.DATE,
+    type: Sequelize.DATE,
   },
   isActive: {
-    type: DataTypes.BOOLEAN,
+    type: Sequelize.BOOLEAN,
     defaultValue: true,
   },
   imagePath: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
 });

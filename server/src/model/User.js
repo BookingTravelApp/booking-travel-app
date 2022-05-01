@@ -18,7 +18,7 @@ const User = sequelize.define(
       type: Sequelize.ENUM("male", "female", "undefined"),
       allowNull: true,
     },
-    data_of_birth: {
+    date_of_birth: {
       type: Sequelize.DATE,
       allowNull: true,
     },

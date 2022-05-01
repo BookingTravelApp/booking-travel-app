@@ -13,11 +13,10 @@ router.get("/", async (req, res) => {
   }
 });
 router.post("/", async (req, res) => {
-  const { event_name, description, discount, startAt, endAt, isActive } =
-    req.body;
+  const { name, description, discount, startAt, endAt, isActive } = req.body;
   try {
     const newEvent = new Event({
-      event_name,
+      name,
       description: description || "",
       discount,
       startAt,
@@ -39,13 +38,13 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { id, event_name, description, discount, startAt, endAt, isActive } =
+  const { id, name, description, discount, startAt, endAt, isActive } =
     req.body;
   try {
     let oldEvent = await Event.findOne({ where: { id } });
     await Event.update(
       {
-        event_name: event_name || oldEvent.event_name,
+        name: name || oldEvent.name,
         description: description || oldEvent.description,
         discount: discount || oldEvent.discount,
         startAt: startAt || oldEvent.startAt,

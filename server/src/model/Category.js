@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 const sequelize = require("../database/config");
 
-const Tag = sequelize.define("tag", {
+const Category = sequelize.define("category", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -18,4 +18,4 @@ const Tag = sequelize.define("tag", {
   },
 });
 
-module.exports = Tag;
+module.exports = Category;

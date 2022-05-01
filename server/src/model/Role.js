@@ -10,7 +10,7 @@ const Role = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
-    role: {
+    name: {
       type: Sequelize.STRING,
       defaultValue: "user",
     },

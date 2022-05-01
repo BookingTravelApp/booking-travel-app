@@ -1,6 +1,7 @@
 const express = require("express");
-const { User } = require("../model");
+const { User, Cart, Service } = require("../model");
 const router = express.Router();
+const verifyToken = require("../middleware/verify-token");
 
 router.get("/", async (req, res) => {
   try {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.get("/:id", async (req, res) => {
+router.get("/get-user/:id", async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } });
     res.json({ success: true, user });
@@ -40,6 +41,59 @@ router.put("/", async (req, res) => {
       { where: { id } }
     );
     res.json({ success: true, message: "Updated user successful" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+//@Relationship
+//Cart
+router.get("/cart", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { accountId: req.userId } });
+    const listCart = await Cart.findAll({ where: { userId: user.id } });
+    res.json({ success: true, listCart });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+router.post("/cart", verifyToken, async (req, res) => {
+  const { amount, serviceId } = req.body;
+  try {
+    const user = await User.findOne({ where: { accountId: req.userId } });
+    if (!user)
+      return res
+        .status(404)
+        .json({ message: false, message: "User does not exist" });
+    if (amount < 1)
+      return res.json({ success: false, message: "Invalid amount" });
+    const service = await Service.findOne({ where: { id: serviceId } });
+    if (!service)
+      return res
+        .status(404)
+        .json({ success: false, message: "Service does not exist" });
+    const cart = await Cart.findOne({
+      where: { userId: user.id, serviceId },
+    });
+    if (!cart) {
+      const newCart = new Cart({
+        amount,
+        serviceId,
+        userId: user.id,
+      });
+      await newCart.save();
+    } else {
+      await Cart.update(
+        {
+          amount: amount || cart.amount,
+          serviceId: serviceId || cart.serviceId,
+        },
+        { where: { id: cart.id } }
+      );
+    }
+    res.json({ success: true, message: "Update cart successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });

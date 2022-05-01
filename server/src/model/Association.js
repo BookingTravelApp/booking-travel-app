@@ -14,6 +14,7 @@ const ServiceEvents = require("./ServiceEvents");
 const TagServices = require("./TagServices");
 const Tag = require("./Tag");
 const User = require("./User");
+const Category = require("./Category");
 
 // Belongsto index
 // @User
@@ -31,9 +32,9 @@ Bill.hasMany(BillDetail, { foreignKey: "billId", sourceKey: "id" });
 Service.hasMany(BillDetail, { foreignKey: "serviceId", sourceKey: "id" });
 
 //@Cart
-Cart.belongsTo(Bill, { foreignKey: "billId", targetKey: "id" });
+Cart.belongsTo(User, { foreignKey: "userId", targetKey: "id" });
 Cart.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });
-Bill.hasMany(Cart, { foreignKey: "billId", sourceKey: "id" });
+User.hasMany(Cart, { foreignKey: "userId", sourceKey: "id" });
 Service.hasMany(Cart, { foreignKey: "serviceId", sourceKey: "id" });
 
 //@Image
@@ -63,6 +64,10 @@ Permission.hasMany(RolePermissions, {
   foreignKey: "permissionId",
   sourceKey: "id",
 });
+
+//@Service
+Service.belongsTo(Category, { foreignKey: "categoryId", targetKey: "id" });
+Category.hasOne(Service, { foreignKey: "categoryId", sourceKey: "id" });
 
 //@ServiceEvents
 ServiceEvents.belongsTo(Service, { foreignKey: "serviceId", targetKey: "id" });

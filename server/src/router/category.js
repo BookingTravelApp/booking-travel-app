@@ -1,11 +1,11 @@
 const express = require("express");
-const Tag = require("../model/Tag");
+const Category = require("../model/Category");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const listTag = await Tag.findAll();
-    res.json({ success: true, listTag });
+    const listCategory = await Category.findAll();
+    res.json({ success: true, listCategory });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -18,14 +18,14 @@ router.post("/", async (req, res) => {
     if (!name || name == "") {
       return res
         .status(404)
-        .json({ success: false, message: "Require tag name" });
+        .json({ success: false, message: "Require category name" });
     }
-    const newTag = new Tag({
+    const newCategory = new Category({
       name,
       description: description || "",
     });
-    await newTag.save();
-    res.json({ success: true, message: "Created tag successful" });
+    await newCategory.save();
+    res.json({ success: true, message: "Created category successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -35,20 +35,20 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
   const { id, name, description } = req.body;
   try {
-    const oldTag = await Tag.findOne({ where: { id } });
-    if (!oldTag) {
+    const oldCategory = await Category.findOne({ where: { id } });
+    if (!oldCategory) {
       return res
         .status(404)
-        .json({ success: false, message: "Tag is not exist" });
+        .json({ success: false, message: "Category is not exist" });
     }
-    await Tag.update(
+    await Category.update(
       {
-        name: name || oldTag.name,
-        description: description || oldTag.description,
+        name: name || oldCategory.name,
+        description: description || oldCategory.description,
       },
-      { where: { id } }
+      { where: { id: oldCategory.id } }
     );
-    return res.json({ success: true, message: "Updated tag successful" });
+    return res.json({ success: true, message: "Updated category successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -57,14 +57,16 @@ router.put("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const oldTag = await Tag.findOne({ where: { id: req.params.id } });
-    if (!oldTag) {
+    const oldCategory = await Category.findOne({
+      where: { id: req.params.id },
+    });
+    if (!oldCategory) {
       return res
         .status(404)
-        .json({ success: false, message: "Tag is not exist" });
+        .json({ success: false, message: "Category is not exist" });
     }
-    await Tag.destroy({ where: { id: req.params.id } });
-    res.json({ success: true, message: "Deleted tag successful" });
+    await Category.destroy({ where: { id: req.params.id } });
+    res.json({ success: true, message: "Deleted category successful" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Internal server error" });

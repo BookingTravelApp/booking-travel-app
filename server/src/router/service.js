@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
-const { Service, Rate, User } = require("../model");
+const { Service, Rate, User, Category } = require("../model");
 
 router.get("/", verifyToken, async (req, res) => {
   try {
@@ -21,17 +21,26 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
-  const { service_name, description, price, is_active } = req.body;
+router.post("/", async (req, res) => {
+  const { name, description, price, is_active, categoryId } = req.body;
 
   try {
+    if (!categoryId)
+      return res.json({ success: false, message: "Require category" });
+    const category = await Category.findOne({ where: { id: categoryId } });
+    if (!category)
+      return res
+        .status(404)
+        .json({ success: false, message: "Category does not exist" });
+
     const newService = new Service({
-      service_name,
+      name,
       description: description || "",
       price: price || 0,
       is_active: is_active || true,
+      categoryId: categoryId,
     });
-    newService.save();
+    await newService.save();
     return res.json({
       success: true,
       message: "Service created successfully",
@@ -47,16 +56,21 @@ router.post("/", (req, res) => {
 });
 
 router.put("/", async (req, res) => {
-  const { id, service_name, description, price, is_active } = req.body;
+  const { id, name, description, price, is_active, categoryId } = req.body;
 
   try {
     let oldService = await Service.findOne({ where: { id } });
+    if (!oldService)
+      return res
+        .status(404)
+        .json({ success: false, message: "Service does not exist" });
     await Service.update(
       {
-        service_name: service_name || oldService.service_name,
+        name: name || oldService.name,
         description: description || oldService.description,
         price: price || oldService.price,
         is_active: is_active || oldService.is_active,
+        categoryId: categoryId || oldService.categoryId,
       },
       { where: { id } }
     );

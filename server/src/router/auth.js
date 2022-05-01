@@ -64,13 +64,16 @@ router.post("/register", validator.register(), async (req, res) => {
     await newAccount.save();
 
     // arrayRole = JSON.parse(listRole);
-    let roleTemp;
-    for (i = 0; i < listRole.length; i++) {
-      roleTemp = await Role.findOne({ where: { role: listRole[i] } });
-      await RoleAccounts.create({
-        roleId: roleTemp.id,
-        accountId: newAccount.getDataValue("id"),
-      });
+    const roleAlready = await Role.findAll();
+    if (roleAlready) {
+      let roleTemp;
+      for (i = 0; i < listRole.length; i++) {
+        roleTemp = await Role.findOne({ where: { name: listRole[i] } });
+        await RoleAccounts.create({
+          roleId: roleTemp.id,
+          accountId: newAccount.getDataValue("id"),
+        });
+      }
     }
 
     //return token

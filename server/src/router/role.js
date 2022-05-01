@@ -17,12 +17,12 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { role, description } = req.body;
+  const { name, description } = req.body;
   try {
-    if (role == "")
+    if (name == "")
       return res.json({ success: false, message: "Role require name" });
     await Role.create({
-      role,
+      name,
       description: description || "",
     });
     res.json({
@@ -38,14 +38,14 @@ router.post("/", async (req, res) => {
   }
 });
 router.put("/", async (req, res) => {
-  const { id, role, description } = req.body;
+  const { id, name, description } = req.body;
   try {
     let oldRole = Role.findOne({ where: { id } });
     if (!oldRole)
       return res.json({ success: false, message: "Role is not exist" });
     await Role.update(
       {
-        role: role || oldRole.role,
+        role: name || oldRole.name,
         description: description || oldRole.description,
       },
       { where: { id } }
