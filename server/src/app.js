@@ -8,6 +8,7 @@ const eventRouter = require("./router/event");
 const billRouter = require("./router/bill");
 const permissionRouter = require("./router/permission");
 const tagRouter = require("./router/tag");
+const userRouter = require("./router/user");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,6 +21,7 @@ app.use("/event", eventRouter);
 app.use("/bill", billRouter);
 app.use("/permission", permissionRouter);
 app.use("/tag", tagRouter);
+app.use("/user", userRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening: http://localhost:${PORT}`);

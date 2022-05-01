@@ -192,3 +192,23 @@ Content-Type: application/json
     "userId":"b55e12f7-548f-4a9f-8512-f5d5f0361ee6",
     "serviceId":"b6c39c30-df95-4dd7-8f11-7c00787a19a2"
 }
+###
+
+GET http://localhost:4000/user
+
+###
+
+GET http://localhost:4000/user/b55e12f7-548f-4a9f-8512-f5d5f0361ee6
+
+###
+PUT http://localhost:4000/user/
+Content-Type: application/json
+
+{
+    "id":"b55e12f7-548f-4a9f-8512-f5d5f0361ee6",
+    "phone_number":"0905112113",
+    "gender": "male",
+    "date_of_birth":"2022-04-26T13:56:43.000Z",
+    "active":true,
+    "avatar_path":"https://hoang.com"
+}
