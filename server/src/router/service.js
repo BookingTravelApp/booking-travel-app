@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
 const { Service, Rate, User, Category } = require("../model");
+const role = require("../middleware/role");
 
-router.get("/", verifyToken, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const listService = await Service.findAll();
     res.json({ success: true, listService });
@@ -21,10 +22,12 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.employee], async (req, res) => {
   const { name, description, price, is_active, categoryId } = req.body;
 
   try {
+    if (!name)
+      return res.json({ success: false, message: "Require service name" });
     if (!categoryId)
       return res.json({ success: false, message: "Require category" });
     const category = await Category.findOne({ where: { id: categoryId } });
@@ -38,7 +41,7 @@ router.post("/", async (req, res) => {
       description: description || "",
       price: price || 0,
       is_active: is_active || true,
-      categoryId: categoryId,
+      categoryId,
     });
     await newService.save();
     return res.json({
@@ -55,10 +58,12 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", [verifyToken, role.employee], async (req, res) => {
   const { id, name, description, price, is_active, categoryId } = req.body;
 
   try {
+    if (!id)
+      return res.json({ success: false, message: "Service id not found" });
     let oldService = await Service.findOne({ where: { id } });
     if (!oldService)
       return res
@@ -87,9 +92,12 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, role.employee], async (req, res) => {
   try {
-    let service = await Service.destroy({ where: { id: req.params.id } });
+    const service = Service.findOne({ id: req.params.id });
+    if (!service)
+      return res.json({ success: false, message: "Service does not exist" });
+    await Service.destroy({ where: { id: req.params.id } });
     return res.json({
       success: true,
       message: "Deleted service successful",
@@ -125,12 +133,14 @@ router.post("/rate", async (req, res) => {
   try {
     if (parseInt(quality) < 1 || parseInt(quality) > 5)
       return res.json({ success: false, message: "Invalid quality" });
-    const user = User.findOne({ where: { id: userId } });
-    const service = Service.findOne({ where: { id: serviceId } });
+    if (!userId || !serviceId)
+      return res.json({ success: false, message: "Require user and service" });
+    const user = await User.findOne({ where: { id: userId } });
+    const service = await Service.findOne({ where: { id: serviceId } });
     if (!user || !service)
       return res
         .status(404)
-        .json({ success: false, message: "User or service is not exist" });
+        .json({ success: false, message: "User or service does not exist" });
     const rate = await Rate.findOne({ where: { userId, serviceId } });
     if (!rate) {
       const newRate = new Rate({

@@ -1,6 +1,5 @@
-
 GET http://localhost:4000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMyMDlkNDk5LWEwODctNDRjZi05YzhhLTMwNWZmYzI4Mjg5MSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNDAxMzM2LCJleHAiOjE2NTE0MDQ5MzZ9.of77zqLsCZenKdSmVRHfSNZ_gy3NP_8q4V4hViq9GwE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1ODMyNmY5LTRmZjYtNGUzZS1iY2Y3LWE2OTAzYzdlMzY4NSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNTY5MzYyLCJleHAiOjE2NTE1NzI5NjJ9.UdJXroiuhGbYTZcynOGJ-hUCMxfzhnPI5x9hhn0UEZU
 
 ###
 POST http://localhost:4000/register
@@ -43,8 +42,8 @@ POST http://localhost:4000/category
 Content-Type: application/json
 
 {
-    "name":"hotel",
-    "description":"Dich vu cung cap thue khach san"
+    "name":"tour",
+    "description":"Dich vu cung cap tour du lich"
 }
 ###
 PUT http://localhost:4000/category
@@ -75,7 +74,7 @@ Content-Type: application/json
     "name": "Bai bien Da Nang",
     "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
     "price": 1000000000,
-    "categoryId":"88bef026-fd73-4756-9d6d-693f7c558720"
+    "categoryId":"c9254aaf-f8b9-443c-baf7-cbabfddb8b26"
 }
 ###
 PUT http://localhost:4000/service/

@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
-const { User, Account, Role, RoleAccounts } = require("../model");
+const { Account, Role, RoleAccounts } = require("../model");
 
 let role = {};
 
-var adminRole = async (req, res, next) => {
+var admin = async (req, res, next) => {
   try {
+    let isOk = false;
     if (req.userId) {
       const user = await Account.findOne({
         where: { id: req.userId },
@@ -12,53 +13,65 @@ var adminRole = async (req, res, next) => {
       });
       user["role_accounts"].forEach((element) => {
         if (element["role"]["name"] == "admin") {
-          next();
+          isOk = true;
+          return false;
         }
       });
     }
-    // res.status(404).json({ success: false, message: "Not found" });
+    if (!isOk) throw "Unauthorized";
+
+    next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
       success: false,
-      message: "Internal server error",
+      message: "Unauthorized",
     });
   }
 };
 
-var employeeRole = async (req, res, next) => {
+var employee = async (req, res, next) => {
   try {
+    let isOk = false;
     const user = await Account.findOne({
       where: { id: req.userId },
       include: [{ model: RoleAccounts, include: [Role] }],
     });
     user["role_accounts"].forEach((element) => {
-      if (element["role"]["name"] == "employee") {
-        next();
+      if (
+        element["role"]["name"] == "employee" ||
+        element["role"]["name"] == "admin"
+      ) {
+        isOk = true;
+        return false;
       }
     });
-    // res.status(404).json({ success: false, message: "Not found" });
+    if (!isOk) throw "Unauthorized";
+    next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
       success: false,
-      message: "Internal server error",
+      message: "Unauthorized",
     });
   }
 };
 
-var userRole = async (req, res, next) => {
+var user = async (req, res, next) => {
   try {
+    let isOk = false;
     const user = await Account.findOne({
       where: { id: req.userId },
       include: [{ model: RoleAccounts, include: [Role] }],
     });
     user["role_accounts"].forEach((element) => {
       if (element["role"]["name"] == "user") {
-        next();
+        isOk = true;
+        return false;
       }
     });
-    // res.status(404).json({ success: false, message: "Not found" });
+    if (!isOk) throw "Unauthorized";
+    next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
@@ -69,8 +82,8 @@ var userRole = async (req, res, next) => {
 };
 
 role = {
-  adminRole,
-  employeeRole,
-  userRole,
+  admin,
+  employee,
+  user,
 };
 module.exports = role;

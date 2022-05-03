@@ -1,4 +1,6 @@
 const express = require("express");
+const verifyToken = require("../middleware/verify-token");
+const role = require("../middleware/role");
 const Category = require("../model/Category");
 const router = express.Router();
 
@@ -12,13 +14,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.employee], async (req, res) => {
   const { name, description } = req.body;
   try {
     if (!name || name == "") {
-      return res
-        .status(404)
-        .json({ success: false, message: "Require category name" });
+      return res.json({ success: false, message: "Require category name" });
     }
     const newCategory = new Category({
       name,
@@ -32,14 +32,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", [verifyToken, role.employee], async (req, res) => {
   const { id, name, description } = req.body;
   try {
+    if (!id)
+      return res
+        .status(404)
+        .json({ success: false, message: "Category id not found" });
     const oldCategory = await Category.findOne({ where: { id } });
     if (!oldCategory) {
       return res
         .status(404)
-        .json({ success: false, message: "Category is not exist" });
+        .json({ success: false, message: "Category does not exist" });
     }
     await Category.update(
       {
@@ -55,7 +59,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, role.employee], async (req, res) => {
   try {
     const oldCategory = await Category.findOne({
       where: { id: req.params.id },
@@ -63,7 +67,7 @@ router.delete("/:id", async (req, res) => {
     if (!oldCategory) {
       return res
         .status(404)
-        .json({ success: false, message: "Category is not exist" });
+        .json({ success: false, message: "Category does not exist" });
     }
     await Category.destroy({ where: { id: req.params.id } });
     res.json({ success: true, message: "Deleted category successful" });

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
 const Event = require("../model/Event");
+const role = require("../middleware/role");
 
 router.get("/", async (req, res) => {
   try {
@@ -12,9 +13,14 @@ router.get("/", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.employee], async (req, res) => {
   const { name, description, discount, startAt, endAt, isActive } = req.body;
   try {
+    if (!name || !discount || !startAt || !endAt)
+      return res.json({
+        success: false,
+        message: "Insufficient information",
+      });
     const newEvent = new Event({
       name,
       description: description || "",
@@ -26,7 +32,7 @@ router.post("/", async (req, res) => {
     await newEvent.save();
     return res.json({
       success: true,
-      message: "Event created successful",
+      message: "Created event successful",
     });
   } catch (error) {
     console.log(error);
@@ -37,11 +43,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", [verifyToken, role.employee], async (req, res) => {
   const { id, name, description, discount, startAt, endAt, isActive } =
     req.body;
   try {
+    if (!id) return res.json({ success: false, message: "Event id not found" });
     let oldEvent = await Event.findOne({ where: { id } });
+    if (!oldEvent)
+      return res.json({ success: false, message: "Event does not exist" });
     await Event.update(
       {
         name: name || oldEvent.name,
@@ -66,8 +75,12 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, role.employee], async (req, res) => {
   try {
+    const event = await Event.findOne({ where: { id: req.params.id } });
+    if (!event)
+      return res.json({ success: false, message: "Event does not exist" });
+
     await Event.destroy({ where: { id: req.params.id } });
     return res.json({
       success: true,

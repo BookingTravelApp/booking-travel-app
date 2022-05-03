@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { Role, RolePermissions, RoleAccounts } = require("../model");
-const { post } = require("./auth");
-
+const role = require("../middleware/role");
+const verifyToken = require("../middleware/verify-token");
 router.get("/", async (req, res) => {
   try {
     const listRole = await Role.findAll();
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.admin], async (req, res) => {
   const { name, description } = req.body;
   try {
     if (name == "")
@@ -37,10 +37,14 @@ router.post("/", async (req, res) => {
     });
   }
 });
-router.put("/", async (req, res) => {
+router.put("/", [verifyToken, role.admin], async (req, res) => {
   const { id, name, description } = req.body;
   try {
-    let oldRole = Role.findOne({ where: { id } });
+    if (!id)
+      return res
+        .status(404)
+        .json({ success: false, message: "Role id not found" });
+    let oldRole = await Role.findOne({ where: { id } });
     if (!oldRole)
       return res.json({ success: false, message: "Role is not exist" });
     await Role.update(
@@ -56,9 +60,9 @@ router.put("/", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.delete("/:id", async (req, res) => {
-  const deleteRole = Role.findOne({ where: { id: req.params.id } });
+router.delete("/:id", [verifyToken, role.admin], async (req, res) => {
   try {
+    const deleteRole = await Role.findOne({ where: { id: req.params.id } });
     if (!deleteRole)
       return res
         .status(404)

@@ -1,6 +1,8 @@
 const express = require("express");
 const Tag = require("../model/Tag");
 const router = express.Router();
+const verifyToken = require("../middleware/verify-token");
+const role = require("../middleware/role");
 
 router.get("/", async (req, res) => {
   try {
@@ -12,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.employee], async (req, res) => {
   const { name, description } = req.body;
   try {
     if (!name || name == "") {
@@ -35,6 +37,7 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
   const { id, name, description } = req.body;
   try {
+    if (!id) return res.json({ success: false, message: "Tag id not found" });
     const oldTag = await Tag.findOne({ where: { id } });
     if (!oldTag) {
       return res
@@ -55,7 +58,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, role.employee], async (req, res) => {
   try {
     const oldTag = await Tag.findOne({ where: { id: req.params.id } });
     if (!oldTag) {

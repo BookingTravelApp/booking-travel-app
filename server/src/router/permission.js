@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { Permission } = require("../model");
+const role = require("../middleware/role");
+const verifyToken = require("../middleware/verify-token");
+
 router.get("/", async (req, res) => {
   try {
     const listPermission = await Permission.findAll();
@@ -10,7 +13,7 @@ router.get("/", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.post("/", async (req, res) => {
+router.post("/", [verifyToken, role.admin], async (req, res) => {
   const { name, action, description } = req.body;
   try {
     if (!name)
@@ -29,9 +32,11 @@ router.post("/", async (req, res) => {
     res.status(500).json({ success: false, mess });
   }
 });
-router.put("/", async (req, res) => {
+router.put("/", [verifyToken, role.admin], async (req, res) => {
   const { id, name, action, description } = req.body;
   try {
+    if (!id)
+      return res.json({ success: false, message: "Permission id not found" });
     const oldPermission = Permission.findOne({ where: { id } });
     if (!oldPermission)
       return res
@@ -54,13 +59,13 @@ router.put("/", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [verifyToken, role.admin], async (req, res) => {
   try {
-    const oldPermission = await Permission.findOne({
+    const permission = await Permission.findOne({
       where: { id: req.params.id },
     });
-    if (!oldPermission)
-      return res.json({ success: false, message: "Permission is not exist" });
+    if (!permission)
+      return res.json({ success: false, message: "Permission does not exist" });
     await Permission.destroy({ where: { id: req.params.id } });
     res.json({ success: true, message: "Deleted permission successful" });
   } catch (error) {

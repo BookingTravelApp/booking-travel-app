@@ -2,8 +2,9 @@ const express = require("express");
 const { User, Cart, Service } = require("../model");
 const router = express.Router();
 const verifyToken = require("../middleware/verify-token");
+const role = require("../middleware/role");
 
-router.get("/", async (req, res) => {
+router.get("/", [verifyToken, role.employee], async (req, res) => {
   try {
     const listUser = await User.findAll({
       attributes: { exclude: ["accountId"] },
@@ -23,11 +24,12 @@ router.get("/get-user/:id", async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.put("/", async (req, res) => {
-  const { id, phone_number, gender, date_of_birth, active, avatar_path } =
-    req.body;
+router.put("/", verifyToken, async (req, res) => {
+  const { phone_number, gender, date_of_birth, active, avatar_path } = req.body;
   try {
-    const oldUser = await User.findOne({ where: { id } });
+    if (!req.userId)
+      return res.json({ success: false, message: "User id not found" });
+    const oldUser = await User.findOne({ where: { accountId: req.userId } });
     if (!oldUser)
       return res.json({ success: false, message: "User is not exist" });
     await User.update(
@@ -38,7 +40,7 @@ router.put("/", async (req, res) => {
         active: active || oldUser.active,
         avatar_path: avatar_path || oldUser.avatar_path,
       },
-      { where: { id } }
+      { where: { accountId: req.userId } }
     );
     res.json({ success: true, message: "Updated user successful" });
   } catch (error) {

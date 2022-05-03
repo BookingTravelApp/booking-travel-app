@@ -8,7 +8,7 @@ const verifyToken = require("../middleware/verify-token");
 const { validationResult } = require("express-validator");
 const { Account, User, Role, RoleAccounts } = require("../model");
 
-router.get("/", [verifyToken, role.adminRole], async (req, res) => {
+router.get("/", [verifyToken, role.admin], async (req, res) => {
   try {
     const listUser = await User.findAll({
       attributes: {
@@ -25,8 +25,6 @@ router.get("/", [verifyToken, role.adminRole], async (req, res) => {
         },
       ],
     });
-    // const id = listUser.getDataValue("id");
-    // console.log(listUser[0]["account"]["role_accounts"][0]["role"]["role"]);
     res.json({ success: true, listUser });
   } catch (error) {
     console.log(error);
