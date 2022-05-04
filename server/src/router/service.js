@@ -22,7 +22,6 @@ router.get('/service', verifyToken , async (req, res) => {
         });
     }
     
-
     return res.status(200).json({
         success: true,
     });
@@ -30,8 +29,7 @@ router.get('/service', verifyToken , async (req, res) => {
 
 // router POST /service:create
 // @access private
-router.post('/service:create', verifyToken , async(req, res) => {
-    console.log(req);
+router.post('/service', verifyToken , async(req, res) => {
     const error = validationResult(req);
     const {
         service_name,
@@ -73,7 +71,7 @@ router.post('/service:create', verifyToken , async(req, res) => {
     }
 });
 
-router.delete('/service:delete/:id', verifyToken, async(req, res) => {
+router.delete('/service/:id', verifyToken, async(req, res) => {
     try {
         console.log('##############',req.params.id);
         const problem = await db.Service.findByPk(req.params.id);
@@ -99,4 +97,12 @@ router.delete('/service:delete/:id', verifyToken, async(req, res) => {
         });
     }
 });
+
+// Router POST service/upload
+// @Access priavte
+router.post('/service/upload:image', verifyToken, (req, res) => {
+
+});
+
+
 module.exports = router;

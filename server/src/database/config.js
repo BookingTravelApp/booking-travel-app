@@ -23,7 +23,9 @@ sequelize.sync({ force: false });
 //
 const baseModels = [
   'Account', 'User', 'Role', 
-  'Service', 'Event', 'Service_event'];
+  'Service', 'Event', 'Service_event',
+  'Image'
+];
 const db = {};
 //load model
 baseModels.map(model => {

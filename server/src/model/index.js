@@ -5,4 +5,5 @@ module.exports ={
     Service: require('./Service'),
     Service_event: require('./Service-event'),
     Event: require('./Event'),
+    Image: require('./Image')
 };

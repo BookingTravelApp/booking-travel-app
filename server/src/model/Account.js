@@ -27,6 +27,9 @@ module.exports = (sequelize, DataTypes) => (
         facebook_id: {
             type: DataTypes.STRING,
             allowNULL: true,
+        },
+        avatar: {
+            type: DataTypes.TEXT,
         }
     })
 );
