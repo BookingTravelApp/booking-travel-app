@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2022 at 01:09 PM
+-- Generation Time: May 07, 2022 at 09:42 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -42,8 +42,7 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `facebook_id`, `createdAt`, `updatedAt`) VALUES
-('b6677cf5-55f1-401d-96ca-d8b70317c804', 'user01', '$argon2i$v=19$m=4096,t=3,p=1$tBZKrINWqyrFh7xu2s1lOw$eueb4lhEBZNhuOpIErjcz23CLZQBuqft4whCe1rPPH8', 'user1@gmail.com', NULL, '2022-05-01 10:35:05', '2022-05-01 10:35:05'),
-('c209d499-a087-44cf-9c8a-305ffc282891', 'userAdmin', '$argon2i$v=19$m=4096,t=3,p=1$ECe+kVZ4fxHXIXcj5p1F/w$Pt5mjDYiswttC+eOmR50CSMe/RX2NQDf7EkoR+ctGm8', 'admin@gmail.com', NULL, '2022-05-01 10:35:33', '2022-05-01 10:35:33');
+('a58326f9-4ff6-4e3e-bcf7-a6903c7e3685', 'userAdmin', '$argon2i$v=19$m=4096,t=3,p=1$+QVvtfFelH/nycHmenLb/A$W1ddG/D+XAkQpeKLQVjkWhXc/GpNg3QXuBzuG/frslE', 'admin@gmail.com', NULL, '2022-05-01 11:20:37', '2022-05-01 11:20:37');
 
 -- --------------------------------------------------------
 
@@ -93,14 +92,6 @@ CREATE TABLE `carts` (
   `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `amount`, `createdAt`, `updatedAt`, `userId`, `serviceId`) VALUES
-('1eb86628-3673-458f-a844-6cb3ebe38f2c', 11, '2022-05-01 10:52:25', '2022-05-01 10:52:37', '3e914b5f-e889-4f55-a241-fe055e7df661', '448e03a8-d836-47f9-930d-a3c198c18536'),
-('f09f9644-bff9-4d3d-9684-b6de1c6ea66b', 1, '2022-05-01 10:50:16', '2022-05-01 10:51:57', '3e914b5f-e889-4f55-a241-fe055e7df661', '33bfa1cc-27f2-4658-b934-646ff835293c');
-
 -- --------------------------------------------------------
 
 --
@@ -115,6 +106,14 @@ CREATE TABLE `categories` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `description`, `createdAt`, `updatedAt`) VALUES
+('c9254aaf-f8b9-443c-baf7-cbabfddb8b26', 'hotel', 'Dich vu cung cap thue khach san', '2022-05-01 13:21:39', '2022-05-01 13:21:39'),
+('cca1cf28-107b-43fa-a9cf-56ec79b82164', 'tour', 'Dich vu cung cap tour du lich', '2022-05-01 13:21:49', '2022-05-01 13:21:49');
+
 -- --------------------------------------------------------
 
 --
@@ -123,7 +122,7 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `events` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `event_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `discount` decimal(10,0) DEFAULT NULL,
   `startAt` datetime DEFAULT NULL,
@@ -187,7 +186,7 @@ CREATE TABLE `rates` (
 
 CREATE TABLE `roles` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `role` varchar(255) DEFAULT 'user',
+  `name` varchar(255) DEFAULT 'user',
   `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -220,8 +219,7 @@ CREATE TABLE `role_accounts` (
 --
 
 INSERT INTO `role_accounts` (`id`, `createdAt`, `updatedAt`, `roleId`, `accountId`) VALUES
-('5bd55871-9514-482b-84df-4dad7f75f30a', '2022-05-01 10:35:05', '2022-05-01 10:35:05', '147be472-e228-4a3f-a215-903e45b834f6', 'b6677cf5-55f1-401d-96ca-d8b70317c804'),
-('8f102a13-2e17-4f74-8e8f-12ddb9e615ba', '2022-05-01 10:35:33', '2022-05-01 10:35:33', '164d54e7-8a25-4a96-9b83-c5b3bca69e9d', 'c209d499-a087-44cf-9c8a-305ffc282891');
+('491bacd0-8226-4f3a-a2b8-57894966ca5f', '2022-05-01 11:20:37', '2022-05-01 11:20:37', '164d54e7-8a25-4a96-9b83-c5b3bca69e9d', 'a58326f9-4ff6-4e3e-bcf7-a6903c7e3685');
 
 -- --------------------------------------------------------
 
@@ -245,21 +243,21 @@ CREATE TABLE `role_permissions` (
 
 CREATE TABLE `services` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `service_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `price` double DEFAULT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `categoryId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `services`
 --
 
-INSERT INTO `services` (`id`, `name`, `description`, `price`, `is_active`, `createdAt`, `updatedAt`) VALUES
-('33bfa1cc-27f2-4658-b934-646ff835293c', 'Bai bien Da Nang', 'Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep', 1000000000, 1, '2022-05-01 10:37:40', '2022-05-01 10:37:40'),
-('448e03a8-d836-47f9-930d-a3c198c18536', 'Bai bien Nha Trang', 'Bai bien Nha Trang rat trong xanh va thoang mat, con gai tay rat xinh dep', 1000000000, 1, '2022-05-01 10:37:18', '2022-05-01 10:37:18');
+INSERT INTO `services` (`id`, `name`, `description`, `price`, `is_active`, `createdAt`, `updatedAt`, `categoryId`) VALUES
+('805ed832-f1f9-48b3-af3c-b4626319158b', 'Bai bien Da Nang', 'Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep', 1000000000, 1, '2022-05-01 13:22:00', '2022-05-01 13:22:00', 'c9254aaf-f8b9-443c-baf7-cbabfddb8b26');
 
 -- --------------------------------------------------------
 
@@ -283,7 +281,7 @@ CREATE TABLE `service_events` (
 
 CREATE TABLE `tags` (
   `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `tag_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
@@ -324,8 +322,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `phone_number`, `gender`, `date_of_birth`, `active`, `avatar_path`, `accountId`) VALUES
-('3e914b5f-e889-4f55-a241-fe055e7df661', NULL, NULL, NULL, 0, NULL, 'c209d499-a087-44cf-9c8a-305ffc282891'),
-('5e2be697-67f9-4dcc-a56c-5dfb63829981', '0905112113', 'male', '2022-04-26 13:56:43', 1, 'https://hoang.com', 'b6677cf5-55f1-401d-96ca-d8b70317c804');
+('ea8b2379-f31c-4cf0-b0b3-766e170526e6', NULL, NULL, NULL, 0, NULL, 'a58326f9-4ff6-4e3e-bcf7-a6903c7e3685');
 
 --
 -- Indexes for dumped tables
@@ -423,7 +420,8 @@ ALTER TABLE `role_permissions`
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoryId` (`categoryId`);
 
 --
 -- Indexes for table `service_events`
@@ -504,6 +502,12 @@ ALTER TABLE `role_accounts`
 ALTER TABLE `role_permissions`
   ADD CONSTRAINT `role_permissions_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `role_permissions_ibfk_4` FOREIGN KEY (`permissionId`) REFERENCES `permissions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `services`
+--
+ALTER TABLE `services`
+  ADD CONSTRAINT `services_ibfk_1` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `service_events`
