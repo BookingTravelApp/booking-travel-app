@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useLocation} from 'react-router-dom';
 import {
   Box,
   Container,
@@ -26,6 +27,7 @@ import {
 const MENU_BAR = ['Tour', 'Planes', 'Hotel', 'Contact'];
 
 const HeaderHome = () => {
+  const location = useLocation().pathname;
   const [slide, setSlide] = useState(0);
 
   const [showMenu, setShowMenu] = useState(false);
@@ -62,15 +64,15 @@ const HeaderHome = () => {
         h={'169px'}
       >
         <Box
-          py={showMenu ? '0px' : '22px'}
+          py={showMenu ? '0px' : location ==='/tourDetail' ? '0px' : '22px'}
           w={'full'}
           display={'flex'}
           justifyContent={'center'}
           bgColor={showMenu ? 'white' : 'unset'}
-          position={showMenu ? 'fixed' : 'unset'}
+          position={showMenu ? 'fixed' : location ==='/tourDetail' ? 'unset' : 'unset'}
           top={showMenu ? '0px' : '-84px'}
           left={showMenu ? '0px' : 'unset'}
-          boxShadow={showMenu ? '0 10px 50px 0 rgb(46 56 220 / 20%)' : 'unset'}
+          boxShadow={showMenu ? '0 10px 50px 0 rgb(46 56 220 / 20%)' : location ==='/tourDetail' ? '0 10px 50px 0 rgb(46 56 220 / 20%)':'unset' }
           transition={'all 0.3s ease'}
           zIndex={999}
         >
@@ -258,7 +260,9 @@ const HeaderHome = () => {
           </Box>
         </Box>
       </VStack>
-      <Box
+      {location !== "/tourDetail" &&
+        <Box>
+          <Box
         transition={'all 0.3s ease'}
         w={'full'}
         position={'relative'}
@@ -380,6 +384,9 @@ const HeaderHome = () => {
           ></Box>
         </HStack>
       </Box>
+        </Box>
+      }
+      
     </Container>
   );
 };

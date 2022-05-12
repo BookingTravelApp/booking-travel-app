@@ -1,53 +1,12 @@
-/*css cấu hình chung*/
-:root {
-    --white-color: #fff;
-    --black-color: #000;
-    --text-color: #333;
-    --primary-color: #205375;
-    --button-color: #F66B0E;
-}
-
-* {
-    box-sizing: inherit;
-}
-
-html {
-    font-size: 62.5%; 
-    line-height: 1.6rem;
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-}
-
-.grid {
-    width: 1200px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-.grid__full-width {
-    width: 100%;
-}
-
-.grid__row {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }   
-}
-
-/*Base Modal*/
-
-
-
-
-
-
+@font-face {
+    font-family: 'Reey-Regular';
+    /* font-style: normal;
+    font-weight: normal; */
+    src: url('./fonts/Reey-Regular.otf');
+    /* src: local('Tangerine'), url('http://example.com/tangerine.ttf') format('truetype');  */
+  }
+ 
+  .fontReey {
+    font-family: 'Reey-Regular', serif;
+    font-size: 32px;
+  }

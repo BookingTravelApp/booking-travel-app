@@ -9,6 +9,9 @@ import img2 from "../../assets/images/tour-img/tour-2.jpg";
 import img3 from "../../assets/images/tour-img/tour-3.jpg";
 import img4 from "../../assets/images/tour-img/tour-4.jpg";
 
+import '../../assets/base.css'
+
+
 
 
 function Home(props) {
@@ -16,7 +19,7 @@ function Home(props) {
     <Container maxW={'1200px'} px={'15px'} pt="120px">
       <Box display="flex" flexDir={"column"} textAlign={"center"} w="full" mb="20px">
         <Box fontSize={"20px"} color={"#e8604c"}>
-          <Text>Danh sách địa điểm</Text>
+          <Text className='fontReey'>Danh sách địa điểm</Text>
         </Box>
         <Box fontSize={"40px"} fontWeight={"700"}>
           <Text >Khám Phá Địa Điểm Mới Lạ !</Text>
@@ -111,7 +114,7 @@ function Home(props) {
                   <Image src="https://tevily-nextjs.vercel.app/_next/static/media/about-one-img-1.e526a0a5.png" bs={"border-box"}></Image>
               </Box>
               <Box position={"absolute"} top={"120px"} right={"0px"}>
-                  <Text fontSize={"60px"} fontWeight={"600"}color={"#e8604c"}>30%</Text>
+                  <Text className="fontReey" fontSize={"60px"} fontWeight={"600"}color={"#e8604c"}>30%</Text>
                   <Text fontSize={"50px"} fontWeight={"600"}>Discount</Text>
               </Box>
               <Box bgColor={"#ffffff"} position={"absolute"} top={"250px"} left={"-90px"} display={"flex"} justifyContent={"center"} px={"40px"} py={"25px"} boxShadow={"0 10px 60px 0 rgb(0 0 0 / 10%)"} w={"264px"} h={"82px"} br={"10px"} rounded={"10px"}>
@@ -159,7 +162,7 @@ function Home(props) {
       
       <Box display="flex" flexDir={"column"} textAlign={"center"} w="full" mb="20px">
         <Box fontSize={"20px"} color={"#e8604c"}>
-          <Text>Tour nổi bật</Text>
+          <Text className="fontReey">Tour nổi bật</Text>
         </Box>
         <Box fontSize={"40px"} fontWeight={"700"}>
           <Text >Tour Du Lịch Phổ Biến Nhất</Text>
