@@ -7,8 +7,8 @@ Content-Type: application/json
 
 {
     
-    "username": "userAdmin",
-    "email": "admin@gmail.com",
+    "username": "user01",
+    "email": "user01@gmail.com",
     "password": "12345678",
     "listRole": ["admin"]
 }
@@ -60,7 +60,7 @@ DELETE http://localhost:4000/category/
 ###
 GET http://localhost:4000/service
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZjM1MS1jNzBlLTQ0M2ItODY1MC02NGFmMmNlY2RiMGEiLCJpYXQiOjE2NDk3MjQ4NzB9.9T4Xuq2IGaGd2vE9ccqjMETZj8DGMZ6FeEn2ysq1X24
+Authorization: Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1Mjg2MmQ1LTVhYzMtNDhmZi1iYzRhLTkwZDhiMDQ2M2VhMSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNjMxNjA2LCJleHAiOjE2NTE2MzUyMDZ9.yTYSb8WsncGd1uoMJ4kJevS-I2H1rEXN2Wf969Neg6Y
 
 ###
 GET http://localhost:4000/service/b308c4ef-a7fe-4b3e-a067-e70103dbecbc/
@@ -69,6 +69,7 @@ Content-Type: application/json
 ###
 POST http://localhost:4000/service/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1Mjg2MmQ1LTVhYzMtNDhmZi1iYzRhLTkwZDhiMDQ2M2VhMSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNjMxNjA2LCJleHAiOjE2NTE2MzUyMDZ9.yTYSb8WsncGd1uoMJ4kJevS-I2H1rEXN2Wf969Neg6Y
 
 {
     "name": "Bai bien Da Nang",

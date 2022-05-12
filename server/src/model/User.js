@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
 const User = sequelize.define(
-  "user",
+  'user',
   {
     id: {
       type: Sequelize.UUID,
@@ -15,7 +15,7 @@ const User = sequelize.define(
       allowNull: true,
     },
     gender: {
-      type: Sequelize.ENUM("male", "female", "undefined"),
+      type: Sequelize.ENUM('male', 'female', 'undefined'),
       allowNull: true,
     },
     date_of_birth: {

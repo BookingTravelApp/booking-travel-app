@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const { Account, Role, RoleAccounts } = require("../model");
+const jwt = require('jsonwebtoken');
+const { Account, Role, RoleAccounts } = require('../model');
 
 let role = {};
 
@@ -11,21 +11,21 @@ var admin = async (req, res, next) => {
         where: { id: req.userId },
         include: [{ model: RoleAccounts, include: [Role] }],
       });
-      user["role_accounts"].forEach((element) => {
-        if (element["role"]["name"] == "admin") {
+      user['role_accounts'].forEach((element) => {
+        if (element['role']['name'] == 'admin') {
           isOk = true;
           return false;
         }
       });
     }
-    if (!isOk) throw "Unauthorized";
+    if (!isOk) throw 'Unauthorized';
 
     next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
       success: false,
-      message: "Unauthorized",
+      message: 'Unauthorized',
     });
   }
 };
@@ -37,22 +37,22 @@ var employee = async (req, res, next) => {
       where: { id: req.userId },
       include: [{ model: RoleAccounts, include: [Role] }],
     });
-    user["role_accounts"].forEach((element) => {
+    user['role_accounts'].forEach((element) => {
       if (
-        element["role"]["name"] == "employee" ||
-        element["role"]["name"] == "admin"
+        element['role']['name'] == 'employee' ||
+        element['role']['name'] == 'admin'
       ) {
         isOk = true;
         return false;
       }
     });
-    if (!isOk) throw "Unauthorized";
+    if (!isOk) throw 'Unauthorized';
     next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
       success: false,
-      message: "Unauthorized",
+      message: 'Unauthorized',
     });
   }
 };
@@ -64,19 +64,19 @@ var user = async (req, res, next) => {
       where: { id: req.userId },
       include: [{ model: RoleAccounts, include: [Role] }],
     });
-    user["role_accounts"].forEach((element) => {
-      if (element["role"]["name"] == "user") {
+    user['role_accounts'].forEach((element) => {
+      if (element['role']['name'] == 'user') {
         isOk = true;
         return false;
       }
     });
-    if (!isOk) throw "Unauthorized";
+    if (!isOk) throw 'Unauthorized';
     next();
   } catch (error) {
     console.log(error);
     return res.status(403).json({
       success: false,
-      message: "Internal server error",
+      message: 'Internal server error',
     });
   }
 };

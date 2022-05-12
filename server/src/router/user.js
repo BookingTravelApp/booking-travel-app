@@ -1,37 +1,37 @@
-const express = require("express");
-const { User, Cart, Service } = require("../model");
+const express = require('express');
+const { User, Cart, Service } = require('../model');
 const router = express.Router();
-const verifyToken = require("../middleware/verify-token");
-const role = require("../middleware/role");
+const verifyToken = require('../middleware/verify-token');
+const role = require('../middleware/role');
 
-router.get("/", [verifyToken, role.employee], async (req, res) => {
+router.get('/', [verifyToken, role.employee], async (req, res) => {
   try {
     const listUser = await User.findAll({
-      attributes: { exclude: ["accountId"] },
+      attributes: { exclude: ['accountId'] },
     });
     res.json({ success: true, listUser });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
-router.get("/get-user/:id", async (req, res) => {
+router.get('/get-user/:id', async (req, res) => {
   try {
     const user = await User.findOne({ where: { id: req.params.id } });
     res.json({ success: true, user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
-router.put("/", verifyToken, async (req, res) => {
+router.put('/', verifyToken, async (req, res) => {
   const { phone_number, gender, date_of_birth, active, avatar_path } = req.body;
   try {
     if (!req.userId)
-      return res.json({ success: false, message: "User id not found" });
+      return res.json({ success: false, message: 'User id not found' });
     const oldUser = await User.findOne({ where: { accountId: req.userId } });
     if (!oldUser)
-      return res.json({ success: false, message: "User is not exist" });
+      return res.json({ success: false, message: 'User is not exist' });
     await User.update(
       {
         phone_number: phone_number || oldUser.phone_number,
@@ -42,40 +42,40 @@ router.put("/", verifyToken, async (req, res) => {
       },
       { where: { accountId: req.userId } }
     );
-    res.json({ success: true, message: "Updated user successful" });
+    res.json({ success: true, message: 'Updated user successful' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
 //@Relationship
 //Cart
-router.get("/cart", verifyToken, async (req, res) => {
+router.get('/cart', verifyToken, async (req, res) => {
   try {
     const user = await User.findOne({ where: { accountId: req.userId } });
     const listCart = await Cart.findAll({ where: { userId: user.id } });
     res.json({ success: true, listCart });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
-router.post("/cart", verifyToken, async (req, res) => {
+router.post('/cart', verifyToken, async (req, res) => {
   const { amount, serviceId } = req.body;
   try {
     const user = await User.findOne({ where: { accountId: req.userId } });
     if (!user)
       return res
         .status(404)
-        .json({ message: false, message: "User does not exist" });
+        .json({ message: false, message: 'User does not exist' });
     if (amount < 1)
-      return res.json({ success: false, message: "Invalid amount" });
+      return res.json({ success: false, message: 'Invalid amount' });
     const service = await Service.findOne({ where: { id: serviceId } });
     if (!service)
       return res
         .status(404)
-        .json({ success: false, message: "Service does not exist" });
+        .json({ success: false, message: 'Service does not exist' });
     const cart = await Cart.findOne({
       where: { userId: user.id, serviceId },
     });
@@ -95,10 +95,15 @@ router.post("/cart", verifyToken, async (req, res) => {
         { where: { id: cart.id } }
       );
     }
-    res.json({ success: true, message: "Update cart successful" });
+    res.json({ success: true, message: 'Update cart successful' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
+
+// @Route POST /avatar
+
+
+
 module.exports = router;

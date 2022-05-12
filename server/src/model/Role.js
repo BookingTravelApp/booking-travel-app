@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
 const Role = sequelize.define(
-  "role",
+  'role',
   {
     id: {
       type: Sequelize.UUID,
@@ -12,7 +12,7 @@ const Role = sequelize.define(
     },
     name: {
       type: Sequelize.STRING,
-      defaultValue: "user",
+      defaultValue: 'user',
     },
     description: {
       type: Sequelize.STRING,
