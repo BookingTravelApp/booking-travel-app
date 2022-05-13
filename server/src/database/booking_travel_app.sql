@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2022 at 09:42 AM
+-- Generation Time: May 13, 2022 at 07:20 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -37,13 +37,6 @@ CREATE TABLE `accounts` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `accounts`
---
-
-INSERT INTO `accounts` (`id`, `username`, `password`, `email`, `facebook_id`, `createdAt`, `updatedAt`) VALUES
-('a58326f9-4ff6-4e3e-bcf7-a6903c7e3685', 'userAdmin', '$argon2i$v=19$m=4096,t=3,p=1$+QVvtfFelH/nycHmenLb/A$W1ddG/D+XAkQpeKLQVjkWhXc/GpNg3QXuBzuG/frslE', 'admin@gmail.com', NULL, '2022-05-01 11:20:37', '2022-05-01 11:20:37');
-
 -- --------------------------------------------------------
 
 --
@@ -74,7 +67,8 @@ CREATE TABLE `bills` (
   `managerId` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,7 +83,8 @@ CREATE TABLE `carts` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+  `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -105,14 +100,6 @@ CREATE TABLE `categories` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `name`, `description`, `createdAt`, `updatedAt`) VALUES
-('c9254aaf-f8b9-443c-baf7-cbabfddb8b26', 'hotel', 'Dich vu cung cap thue khach san', '2022-05-01 13:21:39', '2022-05-01 13:21:39'),
-('cca1cf28-107b-43fa-a9cf-56ec79b82164', 'tour', 'Dich vu cung cap tour du lich', '2022-05-01 13:21:49', '2022-05-01 13:21:49');
 
 -- --------------------------------------------------------
 
@@ -130,8 +117,18 @@ CREATE TABLE `events` (
   `isActive` tinyint(1) DEFAULT 1,
   `imagePath` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `name`, `description`, `discount`, `startAt`, `endAt`, `isActive`, `imagePath`, `createdAt`, `updatedAt`, `slug`) VALUES
+('738ed6e3-5bd0-4230-b93a-7b69436c02d8', 'Gio to', 'Nhan ngay gio to hung vuong', '10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, '2022-05-13 17:08:20', '2022-05-13 17:08:20', 'gio-to-nhan-ngay-gio-to-hung-vuong-1'),
+('96c0246c-9db9-49db-8b69-22bed8553d08', 'Gio to', 'Nhan ngay gio to hung vuong', '10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, '2022-05-13 17:08:07', '2022-05-13 17:08:07', 'gio-to-nhan-ngay-gio-to-hung-vuong'),
+('acfcbd80-55f0-44b9-ba2b-0117d659045a', 'Gio to', 'Nhan ngay gio to hung vuong', '10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, NULL, '2022-05-13 17:07:46', '2022-05-13 17:07:46', 'gio-to');
 
 -- --------------------------------------------------------
 
@@ -175,7 +172,8 @@ CREATE TABLE `rates` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+  `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -214,13 +212,6 @@ CREATE TABLE `role_accounts` (
   `accountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `role_accounts`
---
-
-INSERT INTO `role_accounts` (`id`, `createdAt`, `updatedAt`, `roleId`, `accountId`) VALUES
-('491bacd0-8226-4f3a-a2b8-57894966ca5f', '2022-05-01 11:20:37', '2022-05-01 11:20:37', '164d54e7-8a25-4a96-9b83-c5b3bca69e9d', 'a58326f9-4ff6-4e3e-bcf7-a6903c7e3685');
-
 -- --------------------------------------------------------
 
 --
@@ -249,15 +240,9 @@ CREATE TABLE `services` (
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `categoryId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+  `categoryId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `services`
---
-
-INSERT INTO `services` (`id`, `name`, `description`, `price`, `is_active`, `createdAt`, `updatedAt`, `categoryId`) VALUES
-('805ed832-f1f9-48b3-af3c-b4626319158b', 'Bai bien Da Nang', 'Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep', 1000000000, 1, '2022-05-01 13:22:00', '2022-05-01 13:22:00', 'c9254aaf-f8b9-443c-baf7-cbabfddb8b26');
 
 -- --------------------------------------------------------
 
@@ -284,7 +269,8 @@ CREATE TABLE `tags` (
   `name` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `slug` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -314,15 +300,10 @@ CREATE TABLE `users` (
   `date_of_birth` datetime DEFAULT NULL,
   `active` tinyint(1) DEFAULT 0,
   `avatar_path` varchar(255) DEFAULT NULL,
-  `accountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+  `accountId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `phone_number`, `gender`, `date_of_birth`, `active`, `avatar_path`, `accountId`) VALUES
-('ea8b2379-f31c-4cf0-b0b3-766e170526e6', NULL, NULL, NULL, 0, NULL, 'a58326f9-4ff6-4e3e-bcf7-a6903c7e3685');
 
 --
 -- Indexes for dumped tables
@@ -336,7 +317,11 @@ ALTER TABLE `accounts`
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `username_2` (`username`),
-  ADD UNIQUE KEY `email_2` (`email`);
+  ADD UNIQUE KEY `email_2` (`email`),
+  ADD UNIQUE KEY `username_3` (`username`),
+  ADD UNIQUE KEY `email_3` (`email`),
+  ADD UNIQUE KEY `username_4` (`username`),
+  ADD UNIQUE KEY `email_4` (`email`);
 
 --
 -- Indexes for table `billdetails`
@@ -351,6 +336,8 @@ ALTER TABLE `billdetails`
 --
 ALTER TABLE `bills`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`),
   ADD KEY `userId` (`userId`);
 
 --
@@ -358,6 +345,8 @@ ALTER TABLE `bills`
 --
 ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`),
   ADD KEY `userId` (`userId`),
   ADD KEY `serviceId` (`serviceId`);
 
@@ -371,7 +360,9 @@ ALTER TABLE `categories`
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`);
 
 --
 -- Indexes for table `images`
@@ -391,6 +382,8 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `rates`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`),
   ADD KEY `userId` (`userId`),
   ADD KEY `serviceId` (`serviceId`);
 
@@ -421,6 +414,8 @@ ALTER TABLE `role_permissions`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`),
   ADD KEY `categoryId` (`categoryId`);
 
 --
@@ -435,7 +430,9 @@ ALTER TABLE `service_events`
 -- Indexes for table `tags`
 --
 ALTER TABLE `tags`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`);
 
 --
 -- Indexes for table `tag_services`
@@ -450,6 +447,8 @@ ALTER TABLE `tag_services`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD UNIQUE KEY `slug_2` (`slug`),
   ADD KEY `accountId` (`accountId`);
 
 --
@@ -460,8 +459,8 @@ ALTER TABLE `users`
 -- Constraints for table `billdetails`
 --
 ALTER TABLE `billdetails`
-  ADD CONSTRAINT `billdetails_ibfk_3` FOREIGN KEY (`billId`) REFERENCES `bills` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `billdetails_ibfk_4` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `billdetails_ibfk_7` FOREIGN KEY (`billId`) REFERENCES `bills` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `billdetails_ibfk_8` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bills`
@@ -473,8 +472,8 @@ ALTER TABLE `bills`
 -- Constraints for table `carts`
 --
 ALTER TABLE `carts`
-  ADD CONSTRAINT `carts_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `carts_ibfk_4` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `carts_ibfk_7` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `carts_ibfk_8` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `images`
@@ -486,22 +485,22 @@ ALTER TABLE `images`
 -- Constraints for table `rates`
 --
 ALTER TABLE `rates`
-  ADD CONSTRAINT `rates_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `rates_ibfk_4` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `rates_ibfk_7` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `rates_ibfk_8` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_accounts`
 --
 ALTER TABLE `role_accounts`
-  ADD CONSTRAINT `role_accounts_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `role_accounts_ibfk_4` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `role_accounts_ibfk_7` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `role_accounts_ibfk_8` FOREIGN KEY (`accountId`) REFERENCES `accounts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `role_permissions`
 --
 ALTER TABLE `role_permissions`
-  ADD CONSTRAINT `role_permissions_ibfk_3` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `role_permissions_ibfk_4` FOREIGN KEY (`permissionId`) REFERENCES `permissions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `role_permissions_ibfk_7` FOREIGN KEY (`roleId`) REFERENCES `roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `role_permissions_ibfk_8` FOREIGN KEY (`permissionId`) REFERENCES `permissions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `services`
@@ -513,15 +512,15 @@ ALTER TABLE `services`
 -- Constraints for table `service_events`
 --
 ALTER TABLE `service_events`
-  ADD CONSTRAINT `service_events_ibfk_3` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `service_events_ibfk_4` FOREIGN KEY (`eventId`) REFERENCES `events` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `service_events_ibfk_7` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `service_events_ibfk_8` FOREIGN KEY (`eventId`) REFERENCES `events` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tag_services`
 --
 ALTER TABLE `tag_services`
-  ADD CONSTRAINT `tag_services_ibfk_3` FOREIGN KEY (`tagId`) REFERENCES `tags` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `tag_services_ibfk_4` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `tag_services_ibfk_7` FOREIGN KEY (`tagId`) REFERENCES `tags` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `tag_services_ibfk_8` FOREIGN KEY (`serviceId`) REFERENCES `services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

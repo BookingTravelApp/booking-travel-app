@@ -10,6 +10,10 @@ const Cart = sequelize.define(
       allowNULL: false,
       primaryKey: true,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     amount: {
       type: Sequelize.INTEGER,
       allowNULL: false,

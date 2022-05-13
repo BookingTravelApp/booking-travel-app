@@ -8,6 +8,10 @@ const Tag = sequelize.define("tag", {
     allowNull: false,
     primaryKey: true,
   },
+  slug: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
   name: {
     type: Sequelize.STRING,
     allownull: true,

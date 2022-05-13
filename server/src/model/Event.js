@@ -8,6 +8,10 @@ const Event = sequelize.define("event", {
     allowNull: false,
     primaryKey: true,
   },
+  slug: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
   name: {
     type: Sequelize.STRING,
   },

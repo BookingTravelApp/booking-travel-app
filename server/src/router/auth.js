@@ -37,7 +37,7 @@ router.get("/", [verifyToken, role.admin], async (req, res) => {
 
 router.post("/register", validator.register(), async (req, res) => {
   const error = validationResult(req);
-  const { username, email, password, listRole } = req.body;
+  const { name, username, email, password, listRole } = req.body;
 
   if (!error.isEmpty()) {
     return res.status(400).json({
@@ -45,6 +45,12 @@ router.post("/register", validator.register(), async (req, res) => {
       message: error.array(),
     });
   }
+  if (!listRole.includes("admin"))
+    if (!name)
+      return res.status(400).json({
+        success: false,
+        message: "Require name",
+      });
 
   try {
     const existingUsername = await Account.findOne({ where: { username } });
@@ -75,15 +81,15 @@ router.post("/register", validator.register(), async (req, res) => {
     }
 
     //return token
-    const accessToken = jwt.sign(
-      { userId: newAccount._id },
-      process.env.DB_ACCESS_TOKEN_SECRET
-    );
-
+    accessToken = generateToken({
+      id: newAccount.getDataValue("id"),
+      username: username,
+    });
     //create instance Role and User table
     try {
       let userId = newAccount.getDataValue("id");
       await User.create({
+        name: name,
         accountId: userId,
       });
     } catch (error) {

@@ -15,9 +15,9 @@ router.get("/", [verifyToken, role.employee], async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
-router.get("/get-user/:id", async (req, res) => {
+router.get("/get-user/:slug", async (req, res) => {
   try {
-    const user = await User.findOne({ where: { id: req.params.id } });
+    const user = await User.findOne({ where: { slug: req.params.slug } });
     res.json({ success: true, user });
   } catch (error) {
     console.log(error);
@@ -25,7 +25,8 @@ router.get("/get-user/:id", async (req, res) => {
   }
 });
 router.put("/", verifyToken, async (req, res) => {
-  const { phone_number, gender, date_of_birth, active, avatar_path } = req.body;
+  const { name, phone_number, gender, date_of_birth, active, avatar_path } =
+    req.body;
   try {
     if (!req.userId)
       return res.json({ success: false, message: "User id not found" });
@@ -34,6 +35,7 @@ router.put("/", verifyToken, async (req, res) => {
       return res.json({ success: false, message: "User is not exist" });
     await User.update(
       {
+        name: name || oldUser.name,
         phone_number: phone_number || oldUser.phone_number,
         gender: gender || oldUser.gender,
         date_of_birth: date_of_birth || oldUser.date_of_birth,

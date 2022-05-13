@@ -10,6 +10,14 @@ const User = sequelize.define(
       allowNull: false,
       primaryKey: true,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
     phone_number: {
       type: Sequelize.STRING,
       allowNull: true,

@@ -16,4 +16,5 @@ module.exports = {
   User: require("./User"),
   Category: require("./Category"),
   Association: require("./Association"),
+  Slugify: require("./Slugify"),
 };

@@ -10,6 +10,10 @@ const Service = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     name: {
       type: Sequelize.STRING,
       allowNull: true,

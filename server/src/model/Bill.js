@@ -10,6 +10,10 @@ const Bill = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     date: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW,

@@ -13,9 +13,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:slug", async (req, res) => {
   try {
-    const service = await Service.findOne({ where: { id: req.params.id } });
+    const service = await Service.findOne({ where: { slug: req.params.slug } });
     res.json({ success: true, service });
   } catch (error) {
     res.json({ success: false, message: "Internal server error" });

@@ -6,7 +6,6 @@ POST http://localhost:4000/register
 Content-Type: application/json
 
 {
-    
     "username": "userAdmin",
     "email": "admin@gmail.com",
     "password": "12345678",
@@ -97,6 +96,7 @@ Content-Type: application/json
 ###
 POST http://localhost:4000/event/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNDYzNjY2LCJleHAiOjE2NTI0NjcyNjZ9.Z6mPCk3Hf950ZpcN3zJ40vV_z8tL8_Qq5zD8FdI6ljU
 
 {
     "name":"Gio to",
@@ -109,9 +109,10 @@ Content-Type: application/json
 ###
 PUT http://localhost:4000/event/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNDYzNjY2LCJleHAiOjE2NTI0NjcyNjZ9.Z6mPCk3Hf950ZpcN3zJ40vV_z8tL8_Qq5zD8FdI6ljU
 
 {
-    "id": "dbd137c2-e631-4833-aebc-4f8a188db8cd",
+    "id": "acfcbd80-55f0-44b9-ba2b-0117d659045a",
     "name":"30/4 1/5",
     "discount":10,
     "startAt":"2022-04-26T13:56:43.000Z",

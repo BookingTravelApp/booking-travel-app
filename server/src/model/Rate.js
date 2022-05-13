@@ -9,6 +9,10 @@ const Rate = sequelize.define(
       allowNULL: false,
       primaryKey: true,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     quality: {
       type: Sequelize.INTEGER,
       allowNULL: false,
