@@ -103,4 +103,7 @@ router.post("/cart", verifyToken, async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
+
+// @Route POST /avatar
+
 module.exports = router;

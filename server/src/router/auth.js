@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const validator = require("../middleware/validator");
-const role = require("../middleware/role");
-const verifyToken = require("../middleware/verify-token");
-const { validationResult } = require("express-validator");
-const { Account, User, Role, RoleAccounts } = require("../model");
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+const validator = require('../middleware/validator');
+const role = require('../middleware/role');
+const verifyToken = require('../middleware/verify-token');
+const { validationResult } = require('express-validator');
+const { Account, User, Role, RoleAccounts } = require('../model');
 
-router.get("/", [verifyToken, role.admin], async (req, res) => {
+router.get('/', [verifyToken, role.admin], async (req, res) => {
   try {
     const listUser = await User.findAll({
       attributes: {
@@ -19,7 +19,7 @@ router.get("/", [verifyToken, role.admin], async (req, res) => {
         {
           model: Account,
           attributes: {
-            exclude: ["password"],
+            exclude: ['password'],
           },
           include: [{ model: RoleAccounts, include: Role }],
         },
@@ -28,14 +28,14 @@ router.get("/", [verifyToken, role.admin], async (req, res) => {
     res.json({ success: true, listUser });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
 // @router POST /register
 // @public access
 
-router.post("/register", validator.register(), async (req, res) => {
+router.post('/register', validator.register(), async (req, res) => {
   const error = validationResult(req);
   const { name, username, email, password, listRole } = req.body;
 
@@ -58,7 +58,7 @@ router.post("/register", validator.register(), async (req, res) => {
     if (existingUsername || existingEmail) {
       return res.status(400).json({
         success: false,
-        message: "username and/or email already taken",
+        message: 'username and/or email already taken',
       });
     }
     //hash password
@@ -67,18 +67,16 @@ router.post("/register", validator.register(), async (req, res) => {
     const newAccount = new Account({ username, email, password: hashPassword });
     await newAccount.save();
 
-    // arrayRole = JSON.parse(listRole);
-    const roleAlready = await Role.findAll();
-    if (roleAlready) {
-      let roleTemp;
-      for (i = 0; i < listRole.length; i++) {
-        roleTemp = await Role.findOne({ where: { name: listRole[i] } });
-        await RoleAccounts.create({
-          roleId: roleTemp.id,
-          accountId: newAccount.getDataValue("id"),
-        });
-      }
-    }
+    // arrayRole = JSON.parse(listRole);{
+    //   let roleTemp;
+    //   for (i = 0; i < listRole.length; i++) {
+    //     roleTemp = await Role.findOne({ where: { name: listRole[i] } });
+    //     await RoleAccounts.create({
+    //       roleId: roleTemp.id,
+    //       accountId: newAccount.getDataValue('id'),
+    //     });
+    //   }
+    // }
 
     //return token
     accessToken = generateToken({
@@ -87,7 +85,7 @@ router.post("/register", validator.register(), async (req, res) => {
     });
     //create instance Role and User table
     try {
-      let userId = newAccount.getDataValue("id");
+      let userId = newAccount.getDataValue('id');
       await User.create({
         name: name,
         accountId: userId,
@@ -95,19 +93,21 @@ router.post("/register", validator.register(), async (req, res) => {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: "Create user fail",
+        message: 'Create user fail',
       });
+    // const roleAlready = await Role.findAll();
+    // if (roleAlready) 
     }
     return res.json({
       success: true,
-      message: "User created successfully",
+      message: 'User created successfully',
       token: accessToken,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: "Internal server error",
+      message: 'Internal server error',
     });
   }
 });
@@ -115,7 +115,7 @@ router.post("/register", validator.register(), async (req, res) => {
 // @router POST /login
 // @access public
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   const error = validationResult(req);
   const { username, password } = req.body;
 
@@ -131,7 +131,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found",
+        message: 'User not found',
       });
     }
 
@@ -139,22 +139,22 @@ router.post("/login", async (req, res) => {
     if (!passwordValid) {
       return res.status(400).json({
         success: false,
-        message: "Password not valid",
+        message: 'Password not valid',
       });
     }
 
-    const userId = user.getDataValue("id");
+    const userId = user.getDataValue('id');
     const accessToken = generateToken({ id: userId, username: username });
     return res.json({
       success: true,
-      message: "Login successful",
+      message: 'Login successful',
       accessToken,
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
-      message: "Interval server error",
+      message: 'Interval server error',
     });
   }
 });
@@ -167,7 +167,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: '1h',
     }
   );
 
@@ -175,7 +175,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "10s",
+      expiresIn: '10s',
     }
   );
 

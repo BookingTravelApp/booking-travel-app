@@ -1,11 +1,11 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   {
-    dialect: "mysql",
-    host: "localhost",
+    dialect: 'mysql',
+    host: 'localhost',
     logging: false,
   }
 );
@@ -19,7 +19,7 @@ sequelize.sync({ alter: false, force: false });
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log("database connect successfully");
+    console.log('database connect successfully');
   } catch (error) {
     console.log(error);
   }
