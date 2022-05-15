@@ -1,4 +1,5 @@
 const { Image, User } = require("../model");
+
 module.exports = {
   //Index
   avatarIndex: (req, res) => {
