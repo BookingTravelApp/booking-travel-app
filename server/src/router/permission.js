@@ -1,76 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { Permission } = require("../model");
-const role = require("../middleware/role");
 const verifyToken = require("../middleware/verify-token");
+const PermissionController = require("../controller/PermissionController");
+const role = require("../middleware/role");
 
-router.get("/", async (req, res) => {
-  try {
-    const listPermission = await Permission.findAll();
-    res.json({ success: true, listPermission });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
-router.post("/", [verifyToken, role.admin], async (req, res) => {
-  const { name, action, description } = req.body;
-  try {
-    if (!name)
-      return res
-        .status(404)
-        .json({ success: false, message: "Require permission name" });
-    const newPermission = new Permission({
-      name,
-      action: action || "",
-      description: description || "",
-    });
-    newPermission.save();
-    res.json({ success: true, message: "Created permission successful" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, mess });
-  }
-});
-router.put("/", [verifyToken, role.admin], async (req, res) => {
-  const { id, name, action, description } = req.body;
-  try {
-    if (!id)
-      return res.json({ success: false, message: "Permission id not found" });
-    const oldPermission = Permission.findOne({ where: { id } });
-    if (!oldPermission)
-      return res
-        .status(500)
-        .json({ success: false, message: "Permission is not exist" });
-    await Permission.update(
-      {
-        name: name || oldPermission.name,
-        description: description || oldPermission.description,
-        action: action || oldPermission.action,
-      },
-      { where: { id: id } }
-    );
-    return res.json({
-      success: true,
-      message: "Updated permission successful",
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
-router.delete("/:id", [verifyToken, role.admin], async (req, res) => {
-  try {
-    const permission = await Permission.findOne({
-      where: { id: req.params.id },
-    });
-    if (!permission)
-      return res.json({ success: false, message: "Permission does not exist" });
-    await Permission.destroy({ where: { id: req.params.id } });
-    res.json({ success: true, message: "Deleted permission successful" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
+router.get("/", PermissionController.index);
+router.post("/", [verifyToken, role.admin], PermissionController.create);
+router.put("/", [verifyToken, role.admin], PermissionController.update);
+router.delete("/:id", [verifyToken, role.admin], PermissionController.destroy);
 module.exports = router;
