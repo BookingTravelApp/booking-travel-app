@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
-const Image = sequelize.define("image", {
+const Image = sequelize.define('image', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
