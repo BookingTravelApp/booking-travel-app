@@ -5,8 +5,9 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     dialect: "mysql",
-    host: "remotemysql.com",
-    logging: false,
+    // host: "remotemysql.com",
+    host: "localhost",
+    logging: true,
   }
 );
 
@@ -14,7 +15,7 @@ const sequelize = new Sequelize(
 // If force = true, everytime the server runs we will lose the data for the table
 // force = true recreates a table4
 
-sequelize.sync({ alter: false, force: false });
+sequelize.sync({ alter: true, force: true });
 
 (async () => {
   try {
