@@ -11,6 +11,16 @@ Content-Type: application/json
     "password": "12345678",
     "listRole": ["admin"]
 }
+###
+POST https://tranquil-shore-96391.herokuapp.com/register
+Content-Type: application/json
+
+{
+    "username": "userAdmin",
+    "email": "admin@gmail.com",
+    "password": "12345678",
+    "listRole": ["admin"]
+}
 
 ###
 
