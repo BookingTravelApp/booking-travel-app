@@ -2,7 +2,7 @@ const express = require("express");
 require("dotenv").config();
 require("./model");
 global.__basedir = __dirname;
-
+//
 const authRouter = require("./router/auth");
 const serviceRouter = require("./router/service");
 const roleRouter = require("./router/role");
