@@ -1,5 +1,8 @@
 GET http://localhost:4000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1ODMyNmY5LTRmZjYtNGUzZS1iY2Y3LWE2OTAzYzdlMzY4NSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNTY5MzYyLCJleHAiOjE2NTE1NzI5NjJ9.UdJXroiuhGbYTZcynOGJ-hUCMxfzhnPI5x9hhn0UEZU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNzg3NjY3LCJleHAiOjE2NTI3OTEyNjd9.3Xg7RePTZntWO9CioLuIgstOag-_mqoXF0J-oI_JT1U
+###
+GET https://tranquil-shore-96391.herokuapp.com/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNzg3NjY3LCJleHAiOjE2NTI3OTEyNjd9.3Xg7RePTZntWO9CioLuIgstOag-_mqoXF0J-oI_JT1U
 
 ###
 POST http://localhost:4000/register
@@ -22,6 +25,15 @@ Content-Type: application/json
     "listRole": ["admin"]
 }
 
+###
+
+POST https://tranquil-shore-96391.herokuapp.com/login
+Content-Type: application/json
+
+{
+    "username": "userAdmin",
+    "password": "12345678"
+}
 ###
 
 POST http://localhost:4000/login
@@ -103,6 +115,9 @@ DELETE http://localhost:4000/service/95df8654-69f6-4452-bf39-6aed9b9df6f4/
 ###
 GET http://localhost:4000/event/
 Content-Type: application/json
+###
+GET https://tranquil-shore-96391.herokuapp.com/event/
+Content-Type: application/json
 
 ###
 POST http://localhost:4000/event/
@@ -146,6 +161,9 @@ Content-Type: application/json
     "status":"unpaid",
     "userId":"f9e89ec8-9e9f-4f7a-b440-9fe7a4a674ee"
 }
+###
+GET https://tranquil-shore-96391.herokuapp.com/role
+Content-Type: application/json
 ###
 GET http://localhost:4000/role
 Content-Type: application/json
