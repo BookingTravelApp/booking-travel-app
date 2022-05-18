@@ -27,7 +27,7 @@ app.use("/permission", permissionRouter);
 app.use("/category", categoryRouter);
 app.use("/tag", tagRouter);
 app.use("/user", userRouter);
-app.use("/", resourceRouter);
+app.use("/resource", resourceRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);

@@ -2,7 +2,7 @@ GET http://localhost:4000
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNzg3NjY3LCJleHAiOjE2NTI3OTEyNjd9.3Xg7RePTZntWO9CioLuIgstOag-_mqoXF0J-oI_JT1U
 ###
 GET https://tranquil-shore-96391.herokuapp.com/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyNzg3NjY3LCJleHAiOjE2NTI3OTEyNjd9.3Xg7RePTZntWO9CioLuIgstOag-_mqoXF0J-oI_JT1U
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyODkxODg1LCJleHAiOjE2NTI4OTU0ODV9.BU6g1Lyogql_g1-EEbJywI0KfYaI79dG0fPcz_Xsb5o
 
 ###
 POST http://localhost:4000/register
@@ -59,8 +59,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5MmEzZ
 ###
 GET http://localhost:4000/category
 ###
+GET https://tranquil-shore-96391.herokuapp.com/category
+###
+POST https://tranquil-shore-96391.herokuapp.com/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyODkxODg1LCJleHAiOjE2NTI4OTU0ODV9.BU6g1Lyogql_g1-EEbJywI0KfYaI79dG0fPcz_Xsb5o
+
+{
+    "name":"tour",
+    "description":"Dich vu cung cap tour du lich"
+}
+###
 POST http://localhost:4000/category
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyODkxODg1LCJleHAiOjE2NTI4OTU0ODV9.BU6g1Lyogql_g1-EEbJywI0KfYaI79dG0fPcz_Xsb5o
 
 {
     "name":"tour",
@@ -88,13 +100,24 @@ GET http://localhost:4000/service/b308c4ef-a7fe-4b3e-a067-e70103dbecbc/
 Content-Type: application/json
 
 ###
+POST https://tranquil-shore-96391.herokuapp.com/service/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyODkxODg1LCJleHAiOjE2NTI4OTU0ODV9.BU6g1Lyogql_g1-EEbJywI0KfYaI79dG0fPcz_Xsb5o
+
+{
+    "name": "Cố đô Huế",
+    "description": "Cố đô cổ kính đậm chất triều đình",
+    "price": 1000000000,
+    "categoryId":"5a8309df-0a49-40e8-a700-8032e8ff58a6"
+}
+###
 POST http://localhost:4000/service/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjI1Mjg2MmQ1LTVhYzMtNDhmZi1iYzRhLTkwZDhiMDQ2M2VhMSIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUxNjMxNjA2LCJleHAiOjE2NTE2MzUyMDZ9.yTYSb8WsncGd1uoMJ4kJevS-I2H1rEXN2Wf969Neg6Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRlYWEyZWU1LWMzNDQtNDZhMC04MDgzLWIzOTY3NjkxNzNjMyIsInVzZXJuYW1lIjoidXNlckFkbWluIiwiaWF0IjoxNjUyODkxODg1LCJleHAiOjE2NTI4OTU0ODV9.BU6g1Lyogql_g1-EEbJywI0KfYaI79dG0fPcz_Xsb5o
 
 {
     "name": "Bai bien Da Nang",
-    "description": "Bai bien Da Nang rat trong xanh va thoang mat, con gai Quang Nam, Da Nang rat xinh dep",
+    "description": "Bai bien Da Nang rat trong xanh va thoang mat",
     "price": 1000000000,
     "categoryId":"c9254aaf-f8b9-443c-baf7-cbabfddb8b26"
 }
