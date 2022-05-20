@@ -1,5 +1,5 @@
 # booking-travel-app
-Ứng dụng cung cấp dịch vụ liên quan đến du lịch, phượt,...
+Ứng dụng cung cấp dịch vụ liên quan đến du lịch, phượt, nhà trọ,...
 
 Member:
 
