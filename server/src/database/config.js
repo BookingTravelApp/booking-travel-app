@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     host: "remotemysql.com",
     // host: "localhost",
-    logging: true,
+    logging: false,
   }
 );
 
