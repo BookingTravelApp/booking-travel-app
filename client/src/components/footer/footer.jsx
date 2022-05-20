@@ -70,7 +70,7 @@ const footerRuleLinks = [
 ]
 const Footer = () => {
   return (
-    <Container maxW={"full"} bgColor={"rgba(150, 150, 150, 0.3)"} mt={"110px"} pb={"100px"}>
+    <Container maxW={"full"} bgColor={"#c1d9d74a"} mt={"110px"} pb={"100px"}>
         <Box maxW={"1200px"} px={"15px"} pt={"120px"} display="flex" flexDir={"column"} m={"auto"}>
             <Box w={"full"}>
                 <Box display="flex" justifyContent={"space-around"}>

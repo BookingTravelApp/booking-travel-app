@@ -37,7 +37,7 @@ const ButtonSrollTop = () => {
       alignItems={"center"}
       justifyContent={"center"}
       _hover={{
-        bgColor: "#0A9A73",
+        bgColor: "#006E7F",
         color: "#fff;",
       }}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

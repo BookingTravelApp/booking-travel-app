@@ -1,20 +1,19 @@
-import { Box, Container, Image, List, ListIcon, ListItem, Text, Button } from '@chakra-ui/react';
+import { Box, Container, Image, List, ListIcon, ListItem, Text, Button, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FiPhoneCall } from "react-icons/fi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
-import './style.css';
 
-import img1 from "../../assets/images/tour-img/tour-1.jpg";
-import img2 from "../../assets/images/tour-img/tour-2.jpg";
-import img3 from "../../assets/images/tour-img/tour-3.jpg";
-import img4 from "../../assets/images/tour-img/tour-4.jpg";
+import img1 from "../../assets/tour-img/tour-1.jpg";
+import img2 from "../../assets/tour-img/tour-2.jpg";
+import img3 from "../../assets/tour-img/tour-3.jpg";
+import img4 from "../../assets/tour-img/tour-4.jpg";
 
 import '../../assets/base.css'
 
 
 
 
-function Home(props) {
+function HomePage(props) {
   return (
     <Container maxW={'1200px'} px={'15px'} pt="120px">
       <Box display="flex" flexDir={"column"} textAlign={"center"} w="full" mb="20px">
@@ -184,7 +183,10 @@ function Home(props) {
           <Box py={"10px"} px={"16px"}>
             <Text color={"rgb(33, 33, 33)"} fontWeight={"500"}>Vé Cáp Treo Sun World Bà Nà Hills Đà Nẵng</Text>
             <Text color={"#e8604c"}>700,000 VND</Text>
-          </Box>
+          </Box>          
+          <Box py={'10px'} px={'16px'}  mb={'8px'}>
+              <Button color={'#006E7F'} bgColor={'#e2e8f0'} >Xem chi tiết</Button>
+          </Box>        
         </Box>
 
         <Box w={"275px"} overflow={"hidden"} rounded={"5px"} display={"flex"} 
@@ -202,6 +204,9 @@ function Home(props) {
             <Text color={"rgb(33, 33, 33)"} fontWeight={"500"}>Vé Vinpearl Safari Phú Quốc</Text>
             <Text color={"#e8604c"}>650,000 VND</Text>
           </Box>
+          <Box py={'10px'} px={'16px'}  mb={'8px'}>
+              <Button color={'#006E7F'} bgColor={'#e2e8f0'} >Xem chi tiết</Button>
+          </Box> 
         </Box>
         <Box w={"275px"} overflow={"hidden"} rounded={"5px"} display={"flex"} 
              flexDir={"column"} textAlign={"start"} border={"1px solid #888780"} 
@@ -218,6 +223,9 @@ function Home(props) {
             <Text color={"rgb(33, 33, 33)"} fontWeight={"500"}>Vé Cáp Treo Sun World Fansipan Legend</Text>
             <Text color={"#e8604c"}>715,000 VND</Text>
           </Box>
+          <Box py={'10px'} px={'16px'}  mb={'8px'}>
+              <Button color={'#006E7F'} bgColor={'#e2e8f0'} >Xem chi tiết</Button>
+          </Box> 
         </Box>
         <Box w={"275px"} overflow={"hidden"} rounded={"5px"} display={"flex"} 
              flexDir={"column"} textAlign={"start"} border={"1px solid #888780"} 
@@ -234,6 +242,9 @@ function Home(props) {
             <Text color={"rgb(33, 33, 33)"} fontWeight={"500"}>Vé Công Viên Suối Khoáng Nóng Núi Thần Tài Đà Nẵng</Text>
             <Text color={"#e8604c"}>260,000 VND</Text>
           </Box>
+          <Box py={'10px'} px={'16px'}  mb={'8px'}>
+              <Button color={'#006E7F'} bgColor={'#e2e8f0'} >Xem chi tiết</Button>
+          </Box> 
         </Box>
         
       </Box>
@@ -243,4 +254,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default HomePage;

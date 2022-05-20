@@ -10,3 +10,9 @@
     font-family: 'Reey-Regular', serif;
     font-size: 32px;
   }
+
+  :root {
+    --primary-color: #006E7F;
+    --button-color: #00c2cb;
+    --text-color: #1a202c;
+  }

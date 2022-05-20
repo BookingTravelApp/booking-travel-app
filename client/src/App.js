@@ -1,35 +1,38 @@
 import React from 'react';
-import Header from './components/header/header.jsx';
-import Footer from './components/footer/footer.jsx';
+import {
+  Box,
+} from '@chakra-ui/react';
 
-import { Routes, Route } from 'react-router-dom';
-import { Box } from '@chakra-ui/react';
+import Header from './components/header/header.jsx'
+import Footer from '../src/components/footer/footer.jsx'
+import ButtonSrollTop from '../src/components/button-scroll-top.jsx';
 
-import Home from './features/home/index';
-import Tour from './features/tour-list/index';
-import TourDetail from './features/tour-detail/index';
-import ButtonSrollTop from './components/button-scroll-top.jsx';
-
+import HomePage from './features/home/homepage.jsx';
+import TourList from './features/tourlist/index.jsx';
+import User from './features/profile/user.jsx';
+import { Route, Routes } from 'react-router-dom';
+import TourDetail from './features/tourdetail/tourdetail.jsx';
 
 function App() {
-  
   return (
     <Box>
-      <ButtonSrollTop />
-      <Header />
+      <ButtonSrollTop/>
+      <Header/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" exact element={<HomePage />} />
       </Routes>
       <Routes>
-        <Route path="/tour" element={<Tour />} />
+        <Route path="/tourList" exact element={<TourList />} />
       </Routes>
       <Routes>
-        <Route path="/tourDetail" element={<TourDetail/>} />
+        <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
       </Routes>
-      <Footer />
+      <Routes>
+        <Route path="/user" exact element={<User/>} />
+      </Routes>
+      <Footer/>
     </Box>
   );
 }
-
 
 export default App;
