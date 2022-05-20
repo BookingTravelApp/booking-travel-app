@@ -1,0 +1,12 @@
+#form-parent {
+  width: 500px;
+  margin: 0 auto;
+}
+#form-parent h1 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+#customCheck1 {
+  min-width: 30px !important;
+}
