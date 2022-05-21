@@ -1,29 +1,8 @@
-/* #form-parent {
-  width: 500px;
-  margin: 0 auto;
-}
-#form-parent h1 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-}*/
 #customCheck1 {
   min-width: 30px !important;
 }
 * {
   box-sizing: border-box;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-label,
-span {
-  font-weight: 500;
-  font-family: 'Fira Sans', sans-serif;
 }
 
 .auth-inner {
