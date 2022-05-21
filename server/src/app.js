@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors");
+
 require("dotenv").config();
 require("./model");
 global.__basedir = __dirname;
@@ -28,6 +30,8 @@ app.use("/category", categoryRouter);
 app.use("/tag", tagRouter);
 app.use("/user", userRouter);
 app.use("/resource", resourceRouter);
+
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);
