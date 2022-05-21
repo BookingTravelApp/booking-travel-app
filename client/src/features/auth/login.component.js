@@ -1,19 +1,41 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Login(props) {
+  const { loginUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const [loginForm, setLoginForm] = useState({
     username: '',
     password: '',
   });
+
   const { username, password } = loginForm;
   const onchangeLoginForm = event =>
     setLoginForm({ ...loginForm, [event.target.name]: event.target.value });
+
+  const login = async event => {
+    try {
+      event.preventDefault();
+      const loginData = await loginUser(loginForm);
+      if (loginData.success) {
+        navigate('/');
+      } else {
+      }
+      console.log(loginData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="auth-inner">
       <h3>Sign In</h3>
-      <form>
+      <form onSubmit={login}>
         <div className="mb-3">
           <label>Username</label>
           <input
