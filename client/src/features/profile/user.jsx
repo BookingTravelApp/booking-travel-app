@@ -24,11 +24,11 @@ const User = () => {
                         <Text fontWeight={'600'} fontSize={'20px'} mb={'14px'} color={'#006E7F'}>Profile</Text>
                         <Box >
                             <Text>Name</Text>
-                            <input value={'Phương Trâm'}></input>
+                            <input  className = {'inputUser'} value={'Phương Trâm'}></input>
                         </Box>
                         <Box >
                             <Text>Phone number</Text>
-                            <input value={'102190385'}></input>
+                            <input  className = {'inputUser'} value={'102190385'}></input>
                         </Box>
                         <Box >
                             <Text>Gender</Text>
@@ -41,7 +41,7 @@ const User = () => {
                         </Box>
                         <Box >
                             <Text>Date Of Birth</Text>
-                            <input type={'date'} value={'now'}></input>
+                            <input  className = {'inputUser'} type={'date'} value={'now'}></input>
                         </Box>
                         <button className='buttonChange'>Change</button>
                         <button className='buttonCancel'type={'button'}>Cancel</button>
@@ -50,11 +50,11 @@ const User = () => {
                     <Box border={'1px solid #666'} px={'30px'} py={'20px'} w={'36%'}>
                         <Text fontWeight={'600'} fontSize={'20px'} mb={'14px'}  color={'#006E7F'}>Edit Password</Text>
                         <Text>Enter Old Password</Text>
-                        <input type='password'></input>
+                        <input  className = {'inputUser'} type='password'></input>
                         <Text >Enter New Password</Text>
-                        <input type='password'></input>
+                        <input  className = {'inputUser'} type='password'></input>
                         <Text>Enter New Password</Text>
-                        <input type='password'></input>
+                        <input  className = {'inputUser'} type='password'></input>
                         <button className='buttonChange'>Change</button>
                     </Box> 
                 </Box>
