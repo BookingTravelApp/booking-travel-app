@@ -59,3 +59,6 @@
   margin: auto;
   min-width: 10px !important;
 }
+.auth-inner .mb-3 label {
+  font-weight: bold;
+}

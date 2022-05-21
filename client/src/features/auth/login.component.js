@@ -28,14 +28,14 @@ export default class Login extends Component {
 
           <div className="mb-3">
             <div className="custom-control custom-checkbox">
-              <label className="custom-control-label" htmlFor="customCheck1">
-                Remember me
-              </label>
               <input
                 type="checkbox"
                 className="custom-control-input"
                 id="customCheck1"
               />
+              <label className="custom-control-label" htmlFor="customCheck1">
+                Remember me
+              </label>
             </div>
           </div>
 
@@ -46,6 +46,10 @@ export default class Login extends Component {
           </div>
           <p className="forgot-password text-right">
             <a href="forget-pasword">Forgot password?</a>
+          </p>
+          <hr width="100%" align="center" />
+          <p className="forgot-password text-right">
+            Not a member? <a href="sign-up">Sign up now</a>
           </p>
         </form>
       </div>
