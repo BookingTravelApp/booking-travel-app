@@ -16,7 +16,10 @@ module.exports = {
   },
   show: async (req, res) => {
     try {
-      const user = await User.findOne({ where: { slug: req.params.slug } });
+      const user = await User.findOne({
+        where: { slug: req.params.slug },
+        attributes: { exclude: ["id", "accountId"] },
+      });
       res.json({ success: true, user });
     } catch (error) {
       console.log(error);

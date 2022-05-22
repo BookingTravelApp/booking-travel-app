@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./src/app.js",
-    "lint": "eslint --fix src"
+    "lint": "eslint --fix src",
+    "dev": "nodemon ./src/app.js"
   },
   "dependencies": {
     "argon2": "^0.28.5",
