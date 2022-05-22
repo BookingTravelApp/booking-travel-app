@@ -1,7 +1,11 @@
 import { createContext, useReducer } from 'react';
 import axios from 'axios';
 import { authReducers } from '../reduces/authReduce';
-import { apiUrl, localStorageTokenName } from './constants';
+import {
+  apiUrl,
+  localStorageAccessTokenName,
+  localStorageRefreshTokenName,
+} from './constants';
 
 export const AuthContext = createContext();
 
@@ -17,8 +21,12 @@ const AuthContextProvider = ({ children }) => {
       const response = await axios.post(`${apiUrl}/login`, userForm);
       if (response.data.success) {
         localStorage.setItem(
-          localStorageTokenName,
-          response.data.accessToken.accessToken
+          localStorageAccessTokenName,
+          response.data.accessToken
+        );
+        localStorage.setItem(
+          localStorageRefreshTokenName,
+          response.data.refeshToken
         );
       }
       return response.data;
