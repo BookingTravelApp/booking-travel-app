@@ -100,7 +100,7 @@ module.exports = {
       }
 
       //return token
-      accessToken = generateToken({
+      token = generateToken({
         id: newAccount.getDataValue("id"),
         username: username,
       });
@@ -120,7 +120,7 @@ module.exports = {
       return res.json({
         success: true,
         message: "User created successfully",
-        token: accessToken,
+        token,
       });
     } catch (error) {
       console.log(error);
@@ -162,11 +162,11 @@ module.exports = {
       }
 
       const userId = user.getDataValue("id");
-      const accessToken = generateToken({ id: userId, username: username });
+      const token = generateToken({ id: userId, username: username });
       return res.json({
         success: true,
         message: "Login successful",
-        accessToken,
+        token,
       });
     } catch (error) {
       console.log(error);
