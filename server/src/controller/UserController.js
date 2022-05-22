@@ -28,6 +28,22 @@ module.exports = {
         .json({ success: false, message: "Internal server error" });
     }
   },
+  showMyUser: async (req, res) => {
+    try {
+      const user = await User.findOne({
+        where: { accountId: req.userId },
+        attributes: { exclude: ["id", "accountId"] },
+      });
+      if (!user)
+        res.status(404).json({ success: false, message: "User not found" });
+      res.json({ success: true, user });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
   update: async (req, res) => {
     const { name, phone_number, gender, date_of_birth, active, avatar_path } =
       req.body;

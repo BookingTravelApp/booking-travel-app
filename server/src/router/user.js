@@ -8,6 +8,8 @@ router.get("/", [verifyToken, role.employee], UserController.index);
 
 router.get("/get-user/:slug", UserController.show);
 
+router.get("/get-user", verifyToken, UserController.showMyUser);
+
 router.put("/", verifyToken, UserController.update);
 
 //@Relationship
