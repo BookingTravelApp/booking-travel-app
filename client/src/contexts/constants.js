@@ -1,4 +1,4 @@
-export const apiUrl = 'https://tranquil-shore-96391.herokuapp.com';
+export const API_URL = 'https://tranquil-shore-96391.herokuapp.com';
 
-export const localStorageAccessTokenName = 'access-token';
-export const localStorageRefreshTokenName = 'refresh-token';
+export const LOCAL_STORAGE_ACCESS_TOKEN_NAME = 'access-token';
+export const LOCAL_STORAGE_REFRESH_TOKEN_NAME = 'refresh-token';

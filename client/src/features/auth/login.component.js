@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthContext } from '../../contexts/AuthContext';
+import { Redirect } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
 
 function Login(props) {
   const { loginUser } = useContext(AuthContext);
