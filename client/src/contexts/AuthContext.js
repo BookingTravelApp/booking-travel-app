@@ -23,6 +23,7 @@ const AuthContextProvider = ({ children }) => {
     }
     try {
       const response = await axios.get(`${API_URL}/user/get-user`);
+      console.log(response.data);
       if (response.data.success) {
         dispatch({
           type: 'SET_AUTH',
@@ -31,6 +32,7 @@ const AuthContextProvider = ({ children }) => {
       }
     } catch (error) {
       localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_NAME);
+      localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN_NAME);
       setAuthToken(null);
       dispatch({
         type: 'SET_AUTH',
