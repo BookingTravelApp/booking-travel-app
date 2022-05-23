@@ -3,6 +3,7 @@ import { Box } from '@chakra-ui/react';
 import ForgetPassword from './components/forgetpass.component';
 import SignUp from './components/signup.component';
 import Login from './components/login.component.js';
+import Logout from './components/logout.component.js';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
@@ -18,8 +19,15 @@ function Auth({ authRoute }) {
         <Spinner animation="border" variant="info" />
       </div>
     );
-  } else if (isAuthenticated) return <Navigate to="/home" />;
-  else
+  } else if (isAuthenticated) {
+    if (authRoute === 'logout')
+      body = (
+        <>
+          <Logout />
+        </>
+      );
+    else return <Navigate to="/home" />;
+  } else
     body = (
       <>
         {authRoute === 'login' && <Login />}

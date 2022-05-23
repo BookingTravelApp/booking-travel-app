@@ -37,6 +37,9 @@ function App() {
           />
         </Routes>
         <Routes>
+          <Route path="/logout" exact element={<Auth authRoute="logout" />} />
+        </Routes>
+        <Routes>
           <Route path="/" exact element={<HomePage />} />
         </Routes>
         <Routes>

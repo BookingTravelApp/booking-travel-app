@@ -26,7 +26,6 @@ function Login(props) {
         navigate('/');
       } else {
       }
-      console.log(loginData);
     } catch (error) {
       console.log(error);
     }

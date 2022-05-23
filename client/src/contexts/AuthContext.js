@@ -20,7 +20,6 @@ const AuthContextProvider = ({ children }) => {
   const loadUser = async () => {
     if (localStorage[LOCAL_STORAGE_ACCESS_TOKEN_NAME]) {
       setAuthToken(localStorage[LOCAL_STORAGE_ACCESS_TOKEN_NAME]);
-      console.log('hello');
     }
     try {
       const response = await axios.get(`${API_URL}/user/get-user`);
@@ -64,8 +63,27 @@ const AuthContextProvider = ({ children }) => {
       else return { success: false, message: error.message };
     }
   };
+  //logout
+  const logoutUser = async () => {
+    try {
+      if (localStorage[LOCAL_STORAGE_ACCESS_TOKEN_NAME]) {
+        localStorage.clear();
+        setAuthToken(null);
+        dispatch({
+          type: 'SET_AUTH',
+          payload: {
+            isAuthenticated: false,
+            user: null,
+          },
+        });
+      }
+      return { success: true, message: 'Logged out' };
+    } catch (error) {
+      if (error) return error;
+    }
+  };
 
-  const authContextData = { loginUser, authState };
+  const authContextData = { loginUser, authState, logoutUser };
 
   return (
     <AuthContext.Provider value={authContextData}>

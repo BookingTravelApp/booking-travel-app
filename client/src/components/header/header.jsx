@@ -230,6 +230,20 @@ const Header = () => {
                           </Text>
                         </Box>
                       </Link>
+                      <Link
+                        to="/logout"
+                        onClick={() => window.location.reload()}
+                      >
+                        <Box px={'15px'} py={'7px'}>
+                          <Text
+                            _hover={{
+                              color: '#00c2cb',
+                            }}
+                          >
+                            Logout
+                          </Text>
+                        </Box>
+                      </Link>
                     </Box>
                     <FaRegUser size={20} />
                   </Box>
