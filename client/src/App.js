@@ -10,10 +10,8 @@ import TourList from './features/tourlist/index.jsx';
 import User from './features/profile/user.jsx';
 import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
-import ForgetPassword from './features/auth/forgetpass.component';
-import SignUp from './features/auth/signup.component';
-import Login from './features/auth/login.component.js';
 import AuthContextProvider from './contexts/AuthContext.js';
+import Auth from './features/auth/auth';
 
 function App() {
   return (
@@ -22,16 +20,27 @@ function App() {
         <ButtonSrollTop />
         <Header />
         <Routes>
+          <Route path="/sign-in" exact element={<Auth authRoute="login" />} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/sign-up"
+            exact
+            element={<Auth authRoute="register" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/forget-password"
+            exact
+            element={<Auth authRoute="forget-password" />}
+          />
+        </Routes>
+        <Routes>
           <Route path="/" exact element={<HomePage />} />
         </Routes>
         <Routes>
-          <Route path="/sign-in" exact element={<Login />} />
-        </Routes>
-        <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
-        </Routes>
-        <Routes>
-          <Route path="/forget-pasword" element={<ForgetPassword />} />
+          <Route path="/home" exact element={<HomePage />} />
         </Routes>
         <Routes>
           <Route path="/tourList" exact element={<TourList />} />

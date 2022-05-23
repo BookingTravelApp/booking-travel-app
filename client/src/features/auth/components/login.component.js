@@ -1,10 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './style.css';
+import '../style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AuthContext } from '../../contexts/AuthContext';
-import { Redirect } from 'react-router-dom';
-import Spinner from 'react-bootstrap/Spinner';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 function Login(props) {
   const { loginUser } = useContext(AuthContext);
@@ -83,7 +81,7 @@ function Login(props) {
           </button>
         </div>
         <p className="forgot-password text-right">
-          <a href="forget-pasword">Forgot password?</a>
+          <a href="forget-password">Forgot password?</a>
         </p>
         <br />
         <hr width="100%" align="center" />

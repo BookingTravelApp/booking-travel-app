@@ -1,0 +1,34 @@
+import React, { useContext } from 'react';
+import { Box } from '@chakra-ui/react';
+import ForgetPassword from './components/forgetpass.component';
+import SignUp from './components/signup.component';
+import Login from './components/login.component.js';
+import { AuthContext } from '../../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
+
+function Auth({ authRoute }) {
+  const {
+    authState: { authLoading, isAuthenticated },
+  } = useContext(AuthContext);
+  let body;
+  if (authLoading) {
+    body = (
+      <div className="d-flex justify-content-center mt-2">
+        <Spinner animation="border" variant="info" />
+      </div>
+    );
+  } else if (isAuthenticated) return <Navigate to="/home" />;
+  else
+    body = (
+      <>
+        {authRoute === 'login' && <Login />}
+        {authRoute === 'register' && <SignUp />}
+        {authRoute === 'forget-password' && <ForgetPassword />}
+      </>
+    );
+
+  return <Box>{body}</Box>;
+}
+
+export default Auth;
