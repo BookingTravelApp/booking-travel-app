@@ -176,17 +176,4 @@ module.exports = {
       });
     }
   },
-  //@Logout
-  logout: async (req, res) => {
-    const authHeader = req.header("Authorization");
-    const token = authHeader && authHeader.split(" ")[1];
-    try {
-      const destroyToken = await jwt.destroy(token);
-      return res.json({ success: true, message: "Logout success" });
-    } catch (error) {
-      return res
-        .status(500)
-        .json({ success: true, message: "Internal server error" });
-    }
-  },
 };

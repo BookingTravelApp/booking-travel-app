@@ -15,8 +15,4 @@ router.post("/register", validator.register(), AuthController.create);
 // @access public
 router.post("/login", AuthController.login);
 
-// @router POST /login
-// @access public
-router.post("/logout", verifyToken, AuthController.logout);
-
 module.exports = router;
