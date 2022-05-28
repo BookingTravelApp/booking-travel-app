@@ -10,38 +10,53 @@ import TourList from './features/tourlist/index.jsx';
 import User from './features/profile/user.jsx';
 import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
-import ForgetPassword from './features/auth/forgetpass.component';
-import SignUp from './features/auth/signup.component';
-import Login from './features/auth/login.component.js';
+import AuthContextProvider from './contexts/AuthContext.js';
+import Auth from './features/auth/auth';
 
 function App() {
   return (
-    <Box>
-      <ButtonSrollTop />
-      <Header />
-      <Routes>
-        <Route path="/" exact element={<HomePage />} />
-      </Routes>
-      <Routes>
-        <Route path="/sign-in" exact element={<Login />} />
-      </Routes>
-      <Routes>
-        <Route path="/sign-up" element={<SignUp />} />
-      </Routes>
-      <Routes>
-        <Route path="/forget-pasword" element={<ForgetPassword />} />
-      </Routes>
-      <Routes>
-        <Route path="/tourList" exact element={<TourList />} />
-      </Routes>
-      <Routes>
-        <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
-      </Routes>
-      <Routes>
-        <Route path="/user" exact element={<User />} />
-      </Routes>
-      <Footer />
-    </Box>
+    <AuthContextProvider>
+      <Box>
+        <ButtonSrollTop />
+        <Header />
+        <Routes>
+          <Route path="/sign-in" exact element={<Auth authRoute="login" />} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/sign-up"
+            exact
+            element={<Auth authRoute="register" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/forget-password"
+            exact
+            element={<Auth authRoute="forget-password" />}
+          />
+        </Routes>
+        <Routes>
+          <Route path="/logout" exact element={<Auth authRoute="logout" />} />
+        </Routes>
+        <Routes>
+          <Route path="/" exact element={<HomePage />} />
+        </Routes>
+        <Routes>
+          <Route path="/home" exact element={<HomePage />} />
+        </Routes>
+        <Routes>
+          <Route path="/tourList" exact element={<TourList />} />
+        </Routes>
+        <Routes>
+          <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
+        </Routes>
+        <Routes>
+          <Route path="/user" exact element={<User />} />
+        </Routes>
+        <Footer />
+      </Box>
+    </AuthContextProvider>
   );
 }
 

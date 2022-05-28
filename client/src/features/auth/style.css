@@ -46,6 +46,9 @@
   color: #7f7d7d;
   margin: 0;
 }
+.panel-body * {
+  margin-bottom: 5px;
+}
 
 .forgot-password a {
   color: #167bff;
