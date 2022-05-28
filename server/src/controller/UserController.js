@@ -1,4 +1,11 @@
-const { User, Cart, Service } = require("../model");
+const {
+  User,
+  Cart,
+  Service,
+  Role,
+  Account,
+  RoleAccounts,
+} = require("../model");
 
 module.exports = {
   index: async (req, res) => {
@@ -37,6 +44,66 @@ module.exports = {
       if (!user)
         res.status(404).json({ success: false, message: "User not found" });
       res.json({ success: true, user });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+  showStaffUser: async (req, res) => {
+    try {
+      const listUser = await User.findAll({
+        attributes: {
+          exclude: ["accountId"],
+        },
+        include: {
+          model: Account,
+          attributes: [],
+          include: {
+            model: RoleAccounts,
+            attributes: [],
+            include: {
+              model: Role,
+              attributes: [],
+            },
+          },
+        },
+        where: { "$account.role_accounts.role.name$": "employee" },
+      });
+      if (!listUser)
+        res.status(404).json({ success: false, message: "User not found" });
+      res.json({ success: true, listUser });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+  showBasicUser: async (req, res) => {
+    try {
+      const listUser = await User.findAll({
+        attributes: {
+          exclude: ["accountId"],
+        },
+        include: {
+          model: Account,
+          attributes: [],
+          include: {
+            model: RoleAccounts,
+            attributes: [],
+            include: {
+              model: Role,
+              attributes: [],
+            },
+          },
+        },
+        where: { "$account.role_accounts.role.name$": "user" },
+      });
+      if (!listUser)
+        res.status(404).json({ success: false, message: "User not found" });
+      res.json({ success: true, listUser });
     } catch (error) {
       console.log(error);
       res

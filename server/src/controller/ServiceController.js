@@ -16,9 +16,78 @@ module.exports = {
       const service = await Service.findOne({
         where: { slug: req.params.slug },
       });
-      res.json({ success: true, service });
+      return res.json({ success: true, service });
     } catch (error) {
-      res.json({ success: false, message: "Internal server error" });
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showTourList: async (req, res) => {
+    try {
+      const tourList = await Service.findAll({
+        where: { "$category.name$": "tour" },
+        include: {
+          model: Category,
+          attributes: [],
+        },
+      });
+      if (!tourList)
+        return res.json({ success: false, message: "Tour not found" });
+      return res.json({ success: true, tourList });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showHotelBookingList: async (req, res) => {
+    try {
+      const hotelBookingList = await Service.findAll({
+        where: { "$category.name$": "hotel" },
+        include: {
+          model: Category,
+          attributes: [],
+        },
+      });
+      if (!hotelBookingList)
+        return res.json({ success: false, message: "Hotel not found" });
+      return res.json({ success: true, hotelBookingList });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showPlaneList: async (req, res) => {
+    try {
+      const planeList = await Service.findAll({
+        where: { "$category.name$": "plane" },
+        include: {
+          model: Category,
+          attributes: [],
+        },
+      });
+      if (!planeList)
+        return res.json({ success: false, message: "Plane not found" });
+      return res.json({ success: true, planeList });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showCarRentalList: async (req, res) => {
+    try {
+      const carRentalList = await Service.findAll({
+        where: { "$category.name$": "car-rental" },
+        include: {
+          model: Category,
+          attributes: [],
+        },
+      });
+      if (!carRentalList)
+        return res.json({ success: false, message: "Car renter not found" });
+      return res.json({ success: true, carRentalList });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
     }
   },
   create: async (req, res) => {

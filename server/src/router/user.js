@@ -10,6 +10,18 @@ router.get("/get-user/:slug", UserController.show);
 
 router.get("/get-user", verifyToken, UserController.showMyUser);
 
+router.get(
+  "/get-employee",
+  //   [verifyToken, role.admin],
+  UserController.showStaffUser
+);
+
+router.get(
+  "/get-basic-user",
+  [verifyToken, role.admin],
+  UserController.showBasicUser
+);
+
 router.put("/", verifyToken, UserController.update);
 
 //@Relationship
