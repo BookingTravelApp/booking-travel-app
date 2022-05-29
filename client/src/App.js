@@ -12,6 +12,7 @@ import TourList from './features/tourlist/index.jsx';
 import User from './features/profile/user.jsx';
 import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
+import CartItem from './features/cart/cartitem.jsx';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
       </Routes>
       <Routes>
         <Route path="/user" exact element={<User/>} />
+      </Routes>
+      <Routes>
+        <Route path="/cartitem"  element={<CartItem/>}></Route>
       </Routes>
       <Footer/>
     </Box>

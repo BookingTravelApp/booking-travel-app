@@ -70,36 +70,36 @@ const footerRuleLinks = [
 ]
 const Footer = () => {
   return (
-    <Container maxW={"full"} bgColor={"#c1d9d74a"} mt={"110px"} pb={"100px"}>
+    <Container maxW={"full"} bgColor={"var(--background-color)"} mt={"110px"} pb={"100px"}>
         <Box maxW={"1200px"} px={"15px"} pt={"120px"} display="flex" flexDir={"column"} m={"auto"}>
             <Box w={"full"}>
                 <Box display="flex" justifyContent={"space-around"}>
                     <Box w={"25%"}>
-                        <Text fontWeight={"700"} fontSize={"20px"}>CONTACT</Text>
+                        <Text fontWeight={"700"} fontSize={"20px"} color={"var(--text-color)"}>CONTACT</Text>
                     
                         <List spacing={4} mt={"20px"}>
                             <ListItem cursor={"pointer"} _hover={{
-                                color: "#e8604c"                                
+                                color: "var(--primary-color)"                                
                             }}>
-                                <ListIcon as={ImPhone} color='#e8604c' />
+                                <ListIcon as={ImPhone} color='var(--primary-color)' />
                                 + 92 666 999 0000
                             </ListItem>
                             <ListItem cursor={"pointer"} _hover={{
-                                color: "#e8604c"
+                                color: "var(--primary-color)"
                             }} >
-                                <ListIcon  as={IoMdMail} color='#e8604c' />
+                                <ListIcon  as={IoMdMail} color='var(--primary-color)' />
                                 Klook@gmail.com
                             </ListItem>
                             <ListItem cursor={"pointer"} _hover={{
-                                color: "#e8604c"
+                                color: "var(--primary-color)"
                             }} >
-                                <ListIcon  as={AiFillHome} color='#e8604c' />
+                                <ListIcon  as={AiFillHome} color='var(--primary-color)' />
                                 63 Nguyễn Lương Bằng, Đà Nẵng.
                             </ListItem>                                
                         </List>
                     </Box>
                     <Box w={"25%"}>
-                        <Text fontWeight={"700"} fontSize={"20px"}>VỀ KLOOK</Text>
+                        <Text fontWeight={"700"} fontSize={"20px"} color={"var(--text-color)"}>VỀ KLOOK</Text>
                     
                         <List spacing={4} mt={"20px"}>
                             {footerAboutLinks.map((item, index) => (
@@ -108,7 +108,7 @@ const Footer = () => {
                         </List>
                     </Box>  
                     <Box w={"25%"}>
-                        <Text fontWeight={"700"} fontSize={"20px"}>ĐỐI TÁC</Text>
+                        <Text fontWeight={"700"} fontSize={"20px"} color={"var(--text-color)"}>ĐỐI TÁC</Text>
                     
                         <List spacing={4} mt={"20px"}>
                             {footerCustomerLinks.map((item, index) => (
@@ -117,7 +117,7 @@ const Footer = () => {
                         </List>
                     </Box>                  
                     <Box w={"25%"}>
-                        <Text fontWeight={"700"} fontSize={"20px"}>ĐIỀU KHOẢN SỬ DỤNG</Text>
+                        <Text fontWeight={"700"} fontSize={"20px"} color={"var(--text-color)"}>ĐIỀU KHOẢN SỬ DỤNG</Text>
                     
                         <List spacing={4} mt={"20px"}>
                             {footerRuleLinks.map((item, index) => (

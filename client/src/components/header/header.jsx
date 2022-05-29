@@ -19,6 +19,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { FaRegUser } from 'react-icons/fa';
 
 
+
 // const MenuBar = ['Tour', 'Contact', 'About'];
 
 const MenuBar = [
@@ -43,7 +44,7 @@ const Header = () => {
     const [optionUser, setOptionUser] = useState(false);
 
     const ScrollShowMenu = () => {
-        window.scrollY >= 170 ? setShowMenu(true) : setShowMenu(false);
+        window.scrollY >= 70 ? setShowMenu(true) : setShowMenu(false);
       };
 
     useEffect(() => {
@@ -61,11 +62,11 @@ const Header = () => {
                 h={'170px'}
             >
                 <Box
-                    py={showMenu ? '0px' : '22px'}
+                    py={showMenu ? '0px' : '12px'}
                     w={'full'}
                     display={'flex'}
                     justifyContent={'center'}
-                    bgColor={showMenu ? "white" : "#006E7F"}
+                    bgColor={showMenu ? "white" : "var(--primary-color)"}
                     position={showMenu ? 'fixed' :  'unset'}
                     top={showMenu ? '0px' : '-84px'}
                     boxShadow={showMenu ? '0 10px 50px 0 rgb(46 56 220 / 20%)' : 'unset'}    
@@ -180,7 +181,7 @@ const Header = () => {
                                         justifyContent={'center'}
                                         _hover={{
                                         color: 'white',
-                                        backgroundColor: '#00c2cb',
+                                        backgroundColor: 'var(--hover-color)',
                                         }}
                                         onClick={() => setOptionUser(!optionUser)}
                                     >
@@ -191,7 +192,7 @@ const Header = () => {
                                         py={'10px'}
                                         bg={'white'}
                                         boxShadow={'sm'}
-                                        fontSize={'16px'}
+                                        fontSize={'12px'}                            
                                         color={'#5C727D'}
                                         top={optionUser ? '102%' : "115%"}
                                         // transition={'all 0.5s ease'}
@@ -201,8 +202,11 @@ const Header = () => {
                                         >
                                         <Box px={'15px'} py={'7px'} >
                                             <Text
+                                            color={"var(--text-color)"}
+                                            fontSize={"18px"}
+                                            fontWeight={"light"}                                        
                                             _hover={{
-                                                color: '#00c2cb',
+                                                color: 'var(--hover-color)',
                                             }}
                                             >
                                             Sign in
@@ -210,8 +214,11 @@ const Header = () => {
                                         </Box>
                                         <Box px={'15px'} py={'7px'} >
                                             <Text
+                                            color={"var(--text-color)"}
+                                            fontSize={"18px"}        
+                                            fontWeight={"light"}                                   
                                             _hover={{
-                                                color: '#00c2cb',
+                                                color: 'var(--hover-color)',
                                             }}
                                             >
                                             Register
@@ -220,8 +227,11 @@ const Header = () => {
                                         <Link to="/user">
                                             <Box px={'15px'} py={'7px'} >
                                                 <Text
+                                                color={"var(--text-color)"}
+                                                fontSize={"18px"}   
+                                                fontWeight={"light"}                                        
                                                 _hover={{
-                                                    color: '#00c2cb',
+                                                    color: 'var(--hover-color)',
                                                 }}
                                                 >
                                                 My Account
@@ -245,7 +255,7 @@ const Header = () => {
                                     justifyContent={'center'}
                                     _hover={{
                                     color: 'white',
-                                    backgroundColor: '#00c2cb',
+                                    backgroundColor: 'var(--hover-color)',
                                     }}
                                     >
                                         <AiOutlineShoppingCart size={23} />
