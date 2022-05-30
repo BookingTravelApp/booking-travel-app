@@ -152,8 +152,19 @@ module.exports = {
     }
   },
   createCart: async (req, res) => {
-    const { amount, serviceId } = req.body;
+    const { amount, serviceId, numberOfPeople, numberOfChild } = req.body;
     try {
+      if (
+        !numberOfChild ||
+        !numberOfPeople ||
+        numberOfChild < 0 ||
+        numberOfPeople <= 0 ||
+        numberOfPeople < numberOfChild
+      )
+        return res.json({
+          success: false,
+          message: "Incorrect number of people",
+        });
       const user = await User.findOne({ where: { accountId: req.userId } });
       if (!user)
         return res
@@ -174,6 +185,8 @@ module.exports = {
           amount,
           serviceId,
           userId: user.id,
+          numberOfChild: numberOfChild || 0,
+          numberOfPeople: numberOfPeople || 0,
         });
         await newCart.save();
       } else {
