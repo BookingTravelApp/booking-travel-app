@@ -12,12 +12,16 @@ import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
 import AuthContextProvider from './contexts/AuthContext.js';
 import Auth from './features/auth/auth';
+import Admin from './features/admin/Admin';
 
 function App() {
   return (
     <AuthContextProvider>
       <Box>
         <ButtonSrollTop />
+        <Routes>
+          <Route path="/admin" exact element={<Admin />} />
+        </Routes>
         <Header />
         <Routes>
           <Route path="/sign-in" exact element={<Auth authRoute="login" />} />
