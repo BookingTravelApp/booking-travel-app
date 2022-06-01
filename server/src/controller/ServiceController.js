@@ -1,6 +1,7 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const { Service, Rate, User, Category } = require("../model");
+const Image = require("../model/Image");
 
 module.exports = {
   index: async (req, res) => {
@@ -26,10 +27,7 @@ module.exports = {
     try {
       const tourList = await Service.findAll({
         where: { "$category.name$": "tour" },
-        include: {
-          model: Category,
-          attributes: [],
-        },
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!tourList)
         return res.json({ success: false, message: "Tour not found" });
@@ -43,10 +41,7 @@ module.exports = {
     try {
       const hotelBookingList = await Service.findAll({
         where: { "$category.name$": "hotel" },
-        include: {
-          model: Category,
-          attributes: [],
-        },
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!hotelBookingList)
         return res.json({ success: false, message: "Hotel not found" });
@@ -60,10 +55,7 @@ module.exports = {
     try {
       const planeList = await Service.findAll({
         where: { "$category.name$": "plane" },
-        include: {
-          model: Category,
-          attributes: [],
-        },
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!planeList)
         return res.json({ success: false, message: "Plane not found" });
@@ -77,10 +69,7 @@ module.exports = {
     try {
       const carRentalList = await Service.findAll({
         where: { "$category.name$": "car-rental" },
-        include: {
-          model: Category,
-          attributes: [],
-        },
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!carRentalList)
         return res.json({ success: false, message: "Car renter not found" });
