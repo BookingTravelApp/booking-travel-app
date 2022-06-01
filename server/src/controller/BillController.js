@@ -27,8 +27,26 @@ module.exports = {
   },
   show: async (req, res) => {
     try {
+      const userAccount = await Account.findOne({
+        include: [
+          { model: User },
+          { model: RoleAccounts, include: { model: Role } },
+        ],
+        where: { id: req.userId },
+      });
+      var checkCondition = true;
+      if (userAccount.user.id != bill.userId) {
+        checkCondition = false;
+        userAccount.RoleAccounts.forEach((item) => {
+          if (item.role.name == "employee" || item.role.name == "admin") {
+            checkCondition = true;
+          }
+        });
+      }
+      if (!checkCondition)
+        return res.json({ success: false, message: "Bill not found" });
       const bill = await Bill.findOne({
-        where: { id: req.params.id, "$user.accountId": req.userId },
+        where: { id: req.params.id },
         include: {
           model: User,
           attributes: [],
@@ -74,19 +92,28 @@ module.exports = {
         return res
           .status(404)
           .json({ success: false, message: "No user found" });
-      let checkService,
+      let checkCart,
+        checkService,
         newBillDetail,
         newBillDetailArray = [],
         newBill;
       var checkStatus = true;
-      listCartId.forEach(async (element) => {
+      for (var i = 0; i < listCartId.length; i++) {
+        checkCart = await Cart.findOne({
+          where: { id: listCartId[i], userId: account.user.id },
+        });
+        if (!checkCart) {
+          checkStatus = false;
+          break;
+        }
         checkService = await Service.findOne({
-          where: { id: element },
+          where: { id: checkCart.serviceId },
         });
         if (!checkService) {
           checkStatus = false;
+          break;
         }
-      });
+      }
       if (!checkStatus)
         return res.json({ success: false, message: "Service doesn't exist" });
       const listCart = await Cart.findAll({ where: { id: listCartId } });
@@ -157,17 +184,17 @@ module.exports = {
         return res.json({ success: false, message: "Bill id not found" });
       const bill = await Bill.findOne({ where: { id: billId } });
       if (!bill) return res.json({ success: false, message: "Bill not found" });
-      userAccount = await Account.findOne({
+      const userAccount = await Account.findOne({
         include: [
           { model: User },
           { model: RoleAccounts, include: { model: Role } },
         ],
-        where: { id: req.id },
+        where: { id: req.userId },
       });
       var checkCondition = true;
-      if (userAccount.user != bill.userId) {
+      if (userAccount.user.id != bill.userId) {
         checkCondition = false;
-        userAccount.RoleAccounts.forEach((item) => {
+        userAccount.role_accounts.forEach((item) => {
           if (item.role.name == "employee" || item.role.name == "admin") {
             checkCondition = true;
           }
@@ -201,7 +228,7 @@ module.exports = {
       if (!bill) return res.json({ success: false, message: "Bill not found" });
       userAccount = await Account.findOne({
         include: [{ model: User }],
-        where: { id: req.id },
+        where: { id: req.userId },
       });
       if (bill.userId != userAccount.user.id) {
         return res.json({ success: false, message: "Bill not found" });
@@ -214,7 +241,7 @@ module.exports = {
       bill.status = "unpaid";
       bill.managerId = req.userId;
       bill.save();
-      return res.json({ success: true, message: "Confirm bill success" });
+      return res.json({ success: true, message: "Restore bill success" });
     } catch (error) {
       console.log(error);
       return res

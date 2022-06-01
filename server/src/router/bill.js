@@ -4,7 +4,7 @@ const BillController = require("../controller/BillController");
 const verifyToken = require("../middleware/verify-token");
 const role = require("../middleware/role");
 
-router.get("/", [verifyToken, role.admin], BillController.index);
+router.get("/", [verifyToken, role.employee], BillController.index);
 
 router.get("/list-bill", [verifyToken], BillController.showUserBills);
 
