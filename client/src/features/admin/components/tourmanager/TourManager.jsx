@@ -6,16 +6,16 @@ import tourApi from '../../../../api/tourApi';
 import { useState, useEffect } from 'react';
 
 const TourManager = () => {
-  const [tour, setTour] = useState();
-  useEffect(() => {
-    const tour = tourApi.getTourList();
-    setTour(tour);
-    console.log(tour);
-  }, []);
+  // const [tour, setTour] = useState();
+  // useEffect(() => {
+  //   const tour = tourApi.getTourList();
+  //   setTour(tour);
+  //   console.log(tour);
+  // }, []);
 
   return (
     <>
-      {tour}
+      {/* {tour} */}
       <div className="btn-add-tour">
         <div className="left">
           <span className="counter">ADD TOUR</span>
