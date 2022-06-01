@@ -12,6 +12,7 @@ import style from './style.css'
 const TourDetail = () => {
 
   const slug = useParams().slug;
+  const [id, setId] = useState("");
   const [tour, setTour] = useState();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -53,12 +54,16 @@ const TourDetail = () => {
       
     setShow(!show);
   }
- 
+  
+  const numberOfChild = document.getElementById("numberOfChild_input");
+  const numberOfAdults = document.getElementById("numberOfAdults_input");
+  const totalPrice = document.getElementById("price_input");
   
   useEffect(()=>{
     axios.get("https://tranquil-shore-96391.herokuapp.com/service/"+slug)
           .then((res) => {
             const tour = res.data.service;
+            setId(tour.id);
             setTour(tour);     
             setName(tour.name); 
             setPrice(tour.price);
@@ -69,7 +74,7 @@ const TourDetail = () => {
           }) ;
   }, [])
 
-
+  console.log(id);
 
   return (
     <Container maxW={'1200px'}>
@@ -174,26 +179,45 @@ const TourDetail = () => {
                           <div className='input_time'>
                               <div className="title_input">Ngày khởi hành</div>
                         
-                              <input type="date"></input>
+                              <input type="date" id="time_input"></input>
                           </div>
                           <div className='input_amount_child'>
                               <div className="title_input">Số lượng trẻ lớn: </div>
                               <button type="button" onClick={decNumChild}><BiMinus/></button>
-                              <input  type="number" value={numChild} onChange={handleChangeChild}></input>
+                              <input  type="number" value={numChild} onChange={handleChangeChild} id="numberOfChild_input"></input>
                               <button type="button" onClick={incNumChild}><BiPlus/></button>
                           </div>
                           <div className='input_amount_adults'>
                               <div className="title_input">Số lượng người lớn: </div>
                               <button type="button" onClick={decNumAdults}><BiMinus/></button>
-                              <input  type="number" value={numAdults} onChange={handleChangeAdults}></input>
+                              <input  type="number" value={numAdults} onChange={handleChangeAdults} id="numberOfAdults_input"></input>
                               <button type="button" onClick={incNumAdults}><BiPlus/></button>
                           </div>
                           <div className='input_amount_price'>
-                              <div className="title_input">Giá trị thanh toán: </div>
-                              <input value="1,000,000 VNĐ"></input>
+                              <div className="title_input">Giá trị thanh toán: </div>                          
+                              <input value={price} id="price_input"></input>
                           </div>
                           <button className='button_cancel' onClick={setShow}>Cancel</button>
-                          <button className='button_buy' type='submit'>Đặt tour</button>
+                          <button className='button_buy' type='submit' 
+                              onClick={() => {
+                                
+                                const child = Number(numberOfChild.value);
+                                const adults = Number(numberOfAdults.value);
+                                const quanlity = child+adults;
+                                const total = Number(totalPrice.value);
+
+                                axios.post("https://tranquil-shore-96391.herokuapp.com/user/cart", {
+                                            amount: 1,
+                                            serviceId: {id},
+                                            numberOfPeople: quanlity,
+                                            numberOfChild: child
+                                })
+                                .then((res) => {
+                                  console.log(res);
+                                });
+
+                          }}>
+                            Thêm vào giỏ hàng</button>
 
                       </div>                                           
                   </form>
