@@ -20,7 +20,59 @@ function App() {
       <Box>
         <ButtonSrollTop />
         <Routes>
-          <Route path="/admin" exact element={<Admin />} />
+          <Route
+            path="/admin/dashboard"
+            exact
+            element={<Admin adminRoute="dashboard" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/user"
+            exact
+            element={<Admin adminRoute="user" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/employee"
+            exact
+            element={<Admin adminRoute="employee" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/bill"
+            exact
+            element={<Admin adminRoute="bill" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/tour"
+            exact
+            element={<Admin adminRoute="tour" />}
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/hotel"
+            exact
+            element={<Admin adminRoute="hotel" />}
+          />
+        </Routes>
+        <Routes>
+          <Route path="/admin" exact element={<Admin adminRoute="" />} />
+        </Routes>
+        <Routes>
+          <Route path="/admin/car" exact element={<Admin adminRoute="car" />} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/event"
+            exact
+            element={<Admin adminRoute="event" />}
+          />
         </Routes>
         <Header />
         <Routes>

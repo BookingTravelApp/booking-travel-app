@@ -11,6 +11,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { Link } from '@chakra-ui/react';
 
 const Sidebar = () => {
   return (
@@ -22,50 +23,70 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN MENU</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
-          </li>
+          <Link href="/admin/dashboard">
+            <li>
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </li>
+          </Link>
           <p className="title">LISTS MENU</p>
-          <li>
-            <GroupIcon className="icon" />
-            <span>Users</span>
-          </li>
-          <li>
-            <Inventory2Icon className="icon" />
-            <span>Employees</span>
-          </li>
-          <li>
-            <ProductionQuantityLimitsIcon className="icon" />
-            <span>Bills</span>
-          </li>
+          <Link href="/admin/user">
+            <li>
+              <GroupIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link href="/admin/employee">
+            <li>
+              <Inventory2Icon className="icon" />
+              <span>Employees</span>
+            </li>
+          </Link>
+          <Link href="/admin/bill">
+            <li>
+              <ProductionQuantityLimitsIcon className="icon" />
+              <span>Bills</span>
+            </li>
+          </Link>
           <p className="title">SERVICES</p>
-          <li>
-            <HealthAndSafetyIcon className="icon" />
-            <span>Tour</span>
-          </li>
-          <li>
-            <PsychologyIcon className="icon" />
-            <span>Hotel</span>
-          </li>
-          <li>
-            <SettingsIcon className="icon" />
-            <span>Car</span>
-          </li>
+          <Link href="/admin/tour">
+            <li>
+              <HealthAndSafetyIcon className="icon" />
+              <span>Tour</span>
+            </li>
+          </Link>
+          <Link href="/admin/hotel">
+            <li>
+              <PsychologyIcon className="icon" />
+              <span>Hotel</span>
+            </li>
+          </Link>
+          <Link href="/admin/car">
+            <li>
+              <SettingsIcon className="icon" />
+              <span>Car</span>
+            </li>
+          </Link>
           <p className="title">Event</p>
-          <li>
-            <QueryStatsIcon className="icon" />
-            <span>event</span>
-          </li>
+          <Link href="/admin/event">
+            <li>
+              <QueryStatsIcon className="icon" />
+              <span>event</span>
+            </li>
+          </Link>
           <p className="title">ACCOUNT</p>
-          <li>
-            <PersonIcon className="icon" />
-            <span>Profile</span>
-          </li>
-          <li>
-            <ExitToAppIcon className="icon" />
-            <span>Logout</span>
-          </li>
+          <Link href="/admin/profile">
+            <li>
+              <PersonIcon className="icon" />
+              <span>Profile</span>
+            </li>
+          </Link>
+          <Link href="/admin/user">
+            <li>
+              <ExitToAppIcon className="icon" />
+              <span>Logout</span>
+            </li>
+          </Link>
         </ul>
       </div>
     </div>
