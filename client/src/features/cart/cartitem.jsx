@@ -4,14 +4,14 @@ import { BiPlus } from 'react-icons/bi';
 import {ImCancelCircle} from 'react-icons/im'
 import style from './style.css';
 
-const CartItem = ({ tour }) => {
+const CartItem = ({ cart }) => {
   const [numChild, setNumChild] = useState(0);
   const [numAdults, setNumAdults] = useState(0);
 
   const incNumChild = () => {
     setNumChild(Number(numChild) + 1);
   };
-
+  
   const decNumChild = () => {
     if (numChild > 0) {
       setNumChild(numChild - 1);

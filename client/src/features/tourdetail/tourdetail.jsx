@@ -67,7 +67,7 @@ const TourDetail = () => {
             setTour(tour);     
             setName(tour.name); 
             setPrice(tour.price);
-            setDescription(tour.description);
+            setDescription(tour.description);        
           })        
           .catch((err) => {
             console.log(err);

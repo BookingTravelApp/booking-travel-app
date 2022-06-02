@@ -1,7 +1,8 @@
 import { Container } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartItem from './cartitem';
 import style from './style.css';
+import axios from 'axios'
 
 const Cart = () => {
 
@@ -9,7 +10,16 @@ const Cart = () => {
     alert("Bạn đã đặt tour thành công!\nNhân viên sẽ gọi đến bạn ngay bây giờ.");
   }
 
-
+  useEffect(() => {
+    axios.get("https://tranquil-shore-96391.herokuapp.com/user/cart")
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+  }, [])
+ 
   return (
     <div className='container'>
       <div className="title_cart">
