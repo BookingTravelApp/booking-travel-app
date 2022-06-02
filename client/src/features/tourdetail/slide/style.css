@@ -18,7 +18,7 @@
     top: 50%;
     right: -5%;
     font-size: 3rem;
-    color: #be6511;
+    color: var(--button-color);
     z-index: 0;
     cursor: pointer;
     user-select: none;
@@ -29,7 +29,7 @@
     top: 50%;
     left: -5%;
     font-size: 3rem;
-    color: #eeb47e;
+    color: var(--button-color);
     z-index: 0;
     cursor: pointer;
     user-select: none;

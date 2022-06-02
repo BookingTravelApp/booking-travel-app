@@ -7,12 +7,16 @@ import ButtonSrollTop from '../src/components/button-scroll-top.jsx';
 
 import HomePage from './features/home/homepage.jsx';
 import TourList from './features/tourlist/index.jsx';
-import User from './features/profile/user.jsx';
 import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
 import AuthContextProvider from './contexts/AuthContext.js';
+import Cart from './features/cart/cart.jsx';
+import TourCard from './features/tourlist/tourcard.jsx';
+import CartItem from './features/cart/cartitem.jsx';
+import Profile from './features/profile/profile.jsx';
 import Auth from './features/auth/auth';
 import Admin from './features/admin/Admin';
+// import Auth from './features/auth/auth';
 
 function App() {
   return (
@@ -108,7 +112,13 @@ function App() {
           <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
         </Routes>
         <Routes>
-          <Route path="/user" exact element={<User />} />
+          <Route path="/profile" exact element={<Profile />} />
+        </Routes>
+        <Routes>
+          <Route path="/cart" axact element={<Cart />} />
+        </Routes>
+        <Routes>
+          <Route path="/cartItem" axact element={<CartItem />} />
         </Routes>
         <Footer />
       </Box>

@@ -40,7 +40,7 @@ const Header = () => {
   const [optionUser, setOptionUser] = useState(false);
 
   const ScrollShowMenu = () => {
-    window.scrollY >= 170 ? setShowMenu(true) : setShowMenu(false);
+    window.scrollY >= 70 ? setShowMenu(true) : setShowMenu(false);
   };
 
   useEffect(() => {
@@ -58,11 +58,11 @@ const Header = () => {
         h={'170px'}
       >
         <Box
-          py={showMenu ? '0px' : '22px'}
+          py={showMenu ? '0px' : '12px'}
           w={'full'}
           display={'flex'}
           justifyContent={'center'}
-          bgColor={showMenu ? 'white' : '#006E7F'}
+          bgColor={showMenu ? 'white' : 'var(--primary-color)'}
           position={showMenu ? 'fixed' : 'unset'}
           top={showMenu ? '0px' : '-84px'}
           boxShadow={showMenu ? '0 10px 50px 0 rgb(46 56 220 / 20%)' : 'unset'}
@@ -179,7 +179,7 @@ const Header = () => {
                     justifyContent={'center'}
                     _hover={{
                       color: 'white',
-                      backgroundColor: '#00c2cb',
+                      backgroundColor: 'var(--hover-color)',
                     }}
                     onClick={() => setOptionUser(!optionUser)}
                   >
@@ -201,7 +201,7 @@ const Header = () => {
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
-                              color: '#00c2cb',
+                              color: 'var(--hover-color)',
                             }}
                           >
                             Sign in
@@ -212,18 +212,18 @@ const Header = () => {
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
-                              color: '#00c2cb',
+                              color: 'var(--hover-color)',
                             }}
                           >
                             Register
                           </Text>
                         </Box>{' '}
                       </Link>
-                      <Link to="/user">
+                      <Link to="/profile">
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
-                              color: '#00c2cb',
+                              color: 'var(--hover-color)',
                             }}
                           >
                             My Account
@@ -247,25 +247,27 @@ const Header = () => {
                     </Box>
                     <FaRegUser size={20} />
                   </Box>
-                  <Box
-                    shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
-                    bgColor={'white'}
-                    color={'#071c1f'}
-                    minW={'25px'}
-                    h={'50px'}
-                    w={'50px'}
-                    transition={'all 0.3s linear'}
-                    cursor={'pointer'}
-                    display={'flex'}
-                    alignItems={'center'}
-                    justifyContent={'center'}
-                    _hover={{
-                      color: 'white',
-                      backgroundColor: '#00c2cb',
-                    }}
-                  >
-                    <AiOutlineShoppingCart size={23} />
-                  </Box>
+                  <Link to="/cart">
+                      <Box
+                        shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
+                        bgColor={'white'}
+                        color={'#071c1f'}
+                        minW={'25px'}
+                        h={'50px'}
+                        w={'50px'}
+                        transition={'all 0.3s linear'}
+                        cursor={'pointer'}
+                        display={'flex'}
+                        alignItems={'center'}
+                        justifyContent={'center'}
+                        _hover={{
+                          color: 'white',
+                          backgroundColor: 'var(--hover-color)',
+                        }}
+                      >
+                        <AiOutlineShoppingCart size={23} />
+                      </Box>
+                  </Link>                 
                 </Box>
               </Box>
             </Flex>

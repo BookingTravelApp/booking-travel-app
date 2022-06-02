@@ -35,11 +35,11 @@ const TourCard = ({ item }) => {
           <Box>
             <Image maxW={'full'} src={tour}></Image>
           </Box>
-          <Box py={'10px'} px={'16px'} minH={'90px'}>
-            <Text color={'rgb(33, 33, 33)'} fontWeight={'500'}>
-              {item.name}
-            </Text>
-            <Text color={'#e8604c'}>{item.price}</Text>           
+          <Box pt={'10px'} px={'16px'} minH={'80px'}>
+            <Text color={"var(--text-color)"} fontWeight={"500"} fontSize={"18px"}>
+              Địa điểm du lịch {item.name}
+            </Text>          
+            <Text color={'#e8604c'}>{item.price} VNĐ</Text>           
           </Box>
           <Box px={'16px'} display={'flex'}>
               <Box color={resRandom > 0 ? "#FFCD38" : "unset"}>
@@ -60,7 +60,18 @@ const TourCard = ({ item }) => {
           </Box>
           <Link to={`/tourDetail/${item.slug}`}>
             <Box py={'10px'} px={'16px'}>
-              <Button>Xem chi tiết</Button>
+              <Box maxWidth={"150px"} 
+                        px={"30px"} 
+                        py={"8px"} 
+                        bgColor='var(--button-color)'
+                        color={"blackAlpha.900"} 
+                        cursor={"pointer"}        
+                        _hover={
+                          {
+                            backgroundColor: "var(--hover-color)",
+
+                          }
+                        }>Xem chi tiết</Box>
             </Box>
           </Link>
         </Box>

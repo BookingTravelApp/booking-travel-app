@@ -37,7 +37,7 @@ import {
           {/* left */}
           <Box px={'15px'} maxW={'33.3333%'} width={"full"}>
             <Box rounded={'15px'} px={'20px'} py={'42px'} bgColor={'#edf2f7'}>
-              <Text fontWeight={'700'} fontSize={'20px'} mb={'22px'}>
+              <Text fontWeight={'700'} fontSize={'20px'} mb={'22px'} color={"var(--primary-color)"}>
                 Search tour
               </Text>
               <FormControl as="fieldset">
@@ -144,7 +144,7 @@ import {
                     mb={'24px'}
                     borderBottom={'1px solid #CBD5E0'}
                   >
-                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'}>
+                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'} color={"var(--primary-color)"}>
                       Price
                     </Text>
                     <RiArrowDropDownLine
@@ -172,7 +172,7 @@ import {
                     mb={'24px'}
                     borderBottom={'1px solid #CBD5E0'}
                   >
-                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'}>
+                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'} color={"var(--primary-color)"}>
                       Categories
                     </Text>
                     <RiArrowDropDownLine
@@ -201,7 +201,7 @@ import {
                     mb={'24px'}
                     borderBottom={'1px solid #CBD5E0'}
                   >
-                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'}>
+                    <Text fontWeight={'600'} fontSize={'20px'} pb={'5px'} color={"var(--primary-color)"}>
                       Duration
                     </Text>
                     <RiArrowDropDownLine
