@@ -11,7 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
 import AuthContextProvider from './contexts/AuthContext.js';
 import Cart from './features/cart/cart.jsx'
-import TourCard from './features/tourlist/tourcard.jsx';
+import HotelCard from './features/hotellist/hotelcard.jsx';
 import CartItem from './features/cart/cartitem.jsx';
 import Auth from './features/auth/auth.js'
 import Profile from './features/profile/profile.jsx';
@@ -63,6 +63,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/cartItem" axact element={<CartItem />}/>
+        </Routes>
+        <Routes>
+          <Route path="/hotelCard" axact element={ <HotelCard />}/>
         </Routes>
         <Footer />
       </Box>
