@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import categoryApi from '../../../../api/categoryApi';
+import billApi from '../../../../api/billApi';
 
 const BillManager = () => {
-
-  const [BillList, setListBill] = useState([]); 
-
+  const [listBill, setListBill] = useState([]);
   useEffect(() => {
-    const BillList = async () => {
-      try {
-        const response = await categoryApi.getAll();
-        console.log(response.data);
-      }
-      catch(error){
-        console.log('Failed to fetch BillList:', error);
-      }
-    }
-    BillList();
-  }, [])
+    billApi
+      .getAll()
+      .then(response => {
+        setListBill(response.data.billList);
+      })
+      .catch(error => {
+        console.log('Failed to fetch BillList:',error);
+      });
+  }, []);
 
-  return (<div className="list-user-container">
-  {/* <div className="title">
+  // const [BillList, setListBill] = useState([]); 
+
+  // useEffect(() => {
+  //   const BillList = async () => {
+  //     try {
+  //       const response = await billApi.getAll();
+  //       console.log(response.data);
+  //     }
+  //     catch(error){
+  //       console.log('Failed to fetch BillList:', error);
+  //     }
+  //   }
+  //   BillList();
+  // }, []);
+
+  return (
+    <div>Bill</div>
+  )
+  // <div className="list-user-container">
+  /* <div className="title">
     Service
     { listServices }
   </div>
@@ -33,8 +47,8 @@ const BillManager = () => {
         )
       })
     }
-  </div> */}
-</div>);
+  </div> */
+// </div>);
 };
 
 export default BillManager;

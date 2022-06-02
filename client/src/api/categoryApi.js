@@ -10,18 +10,7 @@ const categoryApi = {
         const requestUrl = url + `/category/${id}`;
         return axiosClient.get(requestUrl);
     },
-    delete: (id) => {
-        const requestUrl = url + `/category/${id}`;
-        return axiosClient.delete(requestUrl);
-    },
-    post: (id) => {
-        const requestUrl = url + `/category/${id}`;
-        return axiosClient.post(requestUrl);
-    },
-    update: (id, credentials) => {
-        const requestUrl = url + `/category/${id}`;
-        return axiosClient.put(requestUrl, credentials);
-    }
+
 }
 
 export default categoryApi;
