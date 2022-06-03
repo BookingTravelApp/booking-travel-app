@@ -1,29 +1,65 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../../contexts/AuthContext';
 import '../style.css';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp(props) {
+  const { registerUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [registerForm, setRegisterForm] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+  });
+  const { name, username, email, password } = registerForm;
+  const onchangeRegisterForm = event =>
+    setRegisterForm({
+      ...registerForm,
+      [event.target.name]: event.target.value,
+    });
+
+  const register = async event => {
+    try {
+      event.preventDefault();
+      const registerData = await registerUser(registerForm);
+      if (registerData.success) {
+        navigate('/');
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="auth-inner">
-      <form>
+      <form onSubmit={register}>
         <h3>Sign Up</h3>
 
         <div className="mb-3">
-          <label>First name</label>
+          <label>Name</label>
           <input
             type="text"
             className="form-control"
-            placeholder="First name"
+            placeholder="Name"
+            required
+            name="name"
+            value={name}
+            onChange={onchangeRegisterForm}
           />
         </div>
 
         <div className="mb-3">
-          <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
-        </div>
-
-        <div className="mb-3">
           <label>Username</label>
-          <input type="text" className="form-control" placeholder="Username" />
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Username"
+            required
+            name="username"
+            value={username}
+            onChange={onchangeRegisterForm}
+          />
         </div>
 
         <div className="mb-3">
@@ -32,6 +68,10 @@ function SignUp(props) {
             type="email"
             className="form-control"
             placeholder="Enter email"
+            required
+            name="email"
+            value={email}
+            onChange={onchangeRegisterForm}
           />
         </div>
 
@@ -41,6 +81,10 @@ function SignUp(props) {
             type="password"
             className="form-control"
             placeholder="Enter password"
+            required
+            name="password"
+            value={password}
+            onChange={onchangeRegisterForm}
           />
         </div>
 

@@ -64,6 +64,26 @@ const AuthContextProvider = ({ children }) => {
       else return { success: false, message: error.message };
     }
   };
+  // register
+  const registerUser = async registerForm => {
+    try {
+      const response = await axios.post(`${API_URL}/register`, registerForm);
+      if (response.data.success) {
+        localStorage.setItem(
+          LOCAL_STORAGE_ACCESS_TOKEN_NAME,
+          response.data.token.accessToken
+        );
+        localStorage.setItem(
+          LOCAL_STORAGE_REFRESH_TOKEN_NAME,
+          response.data.token.refreshToken
+        );
+      }
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
   //logout
   const logoutUser = async () => {
     try {
@@ -84,7 +104,7 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const authContextData = { loginUser, authState, logoutUser };
+  const authContextData = { registerUser, loginUser, authState, logoutUser };
 
   return (
     <AuthContext.Provider value={authContextData}>
