@@ -63,7 +63,7 @@ module.exports = {
   showUserBills: async (req, res) => {
     try {
       const listBill = await Bill.findAll({
-        where: { "$user.accountId": req.userId },
+        where: { "$user.accountId$": req.userId },
         include: {
           model: User,
           attributes: [],
