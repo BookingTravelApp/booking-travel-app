@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box } from '@chakra-ui/react';
 import ForgetPassword from './components/forgetpass.component';
 import SignUp from './components/signup.component';

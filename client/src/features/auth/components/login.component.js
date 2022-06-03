@@ -9,6 +9,8 @@ function Login(props) {
 
   const navigate = useNavigate();
 
+  const [loginError, setLoginError] = useState('');
+
   const [loginForm, setLoginForm] = useState({
     username: '',
     password: '',
@@ -25,6 +27,7 @@ function Login(props) {
       if (loginData.success) {
         navigate('/');
       } else {
+        setLoginError(loginData.message);
       }
     } catch (error) {
       console.log(error);
@@ -59,6 +62,16 @@ function Login(props) {
             value={password}
             onChange={onchangeLoginForm}
           />
+        </div>
+        <div
+          style={{
+            color: 'red',
+            'font-size': '12px',
+            'margin-bottom': '10px',
+            'padding-left': '5px',
+          }}
+        >
+          <i>{loginError}</i>
         </div>
 
         <div className="mb-3">

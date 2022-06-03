@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Box,
   Container,
@@ -17,6 +17,7 @@ import logo from '../../assets/logo.png';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { FaRegUser } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthContext';
 
 // const MenuBar = ['Tour', 'Contact', 'About'];
 
@@ -38,6 +39,10 @@ const MenuBar = [
 const Header = () => {
   const [showMenu, setShowMenu] = useState(0);
   const [optionUser, setOptionUser] = useState(false);
+
+  const {
+    authState: { authLoading, isAuthenticated },
+  } = useContext(AuthContext);
 
   const ScrollShowMenu = () => {
     window.scrollY >= 70 ? setShowMenu(true) : setShowMenu(false);
@@ -199,7 +204,9 @@ const Header = () => {
                     >
                       <Link
                         to="/sign-in"
-                        onClick={() => window.location.reload()}
+                        style={{
+                          display: !isAuthenticated ? 'block' : 'none',
+                        }}
                       >
                         <Box px={'15px'} py={'7px'}>
                           <Text
@@ -213,7 +220,9 @@ const Header = () => {
                       </Link>
                       <Link
                         to="/sign-up"
-                        onClick={() => window.location.reload()}
+                        style={{
+                          display: !isAuthenticated ? 'block' : 'none',
+                        }}
                       >
                         <Box px={'15px'} py={'7px'}>
                           <Text
@@ -225,7 +234,12 @@ const Header = () => {
                           </Text>
                         </Box>{' '}
                       </Link>
-                      <Link to="/profile">
+                      <Link
+                        to="/profile"
+                        style={{
+                          display: isAuthenticated ? 'block' : 'none',
+                        }}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -239,6 +253,9 @@ const Header = () => {
                       <Link
                         to="/logout"
                         onClick={() => window.location.reload()}
+                        style={{
+                          display: isAuthenticated ? 'block' : 'none',
+                        }}
                       >
                         <Box px={'15px'} py={'7px'}>
                           <Text

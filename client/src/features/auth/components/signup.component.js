@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function SignUp(props) {
   const { registerUser } = useContext(AuthContext);
+  const [registerError, setRegisterError] = useState('');
   const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState({
     name: '',
@@ -26,6 +27,7 @@ function SignUp(props) {
       if (registerData.success) {
         alert('Please verify account in your email');
       } else {
+        setRegisterError(registerData.message);
       }
     } catch (error) {
       console.log(error);
@@ -86,6 +88,16 @@ function SignUp(props) {
             value={password}
             onChange={onchangeRegisterForm}
           />
+        </div>
+        <div
+          style={{
+            color: 'red',
+            'font-size': '12px',
+            'margin-bottom': '10px',
+            'padding-left': '5px',
+          }}
+        >
+          <i>{registerError}</i>
         </div>
 
         <div className="d-grid">
