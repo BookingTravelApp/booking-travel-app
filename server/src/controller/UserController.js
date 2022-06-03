@@ -142,7 +142,10 @@ module.exports = {
   getCart: async (req, res) => {
     try {
       const user = await User.findOne({ where: { accountId: req.userId } });
-      const listCart = await Cart.findAll({ where: { userId: user.id } });
+      const listCart = await Cart.findAll({
+        include: Service,
+        where: { userId: user.id },
+      });
       res.json({ success: true, listCart });
     } catch (error) {
       console.log(error);
