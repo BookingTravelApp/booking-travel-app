@@ -87,15 +87,6 @@ module.exports = {
         process.env.DB_ACTIVE_TOKEN_SECRET,
         { expiresIn: "20m" }
       );
-      // const data = {
-      //   from: "dangbavuhoang1408@gmail.com",
-      //   to: email,
-      //   subject: "Account activation Link",
-      //   html: `
-      //     <h2>Please click on given link to active your account</h2>
-      //     <p>${process.env.CLIENT_URL}/verify-token/${token}</p>
-      //   `,
-      // };
 
       var transporter = nodemailer.createTransport({
         service: "gmail",
@@ -103,20 +94,23 @@ module.exports = {
         secure: true,
         auth: {
           user: process.env.ADMIN_EMAIL_NAME,
-          pass: process.env.ADMIN_EMAIL_PASSWORD,
+          pass: process.env.ADMIN_APP_EMAIL_PASSWORD,
         },
       });
 
       var mailOptions = {
-        from: process.env.ADMIN_EMAIL_NAME,
+        from: "dangbavuhoang1408@gmail.com",
         to: email,
-        subject: "Sending Email using Node.js",
-        text: "That was easy!",
+        subject: "Account activation Link",
+        html: `
+        <h2>Please click on given link to active your account</h2>
+        <p>${process.env.CLIENT_URL}/verify-token/${token}</p>
+      `,
       };
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
+          // console.log(error);
         } else {
           console.log("Email sent: " + info.response);
         }
@@ -148,11 +142,14 @@ module.exports = {
     }
   },
   verifyAccount: async (req, res) => {
-    const token = req.params.token;
+    const { verifyToken } = req.body;
     try {
-      if (!token)
+      if (!verifyToken)
         return res.json({ success: false, message: "Token not found" });
-      const decoded = jwt.verify(token, process.env.DB_ACTIVE_TOKEN_SECRET);
+      const decodedToken = jwt.verify(
+        verifyToken,
+        process.env.DB_ACTIVE_TOKEN_SECRET
+      );
       const { name, username, email, password } = decodedToken;
       const existingUsername = await Account.findOne({ where: { username } });
       const existingEmail = await Account.findOne({ where: { email } });
@@ -171,7 +168,7 @@ module.exports = {
       });
       await newAccount.save();
 
-      token = generateToken({
+      var token = generateToken({
         id: newAccount.getDataValue("id"),
         username: username,
       });
