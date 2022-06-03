@@ -20,7 +20,10 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -29,7 +32,6 @@ app.use(function (req, res, next) {
 });
 app.use(express.json());
 //router
-app.use("/", authRouter);
 app.use("/service", serviceRouter);
 app.use("/role", roleRouter);
 app.use("/event", eventRouter);
@@ -39,6 +41,7 @@ app.use("/category", categoryRouter);
 app.use("/tag", tagRouter);
 app.use("/user", userRouter);
 app.use("/resource", resourceRouter);
+app.use("/", authRouter);
 
 app.use(cors());
 

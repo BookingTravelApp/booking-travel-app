@@ -10,6 +10,9 @@ router.get("/", [verifyToken, role.admin], AuthController.index);
 // @router POST /register
 // @public access
 router.post("/register", validator.register(), AuthController.create);
+// @router POST /register
+// @public access
+router.post("/verify-email", AuthController.verifyAccount);
 
 // @router POST /login
 // @access public
