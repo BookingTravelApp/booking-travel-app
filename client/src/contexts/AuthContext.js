@@ -68,6 +68,20 @@ const AuthContextProvider = ({ children }) => {
   const registerUser = async registerForm => {
     try {
       const response = await axios.post(`${API_URL}/register`, registerForm);
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+  //verify token
+  const verifyToken = async tokenForm => {
+    try {
+      const response = await axios.post(`${API_URL}/verify-email`, tokenForm);
+      // const response = await axios.post(
+      //   `http://localhost:4000/verify-email`,
+      //   tokenForm
+      // );
       if (response.data.success) {
         localStorage.setItem(
           LOCAL_STORAGE_ACCESS_TOKEN_NAME,
@@ -104,7 +118,13 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const authContextData = { registerUser, loginUser, authState, logoutUser };
+  const authContextData = {
+    verifyToken,
+    registerUser,
+    loginUser,
+    authState,
+    logoutUser,
+  };
 
   return (
     <AuthContext.Provider value={authContextData}>

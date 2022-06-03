@@ -24,7 +24,7 @@ function SignUp(props) {
       event.preventDefault();
       const registerData = await registerUser(registerForm);
       if (registerData.success) {
-        navigate('/');
+        alert('Please verify account in your email');
       } else {
       }
     } catch (error) {

@@ -197,7 +197,10 @@ const Header = () => {
                       opacity={optionUser ? '1' : '0'}
                       display={optionUser ? 'block' : 'none'}
                     >
-                      <Link to="/sign-in">
+                      <Link
+                        to="/sign-in"
+                        onClick={() => window.location.reload()}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -208,7 +211,10 @@ const Header = () => {
                           </Text>
                         </Box>
                       </Link>
-                      <Link to="/sign-up">
+                      <Link
+                        to="/sign-up"
+                        onClick={() => window.location.reload()}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -248,26 +254,26 @@ const Header = () => {
                     <FaRegUser size={20} />
                   </Box>
                   <Link to="/cart">
-                      <Box
-                        shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
-                        bgColor={'white'}
-                        color={'#071c1f'}
-                        minW={'25px'}
-                        h={'50px'}
-                        w={'50px'}
-                        transition={'all 0.3s linear'}
-                        cursor={'pointer'}
-                        display={'flex'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        _hover={{
-                          color: 'white',
-                          backgroundColor: 'var(--hover-color)',
-                        }}
-                      >
-                        <AiOutlineShoppingCart size={23} />
-                      </Box>
-                  </Link>                 
+                    <Box
+                      shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
+                      bgColor={'white'}
+                      color={'#071c1f'}
+                      minW={'25px'}
+                      h={'50px'}
+                      w={'50px'}
+                      transition={'all 0.3s linear'}
+                      cursor={'pointer'}
+                      display={'flex'}
+                      alignItems={'center'}
+                      justifyContent={'center'}
+                      _hover={{
+                        color: 'white',
+                        backgroundColor: 'var(--hover-color)',
+                      }}
+                    >
+                      <AiOutlineShoppingCart size={23} />
+                    </Box>
+                  </Link>
                 </Box>
               </Box>
             </Flex>
