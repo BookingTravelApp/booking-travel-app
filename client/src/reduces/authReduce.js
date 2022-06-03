@@ -11,6 +11,20 @@ export const authReducers = (state, action) => {
         isAuthenticated,
         user,
       };
+    case 'SET_LOADING':
+      return {
+        ...state,
+        authLoading: true,
+        isAuthenticated,
+        user,
+      };
+    case 'SET_STOP_LOAD':
+      return {
+        ...state,
+        authLoading: false,
+        isAuthenticated,
+        user,
+      };
     default:
       return state;
   }
