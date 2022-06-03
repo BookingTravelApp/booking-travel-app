@@ -29,7 +29,6 @@ app.use(function (req, res, next) {
 });
 app.use(express.json());
 //router
-app.use("/", authRouter);
 app.use("/service", serviceRouter);
 app.use("/role", roleRouter);
 app.use("/event", eventRouter);
@@ -39,6 +38,7 @@ app.use("/category", categoryRouter);
 app.use("/tag", tagRouter);
 app.use("/user", userRouter);
 app.use("/resource", resourceRouter);
+app.use("/", authRouter);
 
 app.use(cors());
 
