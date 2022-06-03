@@ -28,6 +28,8 @@ router.put("/", verifyToken, UserController.update);
 //Cart
 router.get("/cart", verifyToken, UserController.getCart);
 
+router.get("/cart/:slug", verifyToken, UserController.showCart);
+
 router.post("/cart", verifyToken, UserController.createCart);
 
 module.exports = router;

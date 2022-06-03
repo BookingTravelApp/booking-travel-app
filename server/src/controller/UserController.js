@@ -5,6 +5,8 @@ const {
   Role,
   Account,
   RoleAccounts,
+  Category,
+  Image,
 } = require("../model");
 
 module.exports = {
@@ -152,6 +154,27 @@ module.exports = {
       res
         .status(500)
         .json({ success: false, message: "Internal server error" });
+    }
+  },
+  showCart: async (req, res) => {
+    try {
+      const cart = await Cart.findOne({
+        include: {
+          model: Service,
+          include: [
+            {
+              model: Category,
+              attributes: ["name", "description"],
+            },
+            { model: Image, attributes: ["path"] },
+          ],
+        },
+        where: { slug: req.params.slug },
+      });
+      return res.json({ success: true, cart });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
     }
   },
   createCart: async (req, res) => {
