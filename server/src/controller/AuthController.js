@@ -220,7 +220,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({
           success: false,
-          message: "Incorrect username or password",
+          message: "Incorrect username and/or password",
         });
       }
 
@@ -228,7 +228,7 @@ module.exports = {
       if (!passwordValid) {
         return res.status(400).json({
           success: false,
-          message: "Incorrect username or password",
+          message: "Incorrect username and/or password",
         });
       }
 
