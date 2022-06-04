@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import categoryApi from '../../../../api/categoryApi';
-
+import employeeApi from '../../../../api/employeeApi';
 const EmployeeManager = () => {
 
-  const [CategoryList, setCategoryList] = useState([]); 
+  const [EmployeeList, setEmployeeList] = useState([]); 
 
   useEffect(() => {
-    const CategoryList = async () => {
-      try {
-        const response = await categoryApi.getAll();
+    employeeApi
+      .getAll()
+      .then(response => {
+        setEmployeeList(response.data.EmployeeList);
         console.log(response.data);
-      }
-      catch(error){
-        console.log('Failed to fetch CategoryList:', error);
-      }
-    }
-    CategoryList();
+      })
+      .catch(error => {
+        console.log('Failed to fetch EmployeeList:', error);
+      });
   }, []);
-  return <div>CategoryList</div>;
+  return <div>EmployeeList</div>;
 };
 
 export default EmployeeManager;
