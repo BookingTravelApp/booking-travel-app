@@ -94,6 +94,18 @@ const UserManager = () => {
       sorter: (a, b) => a.active - b.active,
     },
     {
+      title: 'Gender',
+      dataIndex: 'gender',
+      render: text => String(text),
+      sorter: (a, b) => a.gender - b.gender,
+    },
+    {
+      title: 'Date of birth',
+      dataIndex: 'date_of_birth',
+      render: text => String(text),
+      sorter: (a, b) => a.date_of_birth - b.date_of_birth,
+    },
+    {
       title: 'Action',
       key: 'action',
       render: (index, record) => (

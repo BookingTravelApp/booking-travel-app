@@ -14,8 +14,8 @@ const userApi = {
         const requestUrl = url + `/user/get-user`;
         return axiosClient.get(requestUrl);
     },
-    getEmployeeList: () => {
-        const requestUrl = url + `/user/get-staff`;
+    getEmployeeList: (id) => {
+        const requestUrl = url + `/user/get-employee`;
         return axiosClient.get(requestUrl);
     }
 }
