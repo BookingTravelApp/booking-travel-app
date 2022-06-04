@@ -7,6 +7,10 @@ import { ChakraProvider, theme } from '@chakra-ui/react';
 
 import { BrowserRouter } from 'react-router-dom';
 
+window.onpopstate = function () {
+  window.location.reload();
+};
+
 ReactDOM.render(
   <StrictMode>
     <ChakraProvider theme={theme}>

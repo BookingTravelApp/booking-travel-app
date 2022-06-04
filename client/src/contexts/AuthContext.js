@@ -18,6 +18,10 @@ const AuthContextProvider = ({ children }) => {
   });
   // Authenticate user
   const loadUser = async () => {
+    dispatch({
+      type: 'SET_LOADING',
+      payload: { isAuthenticated: false, user: null },
+    });
     if (localStorage[LOCAL_STORAGE_ACCESS_TOKEN_NAME]) {
       setAuthToken(localStorage[LOCAL_STORAGE_ACCESS_TOKEN_NAME]);
     }
@@ -28,7 +32,14 @@ const AuthContextProvider = ({ children }) => {
           type: 'SET_AUTH',
           payload: { isAuthenticated: true, user: response.data.user },
         });
-      }
+      } else
+        dispatch({
+          type: 'SET_STOP_LOAD',
+          payload: {
+            isAuthenticated: false,
+            user: null,
+          },
+        });
     } catch (error) {
       localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN_NAME);
       localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN_NAME);
@@ -58,6 +69,43 @@ const AuthContextProvider = ({ children }) => {
           response.data.token.refreshToken
         );
       }
+      await loadUser();
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+  // register
+  const registerUser = async registerForm => {
+    try {
+      const response = await axios.post(`${API_URL}/register`, registerForm);
+      // await loadUser();
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+  //verify token
+  const verifyToken = async tokenForm => {
+    try {
+      const response = await axios.post(`${API_URL}/verify-email`, tokenForm);
+      // const response = await axios.post(
+      //   `http://localhost:4000/verify-email`,
+      //   tokenForm
+      // );
+      if (response.data.success) {
+        localStorage.setItem(
+          LOCAL_STORAGE_ACCESS_TOKEN_NAME,
+          response.data.token.accessToken
+        );
+        localStorage.setItem(
+          LOCAL_STORAGE_REFRESH_TOKEN_NAME,
+          response.data.token.refreshToken
+        );
+      }
+      await loadUser();
       return response.data;
     } catch (error) {
       if (error.response.data) return error.response.data;
@@ -84,7 +132,13 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const authContextData = { loginUser, authState, logoutUser };
+  const authContextData = {
+    verifyToken,
+    registerUser,
+    loginUser,
+    authState,
+    logoutUser,
+  };
 
   return (
     <AuthContext.Provider value={authContextData}>

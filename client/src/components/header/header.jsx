@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Box,
   Container,
@@ -17,6 +17,7 @@ import logo from '../../assets/logo.png';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { FaRegUser } from 'react-icons/fa';
+import { AuthContext } from '../../contexts/AuthContext';
 
 // const MenuBar = ['Tour', 'Contact', 'About'];
 
@@ -38,6 +39,10 @@ const MenuBar = [
 const Header = () => {
   const [showMenu, setShowMenu] = useState(0);
   const [optionUser, setOptionUser] = useState(false);
+
+  const {
+    authState: { authLoading, isAuthenticated },
+  } = useContext(AuthContext);
 
   const ScrollShowMenu = () => {
     window.scrollY >= 70 ? setShowMenu(true) : setShowMenu(false);
@@ -197,7 +202,12 @@ const Header = () => {
                       opacity={optionUser ? '1' : '0'}
                       display={optionUser ? 'block' : 'none'}
                     >
-                      <Link to="/sign-in">
+                      <Link
+                        to="/sign-in"
+                        style={{
+                          display: !isAuthenticated ? 'block' : 'none',
+                        }}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -208,7 +218,12 @@ const Header = () => {
                           </Text>
                         </Box>
                       </Link>
-                      <Link to="/sign-up">
+                      <Link
+                        to="/sign-up"
+                        style={{
+                          display: !isAuthenticated ? 'block' : 'none',
+                        }}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -219,7 +234,12 @@ const Header = () => {
                           </Text>
                         </Box>{' '}
                       </Link>
-                      <Link to="/profile">
+                      <Link
+                        to="/profile"
+                        style={{
+                          display: isAuthenticated ? 'block' : 'none',
+                        }}
+                      >
                         <Box px={'15px'} py={'7px'}>
                           <Text
                             _hover={{
@@ -233,6 +253,9 @@ const Header = () => {
                       <Link
                         to="/logout"
                         onClick={() => window.location.reload()}
+                        style={{
+                          display: isAuthenticated ? 'block' : 'none',
+                        }}
                       >
                         <Box px={'15px'} py={'7px'}>
                           <Text
@@ -248,26 +271,26 @@ const Header = () => {
                     <FaRegUser size={20} />
                   </Box>
                   <Link to="/cart">
-                      <Box
-                        shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
-                        bgColor={'white'}
-                        color={'#071c1f'}
-                        minW={'25px'}
-                        h={'50px'}
-                        w={'50px'}
-                        transition={'all 0.3s linear'}
-                        cursor={'pointer'}
-                        display={'flex'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        _hover={{
-                          color: 'white',
-                          backgroundColor: 'var(--hover-color)',
-                        }}
-                      >
-                        <AiOutlineShoppingCart size={23} />
-                      </Box>
-                  </Link>                 
+                    <Box
+                      shadow={'0 16px 32px 0 rgba(7, 28, 31, 0.1)'}
+                      bgColor={'white'}
+                      color={'#071c1f'}
+                      minW={'25px'}
+                      h={'50px'}
+                      w={'50px'}
+                      transition={'all 0.3s linear'}
+                      cursor={'pointer'}
+                      display={'flex'}
+                      alignItems={'center'}
+                      justifyContent={'center'}
+                      _hover={{
+                        color: 'white',
+                        backgroundColor: 'var(--hover-color)',
+                      }}
+                    >
+                      <AiOutlineShoppingCart size={23} />
+                    </Box>
+                  </Link>
                 </Box>
               </Box>
             </Flex>

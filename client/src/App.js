@@ -16,6 +16,7 @@ import CartItem from './features/cart/cartitem.jsx';
 import Profile from './features/profile/profile.jsx';
 import Auth from './features/auth/auth';
 import Admin from './features/admin/Admin';
+import VerifyToken from './features/auth/verifytoken.js';
 // import Auth from './features/auth/auth';
 
 function App() {
@@ -98,6 +99,9 @@ function App() {
         </Routes>
         <Routes>
           <Route path="/logout" exact element={<Auth authRoute="logout" />} />
+        </Routes>
+        <Routes>
+          <Route path="/verify-token/:token" exact element={<VerifyToken />} />
         </Routes>
         <Routes>
           <Route path="/" exact element={<HomePage />} />
