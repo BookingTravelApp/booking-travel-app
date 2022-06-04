@@ -2,47 +2,39 @@ import { Container } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import CartItem from './cartitem';
 import style from './style.css';
-import axios from 'axios'
+import CartApi from '../../api/cartApi';
 
 const Cart = () => {
+  const [cart, setCart] = useState([]);
 
   const notify = () => {
-    alert("Bạn đã đặt tour thành công!\nNhân viên sẽ gọi đến bạn ngay bây giờ.");
-  }
-
+    alert(
+      'Bạn đã đặt tour thành công!\nNhân viên sẽ gọi đến bạn ngay bây giờ.'
+    );
+  };
   useEffect(() => {
-    axios.get("https://tranquil-shore-96391.herokuapp.com/user/cart")
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-  }, [])
- 
+    CartApi.getAll().then(res => {
+      setCart(res.data.listCart);
+    });
+  }, []);
+
+
   return (
-    <div className='container'>
+    <div className="container">
       <div className="title_cart">
         <div className="title_tour tittle_tour--name">TÊN SẢN PHẨM</div>
         <div className="title_tour title_tour--quanlity">SỐ LƯỢNG</div>
         <div className="title_tour title_tour--price">TỔNG TIỀN</div>
       </div>
+      {
+        cart.map((item) => (
 
-      <div className='check_cartItem'>
-        <input type={'checkbox'} id={'key'}></input>
-        <CartItem />  
-      </div>
-
-      <div className='check_cartItem'>
-        <input type={'checkbox'} id={'key'}></input>
-        <CartItem />  
-      </div>
-
-      <div className='check_cartItem'>
-        <input type={'checkbox'} id={'key'}></input>
-        <CartItem />  
-      </div>
-
+          <div className="check_cartItem">
+              <input type={'checkbox'}></input>
+              <CartItem cart={item} price={item.service.price} />                          
+          </div>
+        ))
+      }
       <div className="buy_tour">
         <div className="total_price">
           <h3>Tổng: 1,256,000 VNĐ</h3>

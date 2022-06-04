@@ -4,9 +4,9 @@ import { BiPlus } from 'react-icons/bi';
 import {ImCancelCircle} from 'react-icons/im'
 import style from './style.css';
 
-const CartItem = ({ cart }) => {
-  const [numChild, setNumChild] = useState(0);
-  const [numAdults, setNumAdults] = useState(0);
+const CartItem = ({ cart, price }) => {
+  const [numChild, setNumChild] = useState(cart.numberOfChild);
+  const [numAdults, setNumAdults] = useState(cart.numberOfPeople - cart.numberOfChild);
 
   const incNumChild = () => {
     setNumChild(Number(numChild) + 1);
@@ -69,7 +69,7 @@ const CartItem = ({ cart }) => {
             </button>
           </div>
         </div>
-        <div className="tour_price">1,000,000 VNĐ</div>
+        <div className="tour_price">{price*numAdults + price*numChild}</div>
         <div className='delete_button'>
           <ImCancelCircle ></ImCancelCircle>
         </div>
