@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import employeeApi from '../../../../api/employeeApi';
+import userApi from '../../../../api/userApi';
 const EmployeeManager = () => {
 
-  const [EmployeeList, setEmployeeList] = useState([]); 
+  const [listEmployee, setListEmployee] = useState([]); 
 
   useEffect(() => {
-    employeeApi
-      .getAll()
+    userApi
+      .getEmployeeList()
       .then(response => {
-        setEmployeeList(response.data.EmployeeList);
+        setListEmployee(response.data.listEmployee);
         console.log(response.data);
       })
       .catch(error => {

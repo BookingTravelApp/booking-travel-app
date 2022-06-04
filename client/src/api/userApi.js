@@ -14,6 +14,10 @@ const userApi = {
         const requestUrl = url + `/user/get-user`;
         return axiosClient.get(requestUrl);
     },
+    getEmployeeList: () => {
+        const requestUrl = url + `/user/get-staff`;
+        return axiosClient.get(requestUrl);
+    }
 }
 
 export default userApi;

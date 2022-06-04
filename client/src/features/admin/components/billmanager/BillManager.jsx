@@ -24,7 +24,7 @@ const BillManager = () => {
     billApi
       .getAll()
       .then(response => {
-        setListBill(response.data.billList);
+        setListBill(response.data.listBill);
         console.log(response.data);
       })
       .catch(error => {
