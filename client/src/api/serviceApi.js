@@ -1,7 +1,7 @@
 import axiosClient from './axiosClient';
 import { url } from './constants';
 
-const tourApi = {
+const serviceAPI = {
   getAll: params => {
     const requestUrl = url + '/service';
     return axiosClient.get(requestUrl, { params });
@@ -19,7 +19,7 @@ const tourApi = {
     return axiosClient.get(requestUrl);
   },
   getCarList: id => {
-    const requestUrl = url + `/service/get-car-list`;
+    const requestUrl = url + `/service/get-car-rental-list`;
     return axiosClient.get(requestUrl);
   },
   update: (id, credentials) => {
@@ -32,4 +32,4 @@ const tourApi = {
   },
 };
 
-export default tourApi;
+export default serviceAPI;

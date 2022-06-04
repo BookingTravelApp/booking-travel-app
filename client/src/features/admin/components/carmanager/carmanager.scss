@@ -1,9 +1,9 @@
-.tour-utilities {
+.car-utilities {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 
-  .btn-add-tour {
+  .btn-add-car {
     width: 200px !important;
     display: flex;
     justify-content: space-between;
@@ -55,7 +55,7 @@
       align-self: flex-end;
     }
   }
-  .btn-add-tour:hover {
+  .btn-add-car:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   }
   .search {
