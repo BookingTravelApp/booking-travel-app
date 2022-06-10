@@ -247,4 +247,34 @@ module.exports = {
       });
     }
   },
+  checkRole: async (req, res) => {
+    try {
+      const account = await Account.findOne({
+        include: {
+          model: RoleAccounts,
+          include: {
+            model: Role,
+          },
+        },
+        where: { id: req.userId },
+      });
+      console.log(account);
+      let role = "user";
+      for (let i = 0; i < account.role_accounts.length; i++) {
+        // console.log(account.role_accounts[i].role.name);
+        if (account.role_accounts[i].role.name == "admin") {
+          role = "admin";
+          break;
+        } else if (account.role_accounts[i].role.name == "employee")
+          role = "employee";
+      }
+
+      return res.json({ success: true, role });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
 };

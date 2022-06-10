@@ -6,6 +6,7 @@ const verifyToken = require("../middleware/verify-token");
 const AuthController = require("../controller/AuthController");
 
 router.get("/", [verifyToken, role.admin], AuthController.index);
+router.get("/vertify-role", [verifyToken], AuthController.checkRole);
 
 // @router POST /register
 // @public access
