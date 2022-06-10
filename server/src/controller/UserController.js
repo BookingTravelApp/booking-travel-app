@@ -43,9 +43,26 @@ module.exports = {
         where: { accountId: req.userId },
         attributes: { exclude: ["id", "accountId"] },
       });
+      const account = await Account.findOne({
+        include: {
+          model: RoleAccounts,
+          include: {
+            model: Role,
+          },
+        },
+        where: { id: req.userId },
+      });
+      let role = "user";
+      for (let i = 0; i < account.role_accounts.length; i++) {
+        if (account.role_accounts[i].role.name == "admin") {
+          role = "admin";
+          break;
+        } else if (account.role_accounts[i].role.name == "employee")
+          role = "employee";
+      }
       if (!user)
         res.status(404).json({ success: false, message: "User not found" });
-      res.json({ success: true, user });
+      res.json({ success: true, user, role });
     } catch (error) {
       console.log(error);
       res

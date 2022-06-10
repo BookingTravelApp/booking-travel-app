@@ -258,10 +258,8 @@ module.exports = {
         },
         where: { id: req.userId },
       });
-      console.log(account);
       let role = "user";
       for (let i = 0; i < account.role_accounts.length; i++) {
-        // console.log(account.role_accounts[i].role.name);
         if (account.role_accounts[i].role.name == "admin") {
           role = "admin";
           break;
