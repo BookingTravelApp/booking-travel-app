@@ -202,8 +202,8 @@ module.exports = {
     }
   },
 
-  //@Login
   //
+  //@Login
   login: async (req, res) => {
     const error = validationResult(req);
     const { username, password } = req.body;
