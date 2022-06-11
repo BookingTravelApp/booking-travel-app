@@ -2,7 +2,7 @@ import React from 'react';
 import './tourmanager.scss';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import tourApi from '../../../../api/tourApi';
+import serviceApi from '../../../../api/serviceApi';
 import { useState, useEffect } from 'react';
 import { Table, Space, Input, Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -11,65 +11,49 @@ const { Search } = Input;
 
 const TourManager = () => {
   const [listTour, setListTour] = useState([]);
+  const [listTourAll, setListTourAll] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(false);
+
   useEffect(() => {
-    tourApi
+    serviceApi
       .getTourList()
       .then(response => {
+        setListTourAll(response.data.tourList);
         setListTour(response.data.tourList);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
-  const showAddModal = () => {
-    setIsModalAddVisible(true);
-  };
+  const showAddModal = () => setIsModalAddVisible(true);
+  const handleAddOk = () => setIsModalAddVisible(false);
+  const handleAddCancel = () => setIsModalAddVisible(false);
+  const showImageModal = () => setIsModalImageVisible(true);
+  const handleImageOk = () => setIsModalImageVisible(false);
+  const handleImageCancel = () => setIsModalImageVisible(false);
+  const showUpdateModal = () => setIsModalUpdateVisible(true);
+  const handleUpdateOk = () => setIsModalUpdateVisible(false);
+  const handleUpdateCancel = () => setIsModalUpdateVisible(false);
+  const showDeleteModal = () => setIsModalDeleteVisible(true);
+  const handleDeleteOk = () => setIsModalDeleteVisible(false);
+  const handleDeleteCancel = () => setIsModalDeleteVisible(false);
 
-  const handleAddOk = () => {
-    setIsModalAddVisible(false);
+  const searchClick = () => {
+    const filteredData = listTourAll.filter(
+      entry =>
+        entry.id.includes(searchValue) ||
+        entry.name.includes(searchValue) ||
+        entry.price == searchValue
+    );
+    setListTour(filteredData);
   };
+  const searchChange = event => setSearchValue(event.target.value);
 
-  const handleAddCancel = () => {
-    setIsModalAddVisible(false);
-  };
-  const showImageModal = () => {
-    setIsModalImageVisible(true);
-  };
-
-  const handleImageOk = () => {
-    setIsModalImageVisible(false);
-  };
-
-  const handleImageCancel = () => {
-    setIsModalImageVisible(false);
-  };
-  const showUpdateModal = () => {
-    setIsModalUpdateVisible(true);
-  };
-
-  const handleUpdateOk = () => {
-    setIsModalUpdateVisible(false);
-  };
-
-  const handleUpdateCancel = () => {
-    setIsModalUpdateVisible(false);
-  };
-  const showDeleteModal = () => {
-    setIsModalDeleteVisible(true);
-  };
-
-  const handleDeleteOk = () => {
-    setIsModalDeleteVisible(false);
-  };
-
-  const handleDeleteCancel = () => {
-    setIsModalDeleteVisible(false);
-  };
   const columns = [
     {
       title: 'id',
@@ -206,9 +190,13 @@ const TourManager = () => {
           </div>
         </div>
         <Search
+          allowClear
           className="search"
           placeholder="input search text"
           enterButton
+          onSearch={searchClick}
+          value={searchValue}
+          onChange={searchChange}
         />
       </div>
       <div className="tour-table-container">
