@@ -15,6 +15,9 @@ module.exports = {
   show: async (req, res) => {
     try {
       const service = await Service.findOne({
+        include: {
+          model: Image,
+        },
         where: { slug: req.params.slug },
       });
       return res.json({ success: true, service });

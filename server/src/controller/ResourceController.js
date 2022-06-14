@@ -37,12 +37,12 @@ module.exports = {
 
     if (filename) {
       try {
-        const filepath = `${__basedir}\\public\\upload\\avatar\\${filename}`;
+        const filepath = `${__basedir}\\public\\upload\\${filename}`;
         if (require("fs").existsSync(filepath)) {
           return res.sendFile(filepath);
         } else {
           return res.sendFile(
-            `${__basedir}\\public\\upload\\avatar\\${DEFAULT_USER_PIC}`
+            `${__basedir}\\public\\upload\\${DEFAULT_USER_PIC}`
           );
         }
       } catch (error) {
@@ -101,7 +101,7 @@ module.exports = {
 
     if (filename) {
       try {
-        const filepath = `${__basedir}\\public\\upload\\media\\${filename}`;
+        const filepath = `${__basedir}\\public\\upload\\${filename}`;
         if (require("fs").existsSync(filepath)) {
           return res.sendFile(filepath);
         }
