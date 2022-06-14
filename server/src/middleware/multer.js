@@ -5,11 +5,11 @@ const LIMIT_UNEXPECTED_FILE = 10;
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const { destination } = req.body;
-    if (!destination) throw error("body empty");
+    // const { destination } = req.body;
+    // if (!destination) throw error("body empty");
 
-    if (destination) cb(null, `${__basedir}/public/upload/${destination}`);
-    else cb(null, `${__basedir}/public/upload`);
+    // if (destination) cb(null, `${__basedir}/public/upload/${destination}`);
+    cb(null, `${__basedir}/public/upload`);
   },
   filename: function (req, file, cb) {
     const match = ["image/png", "image/jpeg"];
