@@ -137,12 +137,36 @@ const TourManager = () => {
   return (
     <>
       <Modal
-        title="Add Modal"
+        title="Add new tour"
         visible={isModalAddVisible}
         onOk={handleAddOk}
         onCancel={handleAddCancel}
       >
-        <p>Model Add</p>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="name" class="form-control" id="name" placeholder="Enter name"></input>
+        </div>
+        
+        <div class="form-group">
+          <label for="name">Description: </label>
+          <input type="description" class="form-control" id="description" placeholder="Enter description"></input>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Price: </label>
+          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)"></input>
+        </div>
+
+        <label>Is active: </label>
+        <select name="gender" id="gender">
+          <option value="nam">True</option>
+          <option value="nu">False</option>
+        </select>
+
+        <label for="date">Create at: </label>
+          <input id="createat" type="date"  name="createat"></input>
+        <label for="date">Update at: </label>
+          <input id="updateat" type="date"  name="updateat"></input>
       </Modal>
       <Modal
         title="Image Modal"
@@ -150,8 +174,31 @@ const TourManager = () => {
         onOk={handleImageOk}
         onCancel={handleImageCancel}
       >
-        <p>Model Image</p>
-        {modelCurrentAction.name}
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="name" class="form-control" id="name" value={modelCurrentAction.name} readonly></input>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Description: </label>
+          <input type="description" class="form-control" id="description" placeholder="Enter description" value={modelCurrentAction.description} readonly></input>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Price: </label>
+          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)" value={modelCurrentAction.price}></input>
+        </div>
+
+        <label>Is active: </label>
+        <select name="gender" id="gender" value={modelCurrentAction.gender}>
+          <option value="nam">True</option>
+          <option value="nu">False</option>
+        </select>
+
+        <label for="date">Create at: </label>
+          <input id="createat" type="date"  name="createat" value={modelCurrentAction.createdAt}></input>
+        <label for="date">Update at: </label>
+          <input id="updateat" type="date"  name="updateat" value={modelCurrentAction.updatedAt}></input>
       </Modal>
       <Modal
         title="Update Modal"
@@ -159,8 +206,32 @@ const TourManager = () => {
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>Model Update</p>
-        {modelCurrentAction.name}
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="name" class="form-control" id="name" value={modelCurrentAction.name}></input>
+        </div>
+        
+        <div class="form-group">
+          <label for="name">Description: </label>
+          <input type="description" class="form-control" id="description" placeholder="Enter description" value={modelCurrentAction.description}></input>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Price: </label>
+          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)" value={modelCurrentAction.price}></input>
+        </div>
+
+        <label>Is active: </label>
+        <select name="gender" id="gender" value={modelCurrentAction.gender}>
+          <option value="nam">True</option>
+          <option value="nu">False</option>
+        </select>
+
+        <label for="date">Create at: </label>
+          <input id="createat" type="date"  name="createat" value={modelCurrentAction.createdAt}></input>
+        <label for="date">Update at: </label>
+          <input id="updateat" type="date"  name="updateat" value={modelCurrentAction.updatedAt}></input>
+        
       </Modal>
       <Modal
         title="Delete Modal"
@@ -168,8 +239,8 @@ const TourManager = () => {
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>Model Delete</p>
-        {modelCurrentAction.name}
+        <p>Are you sure to delete "{modelCurrentAction.name}"</p>
+        
       </Modal>
       <div className="tour-utilities">
         <div className="btn-add-tour" onClick={showAddModal}>

@@ -180,49 +180,76 @@ const BillManager = () => {
   return (
     <>
       <Modal
-        title="Add Modal"
+        title="Add new bill"
         visible={isModalAddVisible}
         onOk={handleAddOk}
         onCancel={handleAddCancel}
       >
-        <p>Model Add</p>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="name" class="form-control" id="name" placeholder="Enter username"></input>
+        </div>
+        
+        <div class="dropdown">
+          <label>Status: </label>
+          <select name="status" id="status">
+            <option value="unpaid">Unpaid</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="name">Total price: </label>
+          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)"></input>
+        </div>
+
+        
+        <label for="date">Date: </label>
+          <input id="date" type="date"  name="date"></input>
+        <label for="date">Create at: </label>
+          <input id="createat" type="date"  name="createat"></input>
+        <label for="date">Update at: </label>
+          <input id="updateat" type="date"  name="updateat"></input>
+
       </Modal>
       <Modal
-        title="Show Modal"
+        title="SHOW CURRENT BILL'S DETAILS"
         visible={isModalShowVisible}
         onOk={handleShowOk}
         onCancel={handleShowCancel}
       >
         <p>Model Show</p>
-        {modelCurrentAction.date},
-        {modelCurrentAction.totalPrice},
+        {modelCurrentAction.totalPrice} VND,
         {modelCurrentAction.status}
+        {modelCurrentAction.date},
       </Modal>
 
       <Modal
-        title="Confirm Modal"
+        title="CONFIRM CURRENT BILL'S DETAILS"
         visible={isModalConfirmVisible}
         onOk={handleConfirmOk}
         onCancel={handleConfirmCancel}
       >
         <p>Model Confirm</p>
         <p>Are you sure to confirm this bill?</p>
+        {modelCurrentAction.totalPrice} VND,
+        {modelCurrentAction.status}    
         {modelCurrentAction.date},
-        {modelCurrentAction.totalPrice},
-        {modelCurrentAction.status}      
+  
       </Modal>
 
       <Modal
-        title="Cancel Modal"
+        title="CANCEL CURRENT BILL'S DETAILS"
         visible={isModalCancelVisible}
         onOk={handleCancelOk}
         onCancel={handleCancelCancel}
       >
         <p>Model Cancel</p>
-        <p>Are you sure to confirm this bill?</p>
-        {modelCurrentAction.date},
+        <p>Are you sure to cancel this bill?</p>
         {modelCurrentAction.totalPrice},
-        {modelCurrentAction.status}  
+        {modelCurrentAction.status} 
+        {modelCurrentAction.date},
+ 
       </Modal>
 
       <Modal
@@ -232,9 +259,11 @@ const BillManager = () => {
         onCancel={handleDeleteCancel}
       >
         <p>Model Delete</p>
-        {modelCurrentAction.date},
-        {modelCurrentAction.totalPrice},
+        <p>Are you sure to delete this bill?</p>
+        {modelCurrentAction.totalPrice} VND,
         {modelCurrentAction.status}
+        {modelCurrentAction.date},
+
       </Modal>
 
       <div className="bill-utilities">
