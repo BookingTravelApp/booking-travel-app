@@ -17,7 +17,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// this is just to test locally if multer is working fine.
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
     cb(null, "public/upload");
@@ -42,7 +41,6 @@ const multerS3Config = multerS3({
     cb(null, { fieldName: file.fieldname });
   },
   key: function (req, file, cb) {
-    // console.log(file);
     cb(null, new Date().toISOString() + "-" + file.originalname);
   },
 });
@@ -56,11 +54,6 @@ const multipleUpload = multer({
   fileFilter: fileFilter,
 }).array("media", LIMIT_UNEXPECTED_FILE);
 
-// var singleUpload = multer({ storage: storage });
-// var multipleUpload = multer({ storage: storage }).array(
-//   "media",
-//   LIMIT_UNEXPECTED_FILE
-// );
 module.exports = {
   singleUpload,
   multipleUpload,
