@@ -1,5 +1,10 @@
 const { Image, User } = require("../model");
-
+const AWS = require("aws-sdk");
+const s3Config = new AWS.S3({
+  accessKeyId: process.env.AWS_IAM_USER_KEY,
+  secretAccessKey: process.env.AWS_IAM_USER_SECRET,
+  Bucket: process.env.AWS_BUCKET_NAME,
+});
 module.exports = {
   //Index
   avatarIndex: (req, res) => {
@@ -80,8 +85,9 @@ module.exports = {
         try {
           const newImage = new Image({
             is_avatar: false,
+            name: file.key,
             serviceId: serviceId,
-            path: `media/${file.filename}`,
+            path: `${file.location}`,
           });
           await newImage.save();
         } catch (error) {
@@ -99,23 +105,42 @@ module.exports = {
   showMedia: (req, res) => {
     const filename = req.params.filename;
 
-    if (filename) {
-      try {
-        const filepath = `${__basedir}\\public\\upload\\${filename}`;
-        if (require("fs").existsSync(filepath)) {
-          return res.sendFile(filepath);
+    try {
+      var params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: req.params.filename,
+        ContentType: "image",
+      };
+      s3.getObject(params, function (err, data) {
+        if (err) {
+          console.log(err);
+          return res.json({ success: false, message: "Internal server error" });
         }
-      } catch (error) {
-        return res.json({
-          success: "false",
-          message: "server internal error",
-        });
-      }
+        res.json({ success: true, data });
+      });
+    } catch (error) {
+      return res.status(404).json({
+        susscess: false,
+        message: "file not found",
+      });
     }
-
-    return res.status(404).json({
-      susscess: false,
-      message: "file not found",
-    });
+  },
+  destroy: async (req, res) => {
+    try {
+      const image = await Image.findOne({ where: { id: req.params.id } });
+      s3Config.deleteObject(
+        { Bucket: process.env.AWS_BUCKET_NAME, Key: image.name },
+        (err, data) => {
+          if (err) console.error(err);
+        }
+      );
+      await Image.destroy({ where: { id: req.params.id } });
+      return res.json({ success: true, message: "Image delete success" });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
   },
 };
