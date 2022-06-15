@@ -30,6 +30,7 @@ module.exports = {
     try {
       const tourList = await Service.findAll({
         where: { "$category.name$": "tour" },
+        order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!tourList)
@@ -44,6 +45,7 @@ module.exports = {
     try {
       const hotelBookingList = await Service.findAll({
         where: { "$category.name$": "hotel" },
+        order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!hotelBookingList)
@@ -58,6 +60,7 @@ module.exports = {
     try {
       const planeList = await Service.findAll({
         where: { "$category.name$": "plane" },
+        order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       if (!planeList)
