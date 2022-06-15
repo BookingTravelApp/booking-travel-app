@@ -30,7 +30,12 @@ const TourManager = () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [
+    isModalAddVisible,
+    isModalImageVisible,
+    isModalUpdateVisible,
+    isModalDeleteVisible,
+  ]);
   const showAddModal = () => setIsModalAddVisible(true);
   const handleAddOk = () => setIsModalAddVisible(false);
   const handleAddCancel = () => setIsModalAddVisible(false);
@@ -202,10 +207,9 @@ const TourManager = () => {
         visible={isModalImageVisible}
         onOk={handleImageOk}
         onCancel={handleImageCancel}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
-        <p>Model Image</p>
         <UploadBox service={modelCurrentAction} />
-        {modelCurrentAction.name}
       </Modal>
       <Modal
         title="Update Modal"

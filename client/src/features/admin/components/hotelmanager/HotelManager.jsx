@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Table, Space, Input, Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
 import moment from 'moment';
+import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
 const HotelManager = () => {
@@ -29,7 +30,12 @@ const HotelManager = () => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [
+    isModalAddVisible,
+    isModalImageVisible,
+    isModalUpdateVisible,
+    isModalDeleteVisible,
+  ]);
   const showAddModal = () => setIsModalAddVisible(true);
   const handleAddOk = () => setIsModalAddVisible(false);
   const handleAddCancel = () => setIsModalAddVisible(false);
@@ -156,17 +162,32 @@ const HotelManager = () => {
       >
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" placeholder="Enter name"></input>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            placeholder="Enter name"
+          ></input>
         </div>
-        
+
         <div class="form-group">
           <label for="name">Description: </label>
-          <input type="description" class="form-control" id="description" placeholder="Enter description"></input>
+          <input
+            type="description"
+            class="form-control"
+            id="description"
+            placeholder="Enter description"
+          ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Price: </label>
-          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)"></input>
+          <input
+            type="price"
+            class="form-control"
+            id="price"
+            placeholder="Enter price (VND)"
+          ></input>
         </div>
 
         <label>Is active: </label>
@@ -176,41 +197,18 @@ const HotelManager = () => {
         </select>
 
         <label for="date">Create at: </label>
-          <input id="createat" type="date"  name="createat"></input>
+        <input id="createat" type="date" name="createat"></input>
         <label for="date">Update at: </label>
-          <input id="updateat" type="date"  name="updateat"></input>
+        <input id="updateat" type="date" name="updateat"></input>
       </Modal>
       <Modal
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
         onCancel={handleImageCancel}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
-        <div class="form-group">
-          <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" value={modelCurrentAction.name}></input>
-        </div>
-        
-        <div class="form-group">
-          <label for="name">Description: </label>
-          <input type="description" class="form-control" id="description" placeholder="Enter description" value={modelCurrentAction.description}></input>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Price: </label>
-          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)" value={modelCurrentAction.price}></input>
-        </div>
-
-        <label>Is active: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
-          <option value="nam">True</option>
-          <option value="nu">False</option>
-        </select>
-
-        <label for="date">Create at: </label>
-          <input id="createat" type="date"  name="createat" value={modelCurrentAction.createdAt}></input>
-        <label for="date">Update at: </label>
-          <input id="updateat" type="date"  name="updateat" value={modelCurrentAction.updatedAt}></input>
+        <UploadBox service={modelCurrentAction} />
       </Modal>
       <Modal
         title="Update Modal"
@@ -220,17 +218,34 @@ const HotelManager = () => {
       >
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" value={modelCurrentAction.name}></input>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            value={modelCurrentAction.name}
+          ></input>
         </div>
-        
+
         <div class="form-group">
           <label for="name">Description: </label>
-          <input type="description" class="form-control" id="description" placeholder="Enter description" value={modelCurrentAction.description}></input>
+          <input
+            type="description"
+            class="form-control"
+            id="description"
+            placeholder="Enter description"
+            value={modelCurrentAction.description}
+          ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Price: </label>
-          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)" value={modelCurrentAction.price}></input>
+          <input
+            type="price"
+            class="form-control"
+            id="price"
+            placeholder="Enter price (VND)"
+            value={modelCurrentAction.price}
+          ></input>
         </div>
 
         <label>Is active: </label>
@@ -240,9 +255,19 @@ const HotelManager = () => {
         </select>
 
         <label for="date">Create at: </label>
-          <input id="createat" type="date"  name="createat" value={modelCurrentAction.createdAt}></input>
+        <input
+          id="createat"
+          type="date"
+          name="createat"
+          value={modelCurrentAction.createdAt}
+        ></input>
         <label for="date">Update at: </label>
-          <input id="updateat" type="date"  name="updateat" value={modelCurrentAction.updatedAt}></input>
+        <input
+          id="updateat"
+          type="date"
+          name="updateat"
+          value={modelCurrentAction.updatedAt}
+        ></input>
       </Modal>
       <Modal
         title="Delete Modal"
@@ -251,7 +276,6 @@ const HotelManager = () => {
         onCancel={handleDeleteCancel}
       >
         <p>Are you sure to delete "{modelCurrentAction.name}"</p>
-        
       </Modal>
       <div className="hotel-utilities">
         <div className="btn-add-hotel" onClick={showAddModal}>

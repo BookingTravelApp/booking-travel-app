@@ -6,6 +6,7 @@ import { Modal, Upload } from 'antd';
 import resourceApi from '../../api/resourceApi';
 import { API_URL } from '../../contexts/constants';
 import serviceAPI from '../../api/serviceApi';
+import Spinner from 'react-bootstrap/Spinner';
 
 const getBase64 = file =>
   new Promise((resolve, reject) => {
@@ -23,6 +24,7 @@ const UploadBox = props => {
   const [previewTitle, setPreviewTitle] = useState('');
   const [fileList, setFileList] = useState([]);
   const [fileUploadList, setFileUploadList] = useState([]);
+  const [waitUpload, setWaitUpload] = useState(false);
   useEffect(() => {
     var list = [];
     let temp = null;
@@ -37,8 +39,7 @@ const UploadBox = props => {
       list.push(temp);
     }
     setFileList(list);
-  }, []);
-
+  }, [props]);
   const handleCancel = () => setPreviewVisible(false);
 
   const handlePreview = async file => {
@@ -63,6 +64,7 @@ const UploadBox = props => {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    setWaitUpload(true);
     var data = new FormData();
     for (let i = 0; i < fileUploadList.length; i++) {
       data.append('media', fileUploadList[i]);
@@ -88,9 +90,11 @@ const UploadBox = props => {
         }
       });
     } catch (error) {}
+    setWaitUpload(false);
     return false;
   };
   const handleDelete = async event => {
+    setWaitUpload(true);
     try {
       await resourceApi.delete(event.id);
       await serviceAPI.get(props.service.slug).then(res => {
@@ -109,7 +113,13 @@ const UploadBox = props => {
         }
       });
     } catch (error) {}
+    setWaitUpload(false);
   };
+  var waitUploadSpinner = waitUpload ? (
+    <Spinner animation="border" variant="info" />
+  ) : (
+    <></>
+  );
   return (
     <>
       <Upload
@@ -122,6 +132,7 @@ const UploadBox = props => {
         }}
         onRemove={handleDelete}
       ></Upload>
+      <div>{waitUploadSpinner}</div>
       <h4>Multiple Image:</h4>
       <form>
         <input
