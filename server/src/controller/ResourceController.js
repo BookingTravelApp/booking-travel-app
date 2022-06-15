@@ -128,6 +128,9 @@ module.exports = {
   destroy: async (req, res) => {
     try {
       const image = await Image.findOne({ where: { id: req.params.id } });
+      if (!image) {
+        return res.json({ success: false, message: "Image not found" });
+      }
       s3Config.deleteObject(
         { Bucket: process.env.AWS_BUCKET_NAME, Key: image.name },
         (err, data) => {
