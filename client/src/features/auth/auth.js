@@ -10,7 +10,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 function Auth({ authRoute }) {
   const {
-    authState: { authLoading, isAuthenticated },
+    authState: { authLoading, isAuthenticated, role },
   } = useContext(AuthContext);
   let body;
   if (authLoading) {
@@ -26,7 +26,11 @@ function Auth({ authRoute }) {
           <Logout />
         </>
       );
-    else return <Navigate to="/home" />;
+    else {
+      if (role === 'admin' || role === 'employee')
+        return <Navigate to="/admin" />;
+      return <Navigate to="/home" />;
+    }
   } else
     body = (
       <>

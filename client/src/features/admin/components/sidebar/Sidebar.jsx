@@ -81,7 +81,7 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
-          <Link href="/admin/user">
+          <Link href="/logout">
             <li>
               <ExitToAppIcon className="icon" />
               <span>Logout</span>

@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Table, Space, Input, Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
 import moment from 'moment';
+import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
 const TourManager = () => {
@@ -46,9 +47,12 @@ const TourManager = () => {
   const searchClick = () => {
     const filteredData = listTourAll.filter(
       entry =>
-        entry.id.includes(searchValue) ||
-        entry.name.includes(searchValue) ||
-        entry.price == searchValue
+        entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
+        entry.name
+          .toString()
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
+        entry.price.toString().toLowerCase() == searchValue.toLowerCase()
     );
     setListTour(filteredData);
   };
@@ -59,44 +63,54 @@ const TourManager = () => {
       title: 'id',
       dataIndex: 'id',
       filterMode: 'tree',
+      width: 200,
+      fixed: 'left',
     },
     {
       title: 'Name',
       dataIndex: 'name',
       sorter: (a, b) => a.name.length - b.name.length,
+      width: 200,
+      fixed: 'left',
     },
     {
       title: 'Description',
       dataIndex: 'description',
-      width: 500,
+      width: 550,
       sorter: (a, b) => a.description.length - b.description.length,
     },
     {
       title: 'Price',
       dataIndex: 'price',
       sorter: (a, b) => a.price - b.price,
+      width: 120,
     },
     {
       title: 'Is active',
       dataIndex: 'is_active',
       render: text => String(text),
       sorter: (a, b) => a.is_active - b.is_active,
+      width: 100,
     },
     {
       title: 'Create At',
       dataIndex: 'createdAt',
       key: 'createdAt',
       sorter: (a, b) => moment(a.createdAt).unix() - moment(b.createdAt).unix(),
+      width: 200,
     },
     {
       title: 'Update At',
       dataIndex: 'updatedAt',
       key: 'updatedAt',
       sorter: (a, b) => moment(a.updatedAt).unix() - moment(b.updatedAt).unix(),
+      width: 200,
     },
     {
       title: 'Action',
       key: 'action',
+      width: 280,
+      fixed: 'right',
       render: (index, record) => (
         <Space className="action-button" size="middle">
           <button
@@ -151,6 +165,7 @@ const TourManager = () => {
         onCancel={handleImageCancel}
       >
         <p>Model Image</p>
+        <UploadBox service={modelCurrentAction} />
         {modelCurrentAction.name}
       </Modal>
       <Modal

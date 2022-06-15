@@ -15,6 +15,7 @@ const AuthContextProvider = ({ children }) => {
     authLoading: true,
     isAuthenticated: false,
     user: null,
+    role: null,
   });
   // Authenticate user
   const loadUser = async () => {
@@ -30,7 +31,11 @@ const AuthContextProvider = ({ children }) => {
       if (response.data.success) {
         dispatch({
           type: 'SET_AUTH',
-          payload: { isAuthenticated: true, user: response.data.user },
+          payload: {
+            isAuthenticated: true,
+            user: response.data.user,
+            role: response.data.role,
+          },
         });
       } else
         dispatch({
@@ -38,6 +43,7 @@ const AuthContextProvider = ({ children }) => {
           payload: {
             isAuthenticated: false,
             user: null,
+            role: null,
           },
         });
     } catch (error) {
@@ -49,6 +55,7 @@ const AuthContextProvider = ({ children }) => {
         payload: {
           isAuthenticated: false,
           user: null,
+          role: null,
         },
       });
     }

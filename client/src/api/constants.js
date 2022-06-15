@@ -1,1 +1,2 @@
-export const url = 'https://tranquil-shore-96391.herokuapp.com';
+import { API_URL } from '../contexts/constants';
+export const url = API_URL;

@@ -9,27 +9,53 @@ import TourManager from './components/tourmanager/TourManager';
 import HotelManager from './components/hotelmanager/HotelManager';
 import CarManager from './components/carmanager/CarManager';
 import EventManager from './components/eventmanager/EventManager';
+import { AuthContext } from '../../contexts/AuthContext';
+import React, { useContext } from 'react';
+// import { Navigate } from 'react-router-dom';
+import Spinner from 'react-bootstrap/Spinner';
+import FBChat from '../../components/social/FbChat';
 
 const Amin = ({ adminRoute }) => {
+  const {
+    authState: { authLoading, isAuthenticated, role },
+  } = useContext(AuthContext);
   var body = <></>;
-  if (adminRoute == 'dashboard') body = <Statistical />;
-  else if (adminRoute == 'user') body = <UserManager />;
-  else if (adminRoute == 'employee') body = <EmployeeManager />;
-  else if (adminRoute == 'bill') body = <BillManager />;
-  else if (adminRoute == 'tour') body = <TourManager />;
-  else if (adminRoute == 'hotel') body = <HotelManager />;
-  else if (adminRoute == 'car') body = <CarManager />;
-  else if (adminRoute == 'event') body = <EventManager />;
-  else body = <Statistical />;
-  return (
-    <div className="home">
-      <Sidebar />
-      <div className="homeContainer">
-        <Navbar />
-        {body}
+  var content = <></>;
+  if (authLoading) {
+    body = (
+      <div
+        className="d-flex justify-content-center mt-2"
+        style={{ width: '100vw', height: '100vh', 'padding-top': '20%' }}
+      >
+        <Spinner animation="border" variant="info" />
       </div>
-    </div>
-  );
+    );
+  } else if (!isAuthenticated || role !== 'admin')
+    return <></>; // Thêm trang 404
+  else {
+    if (adminRoute === 'dashboard') content = <Statistical />;
+    else if (adminRoute === 'user') content = <UserManager />;
+    else if (adminRoute === 'employee') content = <EmployeeManager />;
+    else if (adminRoute === 'bill') content = <BillManager />;
+    else if (adminRoute === 'tour') content = <TourManager />;
+    else if (adminRoute === 'hotel') content = <HotelManager />;
+    else if (adminRoute === 'car') content = <CarManager />;
+    else if (adminRoute === 'event') content = <EventManager />;
+    else content = <Statistical />;
+
+    body = (
+      <div className="home">
+        {/* <FBChat /> */}
+        <Sidebar />
+        <div className="homeContainer">
+          <Navbar />
+          {content}
+        </div>
+      </div>
+    );
+  }
+
+  return <>{body}</>;
 };
 
 export default Amin;
