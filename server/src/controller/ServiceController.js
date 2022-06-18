@@ -86,7 +86,8 @@ module.exports = {
     }
   },
   create: async (req, res) => {
-    const { name, description, price, is_active, categoryId } = req.body;
+    const { name, title, description, guide, price, is_active, categoryId } =
+      req.body;
 
     try {
       if (!name)
@@ -101,7 +102,9 @@ module.exports = {
 
       const newService = new Service({
         name,
+        title: title || "",
         description: description || "",
+        guide: guide || "",
         price: price || 0,
         is_active: is_active || true,
         categoryId,
@@ -121,7 +124,16 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    const { id, name, description, price, is_active, categoryId } = req.body;
+    const {
+      id,
+      name,
+      title,
+      description,
+      guide,
+      price,
+      is_active,
+      categoryId,
+    } = req.body;
 
     try {
       if (!id)
@@ -134,7 +146,9 @@ module.exports = {
       await Service.update(
         {
           name: name || oldService.name,
+          title: title || oldService.title,
           description: description || oldService.description,
+          guide: guide || oldService.guide,
           price: price || oldService.price,
           is_active: is_active || oldService.is_active,
           categoryId: categoryId || oldService.categoryId,
