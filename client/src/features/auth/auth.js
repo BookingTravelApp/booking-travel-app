@@ -7,6 +7,7 @@ import Logout from './components/logout.component.js';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import ResetPassword from './resetpassword';
 
 function Auth({ authRoute }) {
   const {
@@ -37,6 +38,7 @@ function Auth({ authRoute }) {
         {authRoute === 'login' && <Login />}
         {authRoute === 'register' && <SignUp />}
         {authRoute === 'forget-password' && <ForgetPassword />}
+        {authRoute === 'reset-password' && <ResetPassword />}
       </>
     );
 
