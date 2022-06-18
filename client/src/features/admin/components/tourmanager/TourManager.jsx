@@ -173,12 +173,7 @@ const TourManager = () => {
 
         <div class="form-group">
           <label for="name">Description: </label>
-          <input
-            type="description"
-            class="form-control"
-            id="description"
-            placeholder="Enter description"
-          ></input>
+          <textarea class="form-control"  id="description" type="description" rows="5" placeholder="Enter description"></textarea>
         </div>
 
         <div class="form-group">
@@ -197,10 +192,12 @@ const TourManager = () => {
           <option value="nu">False</option>
         </select>
 
-        <label for="date">Create at: </label>
-        <input id="createat" type="date" name="createat"></input>
-        <label for="date">Update at: </label>
-        <input id="updateat" type="date" name="updateat"></input>
+        <div class="date">
+          <label for="createat">Create at: </label>
+          <input type="date" class="form-control" name="createat" id="createat" ></input>
+          <label for="updateat">Update at: </label>
+          <input type="date" class="form-control" name="updateat" id="updateat"  ></input>
+        </div>
       </Modal>
       <Modal
         title="Image Modal"
@@ -229,13 +226,14 @@ const TourManager = () => {
 
         <div class="form-group">
           <label for="name">Description: </label>
-          <input
-            type="description"
-            class="form-control"
-            id="description"
-            placeholder="Enter description"
+          <textarea 
+            class="form-control"  
+            id="description" 
+            type="description" 
+            rows="5" 
+            placeholder="Enter description" 
             value={modelCurrentAction.description}
-          ></input>
+          ></textarea>
         </div>
 
         <div class="form-group">
@@ -255,20 +253,24 @@ const TourManager = () => {
           <option value="nu">False</option>
         </select>
 
-        <label for="date">Create at: </label>
-        <input
-          id="createat"
-          type="date"
-          name="createat"
-          value={modelCurrentAction.createdAt}
-        ></input>
-        <label for="date">Update at: </label>
-        <input
-          id="updateat"
-          type="date"
-          name="updateat"
-          value={modelCurrentAction.updatedAt}
-        ></input>
+        <div class="date">
+          <label for="createat">Create at: </label>
+          <input 
+            type="date" 
+            class="form-control"
+            name="createat" 
+            id="createat" 
+            value={modelCurrentAction.createdAt} 
+          ></input>
+          <label for="updateat">Update at: </label>
+          <input 
+            type="date" 
+            class="form-control" 
+            name="updateat" 
+            id="updateat" 
+            value={modelCurrentAction.updatedAt} 
+          ></input>
+        </div>
       </Modal>
       <Modal
         title="Delete Modal"

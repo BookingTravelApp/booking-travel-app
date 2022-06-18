@@ -7,11 +7,15 @@ import 'antd/dist/antd.css';
 import { ClassNames } from '@emotion/react';
 import moment from 'moment';
 import { Table, Space, Input, Modal, Button } from 'antd';
+
+
 const { Search } = Input;
 
 
 const UserManager = () => {
   const [listUser, setListUser] = useState([]);
+  const [listUserAll, setListUserAll] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalShowVisible, setIsModalShowVisible] = useState(false);
@@ -24,6 +28,8 @@ const UserManager = () => {
       .getAll()
       .then(response => {
         setListUser(response.data.listUser);
+        setListUserAll(response.data.listUser);
+
       })
       .catch(error => {
         console.log('Failed to fetch UserList:',error);
@@ -69,6 +75,20 @@ const UserManager = () => {
   const handleDeleteCancel = () => {
     setIsModalDeleteVisible(false);
   };
+
+  const searchClick = () => {
+    const filteredData = listUserAll.filter(
+      entry =>
+        entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
+        entry.name
+          .toString()
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
+        entry.price.toString().toLowerCase() == searchValue.toLowerCase()
+    );
+    setListUser(filteredData);
+  };
+  const searchChange = event => setSearchValue(event.target.value);
 
   const columns = [
        
@@ -176,8 +196,10 @@ const UserManager = () => {
           <option value="nu">Nữ</option>
         </select>
         
-        <label for="birthday">Birthday:</label>
-          <input id="birthday" type="date"  name="birthday"></input>
+        <div class="date">
+          <label for="birthday">Date of birth: </label>
+          <input type="date" class="form-control" id="birthday" ></input>
+        </div>
 
       </Modal>
       <Modal
@@ -204,8 +226,11 @@ const UserManager = () => {
           <option value="nu">Nữ</option>
         </select>
         
-        <label for="birthday">Date of birth: </label>
-          <input id="birthday" type="date"  name="birthday" value={modelCurrentAction.date}></input>
+
+        <div class="date">
+          <label for="birthday">Date of birth: </label>
+          <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date}></input>
+        </div>
       </Modal>
       <Modal
         title="Update user's informations"
@@ -214,15 +239,21 @@ const UserManager = () => {
         onCancel={handleUpdateCancel}
       >
         <p>Update {modelCurrentAction.name}'s informations</p>
-        <label>
-          Name: 
-          <input type="text" name="name" value={modelCurrentAction.name}/>
-        </label>
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="name" class="form-control" id="name" placeholder="Enter username" value={modelCurrentAction.name}></input>
+        </div>
         
-        <label>
-          Phone number: 
-          <input type="text" name="name" value={modelCurrentAction.phone_number}/>
-        </label>
+        <div class="form-group">
+          <label for="name">Phone number: </label>
+          <input type="phone_number" class="form-control" id="phone_number" placeholder="Enter phone number" value={modelCurrentAction.phone_number} required></input>
+        </div>
+
+        <label>Is active: </label>
+        <select name="isactive" id="isactive" value={modelCurrentAction.active}>
+          <option value="nam">True</option>
+          <option value="nu">False</option>
+        </select>
         
         <label>Gender: </label>
         <select name="gender" id="gender" value={modelCurrentAction.gender}>
@@ -230,8 +261,10 @@ const UserManager = () => {
           <option value="nu">Nữ</option>
         </select>
         
-        <label for="birthday">Date of birth: </label>
-          <input id="birthday" type="date"  name="birthday" value={modelCurrentAction.date}></input>
+        <div class="date">
+          <label for="birthday">Date of birth: </label>
+          <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date}></input>
+        </div>
 
       </Modal>
       <Modal
@@ -262,9 +295,13 @@ const UserManager = () => {
           </div>
         </div>
         <Search
+          allowClear
           className="search"
           placeholder="Input search text"
           enterButton
+          onSearch={searchClick}
+          value={searchValue}
+          onChange={searchChange}
         />
       </div>
       <div className="user-table-container">

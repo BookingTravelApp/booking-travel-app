@@ -1,9 +1,9 @@
-.event-utilities {
+.employee-utilities {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   
-    .btn-add-event {
+    .btn-add-employee {
       width: 200px !important;
       display: flex;
       justify-content: space-between;
@@ -55,7 +55,7 @@
         align-self: flex-end;
       }
     }
-    .btn-add-event:hover {
+    .btn-add-employee:hover {
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
     .search {
@@ -64,7 +64,7 @@
       margin-right: 200px;
     }
   }
-  .event-table-container {
+  .employee-table-container {
     overflow: hidden;
     z-index: 0;
     max-width: 1300px;

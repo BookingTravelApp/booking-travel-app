@@ -15,6 +15,7 @@ const BillManager = () => {
 
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalShowVisible, setIsModalShowVisible] = useState(false);
+  const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalConfirmVisible, setIsModalConfirmVisible] = useState(false);
   const [isModalCancelVisible, setIsModalCancelVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
@@ -50,6 +51,16 @@ const BillManager = () => {
   };
   const handleShowCancel = () => {
     setIsModalShowVisible(false);
+  };
+
+  const showUpdateModal = () => {
+    setIsModalUpdateVisible(true);
+  };
+  const handleUpdateOk = () => {
+    setIsModalUpdateVisible(false);
+  };
+  const handleUpdateCancel = () => {
+    setIsModalUpdateVisible(false);
   };
 
   const showConfirmModal = () => {
@@ -143,6 +154,16 @@ const BillManager = () => {
           </button>
           <button
             type="button"
+            class="btn btn-info"
+            onClick={() => {
+              setModelCurrentAction(record);
+              showUpdateModal();
+            }}
+          >
+            Update
+          </button>
+          <button
+            type="button"
             class="btn btn-success"
             onClick={() => {
               setModelCurrentAction(record);
@@ -153,7 +174,7 @@ const BillManager = () => {
           </button>
           <button
             type="button"
-            class="btn btn-dark"
+            class="btn btn-secondary"
             onClick={() => {
               setModelCurrentAction(record);
               showCancelModal();
@@ -202,14 +223,15 @@ const BillManager = () => {
           <label for="name">Total price: </label>
           <input type="price" class="form-control" id="price" placeholder="Enter price (VND)"></input>
         </div>
-
         
-        <label for="date">Date: </label>
-          <input id="date" type="date"  name="date"></input>
-        <label for="date">Create at: </label>
-          <input id="createat" type="date"  name="createat"></input>
-        <label for="date">Update at: </label>
-          <input id="updateat" type="date"  name="updateat"></input>
+        <div class="date">
+          <label for="date">Date: </label>
+          <input type="date" class="form-control" id="date" ></input>
+          <label for="createat">Create at: </label>
+          <input type="date" class="form-control" id="createat"></input>
+          <label for="updateat">Update at: </label>
+          <input type="date" class="form-control" id="updateat"></input>
+        </div>
 
       </Modal>
       <Modal
@@ -218,24 +240,83 @@ const BillManager = () => {
         onOk={handleShowOk}
         onCancel={handleShowCancel}
       >
-        <p>Model Show</p>
-        {modelCurrentAction.totalPrice} VND,
-        {modelCurrentAction.status}
-        {modelCurrentAction.date},
-      </Modal>
+        <div class="form-group">
+          <label for="name">Price: (VND)</label>
+          <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
+        </div>
+        
+        <div class="dropdown">
+          <label>Status: </label>
+          <select name="status" id="status">
+            <option value="unpaid">Unpaid</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
 
+        <div class="date">
+          <label for="date">Date: </label>
+          <input type="date" class="form-control" id="date" value={modelCurrentAction.date}></input>
+          <label for="createat">Create at: </label>
+          <input type="date" class="form-control" id="createat" value={modelCurrentAction.createdAt}></input>
+          <label for="updateat">Update at: </label>
+          <input type="date" class="form-control" id="updateat" value={modelCurrentAction.updatedAt}></input>
+        </div>
+      </Modal>
+      <Modal
+        title="Update user's informations"
+        visible={isModalUpdateVisible}
+        onOk={handleUpdateOk}
+        onCancel={handleUpdateCancel}
+      >
+        <div class="form-group">
+          <label for="name">Price: (VND)</label>
+          <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
+        </div>
+        
+        <div class="dropdown">
+          <label>Status: </label>
+          <select name="status" id="status">
+            <option value="unpaid">Unpaid</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+
+        <div class="date">
+          <label for="date">Date: </label>
+          <input type="date" class="form-control" id="date" value={modelCurrentAction.date}></input>
+          <label for="createat">Create at: </label>
+          <input type="date" class="form-control" id="createat" value={modelCurrentAction.createdAt}></input>
+          <label for="updateat">Update at: </label>
+          <input type="date" class="form-control" id="updateat" value={modelCurrentAction.updatedAt}></input>
+        </div>
+      </Modal>
       <Modal
         title="CONFIRM CURRENT BILL'S DETAILS"
         visible={isModalConfirmVisible}
         onOk={handleConfirmOk}
         onCancel={handleConfirmCancel}
       >
-        <p>Model Confirm</p>
-        <p>Are you sure to confirm this bill?</p>
-        {modelCurrentAction.totalPrice} VND,
-        {modelCurrentAction.status}    
-        {modelCurrentAction.date},
-  
+        <div class="form-group">
+          <label for="name">Price: (VND)</label>
+          <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
+        </div>
+        
+        <div class="dropdown">
+          <label>Status: </label>
+          <select name="status" id="status">
+            <option value="unpaid">Unpaid</option>
+            <option value="paid">Paid</option>
+          </select>
+        </div>
+
+        <div class="date">
+          <label for="date">Date: </label>
+          <input type="date" class="form-control" id="date" value={modelCurrentAction.date}></input>
+          <label for="createat">Create at: </label>
+          <input type="date" class="form-control" id="createat" value={modelCurrentAction.createdAt}></input>
+          <label for="updateat">Update at: </label>
+          <input type="date" class="form-control" id="updateat" value={modelCurrentAction.updatedAt}></input>
+        </div>
       </Modal>
 
       <Modal
