@@ -186,12 +186,12 @@ const UserManager = () => {
 
         <label>Is active: </label>
         <select name="isactive" id="isactive">
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
         
         <label>Gender: </label>
-        <select name="gender" id="gender">
+        <select name="gender" id="gender" class="form-control">
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
         </select>
@@ -208,11 +208,17 @@ const UserManager = () => {
         onOk={handleShowOk}
         onCancel={handleShowCancel}
       >
-        <p>Show {modelCurrentAction.name}'s informations</p>
+        <p>SHOW {modelCurrentAction.name}'s INFORMATION</p>
+        <div class="form-group">
+          <label for="name">ID: </label>
+          <input type="text" readonly class="form-control" id="id" value={modelCurrentAction.id} disabled></input>
+        </div>
+
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="text" class="form-control" id="name" value={modelCurrentAction.name}></input>
+          <input type="text" readonly class="form-control" id="name" value={modelCurrentAction.name}></input>
         </div>
+        
         
         <div class="form-group">
           <label for="name">Phone number: </label>
@@ -221,11 +227,10 @@ const UserManager = () => {
         
         
         <label>Gender: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
+        <select name="gender" id="gender" class="form-control" value={modelCurrentAction.gender}>
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
-        </select>
-        
+        </select>        
 
         <div class="date">
           <label for="birthday">Date of birth: </label>
@@ -238,21 +243,26 @@ const UserManager = () => {
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>Update {modelCurrentAction.name}'s informations</p>
+        <p>UPDATE {modelCurrentAction.name}'s INFORMATIONS</p>
+        <div class="form-group">
+          <label for="id">ID: </label>
+          <input type="text" readonly class="form-control" id="id" value={modelCurrentAction.id} disabled></input>
+        </div>
+
         <div class="form-group">
           <label for="name">Name: </label>
           <input type="name" class="form-control" id="name" placeholder="Enter username" value={modelCurrentAction.name}></input>
         </div>
         
         <div class="form-group">
-          <label for="name">Phone number: </label>
+          <label for="phone_number">Phone number: </label>
           <input type="phone_number" class="form-control" id="phone_number" placeholder="Enter phone number" value={modelCurrentAction.phone_number} required></input>
         </div>
 
         <label>Is active: </label>
         <select name="isactive" id="isactive" value={modelCurrentAction.active}>
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
         
         <label>Gender: </label>
@@ -268,12 +278,12 @@ const UserManager = () => {
 
       </Modal>
       <Modal
-        title="Delete Modal"
+        title="Delete"
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>Are you sure to delete {modelCurrentAction.name}</p>
+        <p>ARE YOU SURE TO DELETE {modelCurrentAction.name}</p>
         {modelCurrentAction.name}
       </Modal>
       <div className="user-utilities">

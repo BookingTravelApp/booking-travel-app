@@ -192,16 +192,14 @@ const CarManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="gender" id="gender">
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+        <select name="isactive" id="isactive" class="form-control">
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
 
         <div class="date">
           <label for="createat">Create at: </label>
           <input type="date" class="form-control" id="createat" ></input>
-          <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" id="updateat" ></input>
         </div>
 
       </Modal>
@@ -254,26 +252,27 @@ const CarManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+        <select name="isactive" id="isactive" class="form-control" value={modelCurrentAction.is_active}>
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
 
         <div class="date">
           <label for="createat">Create at: </label>
           <input type="date" class="form-control" name="createat" id="createat" value={modelCurrentAction.createdAt} ></input>
+          
           <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" name="updateat" id="updateat" value={modelCurrentAction.updatedAt} ></input>
+          <input type="date" class="form-control" id="updateat" ></input>
         </div>
         
       </Modal>
       <Modal
-        title="Delete Modal"
+        title="Delete"
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>Are you sure to delete "{modelCurrentAction.name}"</p>
+        <p>ARE YOU SURE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
       <div className="car-utilities">
         <div className="btn-add-car" onClick={showAddModal}>
@@ -296,7 +295,7 @@ const CarManager = () => {
         <Search
           allowClear
           className="search"
-          placeholder="input search text"
+          placeholder="Input search text"
           enterButton
           onSearch={searchClick}
           value={searchValue}

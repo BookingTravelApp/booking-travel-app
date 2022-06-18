@@ -178,19 +178,10 @@ const EventManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="isactive" id="isactive">
+        <select name="isactive" id="isactive" class="form-control">
           <option value="nam">True</option>
           <option value="nu">False</option>
         </select>
-        
-        <label>Gender: </label>
-        <select name="gender" id="gender">
-          <option value="nam">Nam</option>
-          <option value="nu">Nữ</option>
-        </select>
-        
-        <label for="birthday">Birthday:</label>
-          <input id="birthday" type="date"  name="birthday"></input>
 
       </Modal>
       <Modal
@@ -200,25 +191,12 @@ const EventManager = () => {
         onCancel={handleImageCancel}
       >
         <p>Show {modelCurrentAction.name}'s informations</p>
+        <p>Giống tour</p>
         <div class="form-group">
           <label for="name">Name: </label>
           <input type="text" class="form-control" id="name" value={modelCurrentAction.name}></input>
         </div>
         
-        <div class="form-group">
-          <label for="name">Phone number: </label>
-          <input type="text" class="form-control" id="phone_number" value={modelCurrentAction.phone_number}></input>
-        </div>
-        
-        
-        <label>Gender: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
-          <option value="nam">Nam</option>
-          <option value="nu">Nữ</option>
-        </select>
-        
-        <label for="birthday">Date of birth: </label>
-          <input id="birthday" type="date"  name="birthday" value={modelCurrentAction.date}></input>
       </Modal>
       <Modal
         title="Update user's informations"

@@ -155,7 +155,7 @@ const HotelManager = () => {
   return (
     <>
       <Modal
-        title="Add Modal"
+        title="Add"
         visible={isModalAddVisible}
         onOk={handleAddOk}
         onCancel={handleAddCancel}
@@ -193,16 +193,14 @@ const HotelManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="gender" id="gender">
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+        <select name="isactive" id="isactive" class="form-control">
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
 
         <div class="date">
           <label for="createat">Create at: </label>
           <input type="date" class="form-control" name="createat" id="createat" ></input>
-          <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" name="updateat" id="updateat" ></input>
         </div>
       </Modal>
       <Modal
@@ -215,11 +213,12 @@ const HotelManager = () => {
         <UploadBox service={modelCurrentAction} />
       </Modal>
       <Modal
-        title="Update Modal"
+        title="Update"
         visible={isModalUpdateVisible}
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
+        <p>UPDATE "{modelCurrentAction.name}"</p>
         <div class="form-group">
           <label for="name">Name: </label>
           <input
@@ -254,9 +253,9 @@ const HotelManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
-          <option value="nam">True</option>
-          <option value="nu">False</option>
+        <select name="isactive" id="isactive" class="form-control" value={modelCurrentAction.is_active}>
+          <option value="true">True</option>
+          <option value="false">False</option>
         </select>
 
         <div class="date">
@@ -278,12 +277,12 @@ const HotelManager = () => {
         </div>
       </Modal>
       <Modal
-        title="Delete Modal"
+        title="Delete"
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>Are you sure to delete "{modelCurrentAction.name}"</p>
+        <p>ARE YOU SURE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
       <div className="hotel-utilities">
         <div className="btn-add-hotel" onClick={showAddModal}>
@@ -306,7 +305,7 @@ const HotelManager = () => {
         <Search
           allowClear
           className="search"
-          placeholder="input search text"
+          placeholder="Input search text"
           enterButton
           onSearch={searchClick}
           value={searchValue}

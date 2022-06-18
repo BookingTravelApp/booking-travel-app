@@ -25,7 +25,7 @@ const EmployeeManager = () => {
     userApi
       .getEmployeeList()
       .then(response => {
-        setListEmployee(response.data.employeeList);
+        setListEmployee(response.data.listUser);
         console.log(response.data);
       })
       .catch(error => {
@@ -108,6 +108,44 @@ const EmployeeManager = () => {
       render: text => String(text),
       sorter: (a, b) => a.date_of_birth - b.date_of_birth,
     },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (index, record) => (
+        <Space className="action-button" size="middle">
+          <button
+            type="button"
+            class="btn btn-primary"
+            onClick={() => {
+              setModelCurrentAction(record);
+              showShowModal();
+            }}
+          >
+            Show
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            onClick={() => {
+              setModelCurrentAction(record);
+              showUpdateModal();
+            }}
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            onClick={() => {
+              setModelCurrentAction(record);
+              showDeleteModal();
+            }}
+          >
+            Delete
+          </button>
+        </Space>
+      ),
+    },
   ]
   return (
     <>
@@ -117,7 +155,7 @@ const EmployeeManager = () => {
       onOk={handleAddOk}
       onCancel={handleAddCancel}
     >               
-      {/* <div class="form-group">
+      <div class="form-group">
         <label for="name">Name: </label>
         <input type="name" class="form-control" id="name" placeholder="Enter username"></input>
       </div>
@@ -128,19 +166,21 @@ const EmployeeManager = () => {
       </div>
 
       <label>Is active: </label>
-      <select name="isactive" id="isactive">
-        <option value="nam">True</option>
-        <option value="nu">False</option>
+      <select name="isactive" id="isactive" class="form-control">
+        <option value="true">True</option>
+        <option value="false">False</option>
       </select>
       
       <label>Gender: </label>
-      <select name="gender" id="gender">
+      <select name="gender" id="gender" class="form-control">
         <option value="nam">Nam</option>
         <option value="nu">Nữ</option>
       </select>
       
-      <label for="birthday">Birthday:</label>
-        <input id="birthday" type="date"  name="birthday"></input> */}
+      <div class="date">
+        <label for="birthday">Date of birth: </label>
+        <input type="date" class="form-control" id="birthday" ></input>
+      </div>
 
     </Modal>
     <Modal
@@ -149,8 +189,8 @@ const EmployeeManager = () => {
       onOk={handleShowOk}
       onCancel={handleShowCancel}
     >
-      <p>Show {modelCurrentAction.name}'s informations</p>
-      {/* <div class="form-group">
+      <p>SHOW {modelCurrentAction.name}'s INFORMATIONS</p>
+      <div class="form-group">
         <label for="name">Name: </label>
         <input type="text" class="form-control" id="name" value={modelCurrentAction.name}></input>
       </div>
@@ -162,13 +202,15 @@ const EmployeeManager = () => {
       
       
       <label>Gender: </label>
-      <select name="gender" id="gender" value={modelCurrentAction.gender}>
+      <select name="gender" id="gender" class="form-control" value={modelCurrentAction.gender}>
         <option value="nam">Nam</option>
         <option value="nu">Nữ</option>
       </select>
       
-      <label for="birthday">Date of birth: </label>
-        <input id="birthday" type="date"  name="birthday" value={modelCurrentAction.date}></input> */}
+      <div class="date">
+        <label for="birthday">Date of birth: </label>
+        <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date_of_birth} ></input>
+      </div>
     </Modal>
     <Modal
       title="Update employee's informations"
@@ -176,35 +218,42 @@ const EmployeeManager = () => {
       onOk={handleUpdateOk}
       onCancel={handleUpdateCancel}
     >
-      {/* <p>Update {modelCurrentAction.name}'s informations</p>
-      <label>
-        Name: 
-        <input type="text" name="name" value={modelCurrentAction.name}/>
-      </label>
+      <p>UPDATE {modelCurrentAction.name}'s INFORMATION</p>
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" class="form-control" id="name" value={modelCurrentAction.name}></input>
+      </div>
       
-      <label>
-        Phone number: 
-        <input type="text" name="name" value={modelCurrentAction.phone_number}/>
-      </label>
+      <div class="form-group">
+        <label for="name">Phone number: </label>
+        <input type="text" class="form-control" id="phone_number" value={modelCurrentAction.phone_number}></input>
+      </div>
+      
+      <label>Is active: </label>
+      <select name="isactive" id="isactive" class="form-control">
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
       
       <label>Gender: </label>
-      <select name="gender" id="gender" value={modelCurrentAction.gender}>
+      <select name="gender" id="gender" class="form-control" value={modelCurrentAction.gender}>
         <option value="nam">Nam</option>
         <option value="nu">Nữ</option>
       </select>
       
-      <label for="birthday">Date of birth: </label>
-        <input id="birthday" type="date"  name="birthday" value={modelCurrentAction.date}></input> */}
+      <div class="date">
+        <label for="birthday">Date of birth: </label>
+        <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date_of_birth}></input>
+      </div>
 
     </Modal>
     <Modal
-      title="Delete Modal"
+      title="Delete"
       visible={isModalDeleteVisible}
       onOk={handleDeleteOk}
       onCancel={handleDeleteCancel}
     >
-      <p>Are you sure to delete {modelCurrentAction.name}</p>
-      {modelCurrentAction.name}
+      <p>ARE YOU SURE TO DELETE {modelCurrentAction.name}</p>
     </Modal>
     <div className="employee-utilities">
       <div className="btn-add-employee" onClick={showAddModal}>

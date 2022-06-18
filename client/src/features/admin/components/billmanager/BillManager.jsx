@@ -210,10 +210,12 @@ const BillManager = () => {
           <label for="name">Name: </label>
           <input type="name" class="form-control" id="name" placeholder="Enter username"></input>
         </div>
-        
+
+        <p>Thêm id hoặc username của người dùng ở đây nha</p>
+
         <div class="dropdown">
           <label>Status: </label>
-          <select name="status" id="status">
+          <select name="status" id="status" class="form-control">
             <option value="unpaid">Unpaid</option>
             <option value="paid">Paid</option>
           </select>
@@ -226,11 +228,7 @@ const BillManager = () => {
         
         <div class="date">
           <label for="date">Date: </label>
-          <input type="date" class="form-control" id="date" ></input>
-          <label for="createat">Create at: </label>
-          <input type="date" class="form-control" id="createat"></input>
-          <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" id="updateat"></input>
+          <input type="date" class="form-control" id="date" value={modelCurrentAction.date} ></input>
         </div>
 
       </Modal>
@@ -244,10 +242,12 @@ const BillManager = () => {
           <label for="name">Price: (VND)</label>
           <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
         </div>
+
+        <p>Thêm id hoặc username của người dùng ở đây nha</p>
         
         <div class="dropdown">
           <label>Status: </label>
-          <select name="status" id="status">
+          <select name="status" id="status" class="form-control">
             <option value="unpaid">Unpaid</option>
             <option value="paid">Paid</option>
           </select>
@@ -273,9 +273,11 @@ const BillManager = () => {
           <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
         </div>
         
+        <p>Thêm id hoặc username của người dùng ở đây nha(Không được chỉnh sửa)</p>
+
         <div class="dropdown">
           <label>Status: </label>
-          <select name="status" id="status">
+          <select name="status" id="status" class="form-control">
             <option value="unpaid">Unpaid</option>
             <option value="paid">Paid</option>
           </select>
@@ -283,11 +285,7 @@ const BillManager = () => {
 
         <div class="date">
           <label for="date">Date: </label>
-          <input type="date" class="form-control" id="date" value={modelCurrentAction.date}></input>
-          <label for="createat">Create at: </label>
-          <input type="date" class="form-control" id="createat" value={modelCurrentAction.createdAt}></input>
-          <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" id="updateat" value={modelCurrentAction.updatedAt}></input>
+          <input type="date" class="form-control" id="date" value={modelCurrentAction.date}></input>          
         </div>
       </Modal>
       <Modal
@@ -301,9 +299,11 @@ const BillManager = () => {
           <input type="price" class="form-control" id="price" placeholder="Enter username" value={modelCurrentAction.totalPrice}></input>
         </div>
         
+        <p>Thêm id hoặc username của người dùng ở đây nha</p>
+
         <div class="dropdown">
           <label>Status: </label>
-          <select name="status" id="status">
+          <select name="status" id="status" class="form-control">
             <option value="unpaid">Unpaid</option>
             <option value="paid">Paid</option>
           </select>
@@ -325,8 +325,7 @@ const BillManager = () => {
         onOk={handleCancelOk}
         onCancel={handleCancelCancel}
       >
-        <p>Model Cancel</p>
-        <p>Are you sure to cancel this bill?</p>
+        <p>ARE YOU SURE TO CANCEL THIS BILL?</p>
         {modelCurrentAction.totalPrice},
         {modelCurrentAction.status} 
         {modelCurrentAction.date},
