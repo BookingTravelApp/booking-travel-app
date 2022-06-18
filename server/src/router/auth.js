@@ -7,6 +7,8 @@ const AuthController = require("../controller/AuthController");
 
 router.get("/", [verifyToken, role.admin], AuthController.index);
 router.get("/vertify-role", [verifyToken], AuthController.checkRole);
+router.post("/forget-password", AuthController.forgetPassword);
+router.post("/reset-password", AuthController.resetPassword);
 
 // @router POST /register
 // @public access

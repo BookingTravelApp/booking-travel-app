@@ -69,6 +69,12 @@ module.exports = {
       });
 
     try {
+      await emailCheck(email);
+    } catch (error) {
+      return res.json({ success: false, message: "Email does not exist" });
+    }
+
+    try {
       const existingUsername = await Account.findOne({ where: { username } });
       const existingEmail = await Account.findOne({ where: { email } });
       if (existingUsername || existingEmail) {
@@ -76,11 +82,6 @@ module.exports = {
           success: false,
           message: "username and/or email already taken",
         });
-      }
-      try {
-        await emailCheck(email);
-      } catch (error) {
-        res.json({ success: false, message: "Email does not exist" });
       }
       const token = jwt.sign(
         { name, username, email, password },
@@ -99,7 +100,7 @@ module.exports = {
       });
 
       var mailOptions = {
-        from: "dangbavuhoang1408@gmail.com",
+        from: `${process.env.ADMIN_EMAIL_NAME}`,
         to: email,
         subject: "Account activation Link",
         html: `
@@ -247,6 +248,122 @@ module.exports = {
       });
     }
   },
+
+  // reset password
+  resetPassword: async (req, res) => {
+    const error = validationResult(req);
+    const { password, token } = req.body;
+
+    if (!error.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: error.array(),
+      });
+    }
+
+    if (!token) return res.json({ success: false, message: "Token not found" });
+    const decodedToken = jwt.verify(
+      token,
+      process.env.DB_RESET_PASSWORD_TOKEN_SECRET
+    );
+    const { username, email } = decodedToken;
+    try {
+      const account = await Account.findOne({ where: { username } });
+      if (!account)
+        return res.json({ success: false, message: "Account does not exist" });
+      if (!password)
+        return res.json({ success: false, message: "Invalid password" });
+
+      const hashPassword = await argon2.hash(password);
+      await Account.update(
+        {
+          password: hashPassword,
+        },
+        { where: { username } }
+      );
+      return res.json({
+        success: true,
+        message: "Reset password successful",
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+
+  // forget password
+  forgetPassword: async (req, res) => {
+    const error = validationResult(req);
+    const { email } = req.body;
+
+    if (!error.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: error.array(),
+      });
+    }
+    try {
+      await emailCheck(email);
+    } catch (error) {
+      return res.json({ success: false, message: "Email does not exist" });
+    }
+
+    try {
+      const existingEmailAccount = await Account.findOne({ where: { email } });
+      if (!existingEmailAccount) {
+        return res.status(400).json({
+          success: false,
+          message: "Email does not exist",
+        });
+      }
+
+      const username = existingEmailAccount.username;
+      const token = jwt.sign(
+        { username, email },
+        process.env.DB_RESET_PASSWORD_TOKEN_SECRET,
+        { expiresIn: "20m" }
+      );
+
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        port: 465,
+        secure: true,
+        auth: {
+          user: process.env.ADMIN_EMAIL_NAME,
+          pass: process.env.ADMIN_APP_EMAIL_PASSWORD,
+        },
+      });
+
+      var mailOptions = {
+        from: `${process.env.ADMIN_EMAIL_NAME}`,
+        to: email,
+        subject: "Account activation Link",
+        html: `
+        <h2>Please click on given link to reset password</h2>
+        <p>${process.env.CLIENT_URL}/reset-password/${token}</p>
+      `,
+      };
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          // console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      return res.json({
+        success: true,
+        message: "Email reset password was sent",
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+  // check role
   checkRole: async (req, res) => {
     try {
       const account = await Account.findOne({

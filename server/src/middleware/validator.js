@@ -20,10 +20,25 @@ let loginValidator = () => {
     check("password", "Password must more than 6 digits").isLength({ min: 6 }),
   ];
 };
+let resetPasswordValidator = () => {
+  return [
+    check("newPassword", "Password must more than 6 digits").isLength({
+      min: 6,
+    }),
+  ];
+};
+let forgetPasswordValidator = () => {
+  return [
+    check("email", "Invalid does not Empty").not().isEmpty(),
+    check("email", "Invalid email").isEmail(),
+  ];
+};
 
 validator = {
   register: registerValidator,
   login: loginValidator,
+  resetPassword: resetPasswordValidator,
+  forgetPassword: forgetPasswordValidator,
 };
 
 module.exports = validator;
