@@ -14,6 +14,18 @@ module.exports = {
     try {
       const listUser = await User.findAll({
         attributes: { exclude: ["accountId"] },
+        include: {
+          model: Account,
+          attributes: ["id"],
+          include: {
+            model: RoleAccounts,
+            attributes: ["id"],
+            include: {
+              model: Role,
+              attributes: ["name"],
+            },
+          },
+        },
       });
       res.json({ success: true, listUser });
     } catch (error) {
