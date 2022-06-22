@@ -8,9 +8,7 @@ import { ClassNames } from '@emotion/react';
 import moment from 'moment';
 import { Table, Space, Input, Modal, Button } from 'antd';
 
-
 const { Search } = Input;
-
 
 const UserManager = () => {
   const [listUser, setListUser] = useState([]);
@@ -29,10 +27,9 @@ const UserManager = () => {
       .then(response => {
         setListUser(response.data.listUser);
         setListUserAll(response.data.listUser);
-
       })
       .catch(error => {
-        console.log('Failed to fetch UserList:',error);
+        console.log('Failed to fetch UserList:', error);
       });
   }, []);
 
@@ -80,18 +77,17 @@ const UserManager = () => {
     const filteredData = listUserAll.filter(
       entry =>
         entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
-        entry.name
+        (entry.name || '')
           .toString()
           .toLowerCase()
           .includes(searchValue.toLowerCase()) ||
-        entry.price.toString().toLowerCase() == searchValue.toLowerCase()
+        (entry.phone_number || '').toLowerCase() == searchValue.toLowerCase()
     );
     setListUser(filteredData);
   };
   const searchChange = event => setSearchValue(event.target.value);
 
   const columns = [
-       
     {
       title: 'Id',
       dataIndex: 'id',
@@ -164,7 +160,7 @@ const UserManager = () => {
         </Space>
       ),
     },
-  ]
+  ];
 
   return (
     <>
@@ -173,15 +169,25 @@ const UserManager = () => {
         visible={isModalAddVisible}
         onOk={handleAddOk}
         onCancel={handleAddCancel}
-      >               
+      >
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" placeholder="Enter username"></input>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            placeholder="Enter username"
+          ></input>
         </div>
-        
+
         <div class="form-group">
           <label for="name">Phone number: </label>
-          <input type="phone_number" class="form-control" id="phone_number" placeholder="Enter phone number"></input>
+          <input
+            type="phone_number"
+            class="form-control"
+            id="phone_number"
+            placeholder="Enter phone number"
+          ></input>
         </div>
 
         <label>Is active: </label>
@@ -189,21 +195,20 @@ const UserManager = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-        
+
         <label>Gender: </label>
         <select name="gender" id="gender" class="form-control">
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
         </select>
-        
+
         <div class="date">
           <label for="birthday">Date of birth: </label>
-          <input type="date" class="form-control" id="birthday" ></input>
+          <input type="date" class="form-control" id="birthday"></input>
         </div>
-
       </Modal>
       <Modal
-        title="Show user's informations" 
+        title="Show user's informations"
         visible={isModalShowVisible}
         onOk={handleShowOk}
         onCancel={handleShowCancel}
@@ -211,30 +216,56 @@ const UserManager = () => {
         <p>SHOW {modelCurrentAction.name}'s INFORMATION</p>
         <div class="form-group">
           <label for="name">ID: </label>
-          <input type="text" readonly class="form-control" id="id" value={modelCurrentAction.id} disabled></input>
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="id"
+            value={modelCurrentAction.id}
+            disabled
+          ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="text" readonly class="form-control" id="name" value={modelCurrentAction.name}></input>
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="name"
+            value={modelCurrentAction.name}
+          ></input>
         </div>
-        
-        
+
         <div class="form-group">
           <label for="name">Phone number: </label>
-          <input type="text" class="form-control" id="phone_number" value={modelCurrentAction.phone_number}></input>
+          <input
+            type="text"
+            class="form-control"
+            id="phone_number"
+            value={modelCurrentAction.phone_number}
+          ></input>
         </div>
-        
-        
+
         <label>Gender: </label>
-        <select name="gender" id="gender" class="form-control" value={modelCurrentAction.gender}>
+        <select
+          name="gender"
+          id="gender"
+          class="form-control"
+          value={modelCurrentAction.gender}
+        >
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
-        </select>        
+        </select>
 
         <div class="date">
           <label for="birthday">Date of birth: </label>
-          <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date}></input>
+          <input
+            type="date"
+            class="form-control"
+            id="birthday"
+            value={modelCurrentAction.date}
+          ></input>
         </div>
       </Modal>
       <Modal
@@ -246,17 +277,37 @@ const UserManager = () => {
         <p>UPDATE {modelCurrentAction.name}'s INFORMATIONS</p>
         <div class="form-group">
           <label for="id">ID: </label>
-          <input type="text" readonly class="form-control" id="id" value={modelCurrentAction.id} disabled></input>
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="id"
+            value={modelCurrentAction.id}
+            disabled
+          ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" placeholder="Enter username" value={modelCurrentAction.name}></input>
+          <input
+            type="name"
+            class="form-control"
+            id="name"
+            placeholder="Enter username"
+            value={modelCurrentAction.name}
+          ></input>
         </div>
-        
+
         <div class="form-group">
           <label for="phone_number">Phone number: </label>
-          <input type="phone_number" class="form-control" id="phone_number" placeholder="Enter phone number" value={modelCurrentAction.phone_number} required></input>
+          <input
+            type="phone_number"
+            class="form-control"
+            id="phone_number"
+            placeholder="Enter phone number"
+            value={modelCurrentAction.phone_number}
+            required
+          ></input>
         </div>
 
         <label>Is active: </label>
@@ -264,18 +315,22 @@ const UserManager = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-        
+
         <label>Gender: </label>
         <select name="gender" id="gender" value={modelCurrentAction.gender}>
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
         </select>
-        
+
         <div class="date">
           <label for="birthday">Date of birth: </label>
-          <input type="date" class="form-control" id="birthday" value={modelCurrentAction.date}></input>
+          <input
+            type="date"
+            class="form-control"
+            id="birthday"
+            value={modelCurrentAction.date}
+          ></input>
         </div>
-
       </Modal>
       <Modal
         title="Delete"

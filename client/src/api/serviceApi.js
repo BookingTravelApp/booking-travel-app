@@ -22,6 +22,10 @@ const serviceAPI = {
     const requestUrl = url + `/service/get-car-rental-list`;
     return axiosClient.get(requestUrl);
   },
+  create: params => {
+    const requestUrl = url + `/service/`;
+    return axiosClient.patch(requestUrl, params);
+  },
   update: (id, credentials) => {
     const requestUrl = url + `/service/${id}`;
     return axiosClient.patch(requestUrl, credentials);

@@ -1,5 +1,6 @@
 import React from 'react';
 import './hotelmanager.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import serviceApi from '../../../../api/serviceApi';
@@ -11,6 +12,14 @@ import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
 const HotelManager = () => {
+  const entryModal = {
+    name: '',
+    title: '',
+    description: '',
+    address: '',
+    price: '',
+    is_active: '',
+  };
   const [listHotel, setListHotel] = useState([]);
   const [listHotelAll, setListHotelAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -18,9 +27,11 @@ const HotelManager = () => {
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
-  const [modelCurrentAction, setModelCurrentAction] = useState(false);
-
+  const [modelCurrentAction, setModelCurrentAction] = useState({});
+  const { name, title, description, guide, price, is_active } =
+    modelCurrentAction;
   useEffect(() => {
+    setModelCurrentAction(entryModal);
     serviceApi
       .getHotelList()
       .then(response => {
@@ -36,8 +47,16 @@ const HotelManager = () => {
     isModalUpdateVisible,
     isModalDeleteVisible,
   ]);
-  const showAddModal = () => setIsModalAddVisible(true);
-  const handleAddOk = () => setIsModalAddVisible(false);
+  const showAddModal = () => {
+    setIsModalAddVisible(true);
+    setModelCurrentAction(entryModal);
+  };
+  const handleAddOk = async () => {
+    if (name == '' || title == '' || description == '' || price == '') {
+      alert('Please fill full infomation');
+      return;
+    }
+  };
   const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
@@ -62,7 +81,12 @@ const HotelManager = () => {
     setListHotel(filteredData);
   };
   const searchChange = event => setSearchValue(event.target.value);
-
+  const onchangeModelCurrentAction = event => {
+    setModelCurrentAction({
+      ...modelCurrentAction,
+      [event.target.name]: event.target.value,
+    });
+  };
   const columns = [
     {
       title: 'id',
@@ -79,9 +103,21 @@ const HotelManager = () => {
       fixed: 'left',
     },
     {
+      title: 'Title',
+      dataIndex: 'title',
+      sorter: (a, b) => a.name.length - b.name.length,
+      width: 200,
+    },
+    {
       title: 'Description',
       dataIndex: 'description',
       width: 550,
+      sorter: (a, b) => a.description.length - b.description.length,
+    },
+    {
+      title: 'Address',
+      dataIndex: 'guide',
+      width: 200,
       sorter: (a, b) => a.description.length - b.description.length,
     },
     {
@@ -159,27 +195,42 @@ const HotelManager = () => {
         visible={isModalAddVisible}
         onOk={handleAddOk}
         onCancel={handleAddCancel}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
           <label for="name">Name: </label>
           <input
             type="name"
             class="form-control"
-            id="name"
             placeholder="Enter name"
+            value={name}
+            name="name"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
+        <div class="form-group">
+          <label for="Title">Title: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+            value={title}
+            name="title"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Description: </label>
-          <textarea 
-            class="form-control"  
-            id="description" 
-            type="description" 
-            rows="5" 
-            placeholder="Enter description" 
+          <textarea
+            class="form-control"
+            type="description"
+            rows="5"
+            placeholder="Enter description"
+            value={description}
+            name="description"
+            onChange={onchangeModelCurrentAction}
           ></textarea>
-          
         </div>
 
         <div class="form-group">
@@ -187,21 +238,23 @@ const HotelManager = () => {
           <input
             type="price"
             class="form-control"
-            id="price"
             placeholder="Enter price (VND)"
+            value={price}
+            name="price"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <label>Is active: </label>
-        <select name="isactive" id="isactive" class="form-control">
+        <select
+          name="is_active"
+          class="form-control"
+          value={is_active}
+          onChange={onchangeModelCurrentAction}
+        >
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-
-        <div class="date">
-          <label for="createat">Create at: </label>
-          <input type="date" class="form-control" name="createat" id="createat" ></input>
-        </div>
       </Modal>
       <Modal
         title="Image Modal"
@@ -221,24 +274,40 @@ const HotelManager = () => {
         <p>UPDATE "{modelCurrentAction.name}"</p>
         <div class="form-group">
           <label for="name">Name: </label>
-          <input
-            type="name"
-            class="form-control"
-            id="name"
-            value={modelCurrentAction.name}
-          ></input>
+          <input type="name" class="form-control" value={name}></input>
         </div>
 
         <div class="form-group">
+          <label for="Title">Title: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+            value={title}
+            name="title"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
+        <div class="form-group">
           <label for="name">Description: </label>
-          <textarea 
-            class="form-control"  
-            id="description" 
-            type="description" 
-            rows="5" 
-            placeholder="Enter description" 
-            value={modelCurrentAction.description}
+          <textarea
+            class="form-control"
+            type="description"
+            rows="5"
+            placeholder="Enter description"
+            value={description}
           ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="Title">Address: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter address"
+            value={guide}
+            name="guide"
+            onChange={onchangeModelCurrentAction}
+          ></input>
         </div>
 
         <div class="form-group">
@@ -246,35 +315,23 @@ const HotelManager = () => {
           <input
             type="price"
             class="form-control"
-            id="price"
             placeholder="Enter price (VND)"
-            value={modelCurrentAction.price}
+            value={price}
+            name="price"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <label>Is active: </label>
-        <select name="isactive" id="isactive" class="form-control" value={modelCurrentAction.is_active}>
+        <select
+          name="is_active"
+          class="form-control"
+          value={is_active}
+          onChange={onchangeModelCurrentAction}
+        >
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-
-        <div class="date">
-          <label for="createat">Create at: </label>
-          <input 
-            type="date" 
-            class="form-control" 
-            name="createat" id="createat" 
-            value={modelCurrentAction.createdAt} 
-          ></input>
-          <label for="updateat">Update at: </label>
-          <input 
-            type="date" 
-            class="form-control" 
-            name="updateat" 
-            id="updateat" 
-            value={modelCurrentAction.updatedAt} 
-          ></input>
-        </div>
       </Modal>
       <Modal
         title="Delete"
