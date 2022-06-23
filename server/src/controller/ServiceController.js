@@ -33,9 +33,10 @@ module.exports = {
         order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
+      const category = await Category.findOne({ where: { name: "tour" } });
       if (!tourList)
         return res.json({ success: false, message: "Tour not found" });
-      return res.json({ success: true, tourList });
+      return res.json({ success: true, tourList, categoryId: category.id });
     } catch (error) {
       console.log(error);
       return res.json({ success: false, message: "Internal server error" });
@@ -48,9 +49,14 @@ module.exports = {
         order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
+      const category = await Category.findOne({ where: { name: "hotel" } });
       if (!hotelBookingList)
         return res.json({ success: false, message: "Hotel not found" });
-      return res.json({ success: true, hotelBookingList });
+      return res.json({
+        success: true,
+        hotelBookingList,
+        categoryId: category.id,
+      });
     } catch (error) {
       console.log(error);
       return res.json({ success: false, message: "Internal server error" });
@@ -77,9 +83,16 @@ module.exports = {
         where: { "$category.name$": "car-rental" },
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
+      const category = await Category.findOne({
+        where: { name: "car-rental" },
+      });
       if (!carRentalList)
         return res.json({ success: false, message: "Car renter not found" });
-      return res.json({ success: true, carRentalList });
+      return res.json({
+        success: true,
+        carRentalList,
+        categoryId: category.id,
+      });
     } catch (error) {
       console.log(error);
       return res.json({ success: false, message: "Internal server error" });
