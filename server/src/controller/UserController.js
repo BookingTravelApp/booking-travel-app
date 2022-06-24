@@ -104,7 +104,8 @@ module.exports = {
       });
       if (!listUser)
         res.status(404).json({ success: false, message: "User not found" });
-      res.json({ success: true, listUser });
+      const role = await Role.findOne({ where: { name: "employee" } });
+      res.json({ success: true, listUser, role });
     } catch (error) {
       console.log(error);
       res
@@ -134,7 +135,8 @@ module.exports = {
       });
       if (!listUser)
         res.status(404).json({ success: false, message: "User not found" });
-      res.json({ success: true, listUser });
+      const role = await Role.findOne({ where: { name: "user" } });
+      res.json({ success: true, listUser, role });
     } catch (error) {
       console.log(error);
       res
@@ -170,6 +172,7 @@ module.exports = {
         .json({ success: false, message: "Internal server error" });
     }
   },
+  updateRole: async (req, res) => {},
   getCart: async (req, res) => {
     try {
       const user = await User.findOne({ where: { accountId: req.userId } });

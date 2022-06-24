@@ -10,6 +10,7 @@ router.get("/get-tour-list", ServiceController.showTourList);
 router.get("/get-hotel-list", ServiceController.showHotelBookingList);
 router.get("/get-plane-list", ServiceController.showPlaneList);
 router.get("/get-car-rental-list", ServiceController.showCarRentalList);
+router.get("/tag/:slug", ServiceController.showServiceFromTag);
 router.get("/:slug", ServiceController.show);
 
 router.post("/", [verifyToken, role.employee], ServiceController.create);

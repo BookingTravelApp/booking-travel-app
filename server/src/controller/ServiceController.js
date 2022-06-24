@@ -2,6 +2,8 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const { Service, Rate, User, Category } = require("../model");
 const Image = require("../model/Image");
+const Tag = require("../model/Tag");
+const TagServices = require("../model/TagServices");
 
 module.exports = {
   index: async (req, res) => {
@@ -96,6 +98,37 @@ module.exports = {
     } catch (error) {
       console.log(error);
       return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showServiceFromTag: async (req, res) => {
+    try {
+      const tag = await Tag.findOne({ where: { slug: req.params.slug } });
+      if (!tag)
+        return res.json({ success: false, message: "Tag does not exist" });
+      const listService = await Service.findAll(
+        {
+          include: {
+            model: TagServices,
+            attributes: [],
+            include: {
+              model: Tag,
+              attributes: [],
+            },
+          },
+        },
+        { where: { "$tag_services.tag.name$": tag.name } }
+      );
+      if (!listService)
+        return res.json({
+          success: false,
+          message: "Tag does not have service",
+        });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
     }
   },
   create: async (req, res) => {
