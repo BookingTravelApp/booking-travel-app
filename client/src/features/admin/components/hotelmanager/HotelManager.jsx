@@ -71,6 +71,7 @@ const HotelManager = () => {
       })
       .catch(error => {
         console.log(error);
+        setSuccessStatus('Can not create service');
       });
   };
   const showImageModal = () => setIsModalImageVisible(true);
@@ -99,6 +100,7 @@ const HotelManager = () => {
       })
       .catch(error => {
         console.log(error);
+        setSuccessStatus('Can not update service');
       });
   };
   const handleUpdateCancel = () => setIsModalUpdateVisible(false);
@@ -134,6 +136,7 @@ const HotelManager = () => {
   };
   const searchChange = event => setSearchValue(event.target.value);
   const onchangeModelCurrentAction = event => {
+    // console.log(modelCurrentAction.description);
     setModelCurrentAction({
       ...modelCurrentAction,
       [event.target.name]: event.target.value,
@@ -365,6 +368,8 @@ const HotelManager = () => {
             rows="5"
             placeholder="Enter description"
             value={description}
+            name="description"
+            onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
         <div class="form-group">

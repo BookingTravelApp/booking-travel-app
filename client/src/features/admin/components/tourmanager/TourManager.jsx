@@ -69,6 +69,7 @@ const TourManager = () => {
       })
       .catch(error => {
         console.log(error);
+        setSuccessStatus('Can not create service');
       });
   };
   const showImageModal = () => setIsModalImageVisible(true);
@@ -97,6 +98,7 @@ const TourManager = () => {
       })
       .catch(error => {
         console.log(error);
+        setSuccessStatus('Can not update service');
       });
   };
   const handleUpdateCancel = () => setIsModalUpdateVisible(false);
@@ -153,6 +155,12 @@ const TourManager = () => {
       fixed: 'left',
     },
     {
+      title: 'Title',
+      dataIndex: 'title',
+      sorter: (a, b) => a.name.length - b.name.length,
+      width: 200,
+    },
+    {
       title: 'Description',
       dataIndex: 'description',
       width: 550,
@@ -163,6 +171,12 @@ const TourManager = () => {
       dataIndex: 'price',
       sorter: (a, b) => a.price - b.price,
       width: 120,
+    },
+    {
+      title: 'Guide',
+      dataIndex: 'guide',
+      width: 550,
+      sorter: (a, b) => a.description.length - b.description.length,
     },
     {
       title: 'Is active',
@@ -352,6 +366,8 @@ const TourManager = () => {
             rows="5"
             placeholder="Enter description"
             value={description}
+            name="description"
+            onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
         <div class="form-group">

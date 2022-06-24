@@ -11,6 +11,15 @@ import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
 const CarManager = () => {
+  const entryModal = {
+    name: '',
+    title: '',
+    description: '',
+    guide: '',
+    price: '',
+    is_active: '',
+  };
+  const [successStatus, setSuccessStatus] = useState('');
   const [categoryId, setCategoryId] = useState([]);
   const [listCar, setListCar] = useState([]);
   const [listCarAll, setListCarAll] = useState([]);
@@ -20,7 +29,9 @@ const CarManager = () => {
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(false);
-
+  const { name, title, description, guide, price, is_active } =
+    modelCurrentAction;
+  const [actionChange, setActionChange] = useState(true);
   useEffect(() => {
     serviceApi
       .getCarList()
@@ -32,23 +43,81 @@ const CarManager = () => {
       .catch(error => {
         console.log(error);
       });
-  }, [
-    isModalAddVisible,
-    isModalImageVisible,
-    isModalUpdateVisible,
-    isModalDeleteVisible,
-  ]);
-  const showAddModal = () => setIsModalAddVisible(true);
-  const handleAddOk = () => setIsModalAddVisible(false);
-  const handleAddCancel = () => setIsModalAddVisible(false);
+  }, [actionChange]);
+  const showAddModal = () => {
+    setSuccessStatus('');
+    setIsModalAddVisible(true);
+    setModelCurrentAction(entryModal);
+  };
+  const handleAddOk = async () => {
+    if (name == '' || title == '' || description == '' || price == '') {
+      setSuccessStatus('Not enough infomation');
+      return;
+    }
+    var temp = modelCurrentAction;
+    temp.categoryId = categoryId;
+    setModelCurrentAction(temp);
+    serviceApi
+      .create(modelCurrentAction)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Add service successful');
+          setActionChange(!actionChange);
+          setIsModalAddVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+        setSuccessStatus('Can not create service');
+      });
+  };
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
-  const handleImageCancel = () => setIsModalImageVisible(false);
-  const showUpdateModal = () => setIsModalUpdateVisible(true);
-  const handleUpdateOk = () => setIsModalUpdateVisible(false);
+  const showUpdateModal = () => {
+    setSuccessStatus('');
+    setIsModalUpdateVisible(true);
+  };
+  const handleUpdateOk = () => {
+    if (name == '' || title == '' || description == '' || price == '') {
+      setSuccessStatus('Not enough infomation');
+      return;
+    }
+    var temp = modelCurrentAction;
+    temp.categoryId = categoryId;
+    setModelCurrentAction(temp);
+    serviceApi
+      .update(modelCurrentAction)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Service update successful');
+          setActionChange(!actionChange);
+          setIsModalUpdateVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+        setSuccessStatus('Can not update service');
+      });
+  };
   const handleUpdateCancel = () => setIsModalUpdateVisible(false);
   const showDeleteModal = () => setIsModalDeleteVisible(true);
-  const handleDeleteOk = () => setIsModalDeleteVisible(false);
+  const handleDeleteOk = () => {
+    serviceApi
+      .delete(modelCurrentAction.id)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Service deleted successful');
+          setActionChange(!actionChange);
+          setIsModalDeleteVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const handleDeleteCancel = () => setIsModalDeleteVisible(false);
 
   const searchClick = () => {
@@ -64,7 +133,12 @@ const CarManager = () => {
     setListCar(filteredData);
   };
   const searchChange = event => setSearchValue(event.target.value);
-
+  const onchangeModelCurrentAction = event => {
+    setModelCurrentAction({
+      ...modelCurrentAction,
+      [event.target.name]: event.target.value,
+    });
+  };
   const columns = [
     {
       title: 'id',
@@ -160,15 +234,28 @@ const CarManager = () => {
         title="Add Modal"
         visible={isModalAddVisible}
         onOk={handleAddOk}
-        onCancel={handleAddCancel}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
           <label for="name">Name: </label>
           <input
             type="name"
             class="form-control"
-            id="name"
             placeholder="Enter name"
+            value={name}
+            name="name"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
+        <div class="form-group">
+          <label for="Title">Title: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+            value={title}
+            name="title"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
@@ -176,39 +263,56 @@ const CarManager = () => {
           <label for="name">Description: </label>
           <textarea
             class="form-control"
-            id="description"
             type="description"
             rows="5"
             placeholder="Enter description"
+            value={description}
+            name="description"
+            onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
-
+        <div class="form-group">
+          <label for="Title">Address: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter address"
+            value={guide}
+            name="guide"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
         <div class="form-group">
           <label for="name">Price: </label>
           <input
             type="price"
             class="form-control"
-            id="price"
             placeholder="Enter price (VND)"
+            value={price}
+            name="price"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <label>Is active: </label>
-        <select name="isactive" id="isactive" class="form-control">
+        <select
+          name="is_active"
+          class="form-control"
+          value={is_active}
+          onChange={onchangeModelCurrentAction}
+        >
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
 
-        <div class="date">
-          <label for="createat">Create at: </label>
-          <input type="date" class="form-control" id="createat"></input>
+        <div class="form-group">
+          <i style={{ color: 'red' }}>{successStatus}</i>
         </div>
       </Modal>
       <Modal
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
-        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
@@ -222,23 +326,46 @@ const CarManager = () => {
         <div class="form-group">
           <label for="name">Name: </label>
           <input
-            type="name"
+            name="name"
             class="form-control"
-            id="name"
-            value={modelCurrentAction.name}
+            value={name}
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <div class="form-group">
+          <label for="Title">Title: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter title"
+            value={title}
+            name="title"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
+        <div class="form-group">
           <label for="name">Description: </label>
           <textarea
             class="form-control"
-            id="description"
             type="description"
             rows="5"
             placeholder="Enter description"
-            value={modelCurrentAction.description}
+            value={description}
+            name="description"
+            onChange={onchangeModelCurrentAction}
           ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="Title">Address: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter address"
+            value={guide}
+            name="guide"
+            onChange={onchangeModelCurrentAction}
+          ></input>
         </div>
 
         <div class="form-group">
@@ -246,35 +373,26 @@ const CarManager = () => {
           <input
             type="price"
             class="form-control"
-            id="price"
             placeholder="Enter price (VND)"
-            value={modelCurrentAction.price}
+            value={price}
+            name="price"
+            onChange={onchangeModelCurrentAction}
           ></input>
         </div>
 
         <label>Is active: </label>
         <select
-          name="isactive"
-          id="isactive"
+          name="is_active"
           class="form-control"
-          value={modelCurrentAction.is_active}
+          value={is_active}
+          onChange={onchangeModelCurrentAction}
         >
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
 
-        <div class="date">
-          <label for="createat">Create at: </label>
-          <input
-            type="date"
-            class="form-control"
-            name="createat"
-            id="createat"
-            value={modelCurrentAction.createdAt}
-          ></input>
-
-          <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" id="updateat"></input>
+        <div class="form-group">
+          <i style={{ color: 'red' }}>{successStatus}</i>
         </div>
       </Modal>
       <Modal
