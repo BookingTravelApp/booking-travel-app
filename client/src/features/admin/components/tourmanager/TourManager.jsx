@@ -415,7 +415,7 @@ const TourManager = () => {
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>ARE YOU SUTE TO DELETE "{modelCurrentAction.name}"</p>
+        <p>ARE YOU SURE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
       <div className="tour-utilities">
         <div className="btn-add-tour" onClick={showAddModal}>

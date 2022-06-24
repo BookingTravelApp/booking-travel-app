@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 
 import billApi from '../../../../api/billApi';
@@ -13,7 +12,6 @@ const BillManager = () => {
 
   const [listBill, setListBill] = useState([]);
 
-  const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalShowVisible, setIsModalShowVisible] = useState(false);
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalConfirmVisible, setIsModalConfirmVisible] = useState(false);
@@ -32,16 +30,6 @@ const BillManager = () => {
         console.log('Failed to fetch BillList:', error);
       });
   }, []);
-
-  const showAddModal = () => {
-    setIsModalAddVisible(true);
-  };
-  const handleAddOk = () => {
-    setIsModalAddVisible(false);
-  };
-  const handleAddCancel = () => {
-    setIsModalAddVisible(false);
-  };
 
   const showShowModal = () => {
     setIsModalShowVisible(true);
@@ -201,38 +189,6 @@ const BillManager = () => {
   return (
     <>
       <Modal
-        title="Add new bill"
-        visible={isModalAddVisible}
-        onOk={handleAddOk}
-        onCancel={handleAddCancel}
-      >
-        <div class="form-group">
-          <label for="name">Name: </label>
-          <input type="name" class="form-control" id="name" placeholder="Enter username"></input>
-        </div>
-
-        <p>Thêm id hoặc username của người dùng ở đây nha</p>
-
-        <div class="dropdown">
-          <label>Status: </label>
-          <select name="status" id="status" class="form-control">
-            <option value="unpaid">Unpaid</option>
-            <option value="paid">Paid</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="name">Total price: </label>
-          <input type="price" class="form-control" id="price" placeholder="Enter price (VND)"></input>
-        </div>
-        
-        <div class="date">
-          <label for="date">Date: </label>
-          <input type="date" class="form-control" id="date" value={modelCurrentAction.date} ></input>
-        </div>
-
-      </Modal>
-      <Modal
         title="SHOW CURRENT BILL'S DETAILS"
         visible={isModalShowVisible}
         onOk={handleShowOk}
@@ -347,23 +303,6 @@ const BillManager = () => {
       </Modal>
 
       <div className="bill-utilities">
-        <div className="btn-add-bill" onClick={showAddModal}>
-          <div className="left">
-            <div className="percentage positive">
-              <AddCircleIcon />
-            </div>
-            <BookmarksIcon
-              className="icon"
-              style={{
-                color: 'green',
-                backgroundColor: 'rgba(0, 128, 0, 0.2)',
-              }}
-            />
-          </div>
-          <div className="right">
-            <span className="counter">Add new</span>
-          </div>
-        </div>
         <Search
           className="search"
           placeholder="Input search text"

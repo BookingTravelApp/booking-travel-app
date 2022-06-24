@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import userApi from '../../../../api/userApi';
 import './usermanager.scss';
@@ -11,20 +10,23 @@ import { Table, Space, Input, Modal, Button } from 'antd';
 const { Search } = Input;
 
 const UserManager = () => {
+
+  const [successStatus, setSuccessStatus] = useState('');
+
   const [listUser, setListUser] = useState([]);
   const [listUserAll, setListUserAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
-  const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalShowVisible, setIsModalShowVisible] = useState(false);
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
-  const [modelCurrentAction, setModelCurrentAction] = useState(false);
-
+  const [modelCurrentAction, setModelCurrentAction] = useState({});
+  const { name, active, phone_number, gender, date_of_birth } = modelCurrentAction;
+  const [actionChange, setActionChange] = useState(true);
   // const {name}
   useEffect(() => {
     userApi
-      .getAll()
+      .getUserList()
       .then(response => {
         setListUser(response.data.listUser);
         setListUserAll(response.data.listUser);
@@ -32,17 +34,7 @@ const UserManager = () => {
       .catch(error => {
         console.log('Failed to fetch UserList:', error);
       });
-  }, []);
-
-  const showAddModal = () => {
-    setIsModalAddVisible(true);
-  };
-  const handleAddOk = () => {
-    setIsModalAddVisible(false);
-  };
-  const handleAddCancel = () => {
-    setIsModalAddVisible(false);
-  };
+  }, [actionChange]);
 
   const showShowModal = () => {
     setIsModalShowVisible(true);
@@ -55,20 +47,48 @@ const UserManager = () => {
   };
 
   const showUpdateModal = () => {
+    // setIsModalUpdateVisible(true);
+    setSuccessStatus('');
     setIsModalUpdateVisible(true);
   };
   const handleUpdateOk = () => {
-    setIsModalUpdateVisible(false);
+    userApi
+      .UserToEmployee({userId: modelCurrentAction.id})
+      .then(response => {
+        if (response.data.success) {
+          alert('Update user successful');
+          setActionChange(!actionChange);
+          setIsModalUpdateVisible(false);
+        } else setSuccessStatus('Cannot get to update user',response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+        setSuccessStatus('Can not update user');
+      });
   };
   const handleUpdateCancel = () => {
     setIsModalUpdateVisible(false);
   };
 
   const showDeleteModal = () => {
+    // setIsModalDeleteVisible(true);
+    setSuccessStatus('');
     setIsModalDeleteVisible(true);
   };
   const handleDeleteOk = () => {
-    setIsModalDeleteVisible(false);
+    userApi
+    .activeUser({userId: modelCurrentAction.id})
+    .then(response => {
+      if (response.data.success) {
+        alert('Update user successful');
+        setActionChange(!actionChange);
+        setIsModalDeleteVisible(false);
+      } else setSuccessStatus('Cannot get to update user',response.data.message);
+    })
+    .catch(error => {
+      console.log(error);
+      setSuccessStatus('Can not update user');
+    }); 
   };
   const handleDeleteCancel = () => {
     setIsModalDeleteVisible(false);
@@ -86,13 +106,22 @@ const UserManager = () => {
     );
     setListUser(filteredData);
   };
-  const searchChange = event => setSearchValue(event.target.value);
 
+  const searchChange = user => setSearchValue(user.target.value);
+
+  const onchangeModelCurrentAction = user => {
+    // console.log(modelCurrentAction.description);
+    setModelCurrentAction({
+      ...modelCurrentAction,
+      [user.target.name]: user.target.value,
+    });
+  };
   const columns = [
     {
       title: 'Id',
       dataIndex: 'id',
       filterMode: 'tree',
+      width: 100,
     },
     {
       title: 'Name',
@@ -150,13 +179,13 @@ const UserManager = () => {
           </button>
           <button
             type="button"
-            class="btn btn-danger"
+            class={record.active ? "btn btn-danger" : "btn btn-info"}
             onClick={() => {
               setModelCurrentAction(record);
               showDeleteModal();
             }}
           >
-            Delete
+            {record.active ? "Unactive" : "Active"}
           </button>
         </Space>
       ),
@@ -165,49 +194,6 @@ const UserManager = () => {
 
   return (
     <>
-      <Modal
-        title="Add new user"
-        visible={isModalAddVisible}
-        onOk={handleAddOk}
-        onCancel={handleAddCancel}
-      >
-        <div class="form-group">
-          <label for="name">Name: </label>
-          <input
-            type="name"
-            class="form-control"
-            id="name"
-            placeholder="Enter username"
-          ></input>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Phone number: </label>
-          <input
-            type="phone_number"
-            class="form-control"
-            id="phone_number"
-            placeholder="Enter phone number"
-          ></input>
-        </div>
-
-        <label>Is active: </label>
-        <select name="isactive" id="isactive">
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-
-        <label>Gender: </label>
-        <select name="gender" id="gender" class="form-control">
-          <option value="nam">Nam</option>
-          <option value="nu">Nữ</option>
-        </select>
-
-        <div class="date">
-          <label for="birthday">Date of birth: </label>
-          <input type="date" class="form-control" id="birthday"></input>
-        </div>
-      </Modal>
       <Modal
         title="Show user's informations"
         visible={isModalShowVisible}
@@ -235,25 +221,30 @@ const UserManager = () => {
             class="form-control"
             id="name"
             value={modelCurrentAction.name}
+            disabled
           ></input>
         </div>
 
         <div class="form-group">
           <label for="name">Phone number: </label>
           <input
-            type="text"
+            type="text" readonly
             class="form-control"
             id="phone_number"
             value={modelCurrentAction.phone_number}
+            disabled
           ></input>
         </div>
+        
 
         <label>Gender: </label>
         <select
           name="gender"
+          readonly
           id="gender"
           class="form-control"
           value={modelCurrentAction.gender}
+          disabled
         >
           <option value="nam">Nam</option>
           <option value="nu">Nữ</option>
@@ -263,21 +254,23 @@ const UserManager = () => {
           <label for="birthday">Date of birth: </label>
           <input
             type="date"
+            readonly
             class="form-control"
             id="birthday"
             value={modelCurrentAction.date}
+            disabled
           ></input>
         </div>
       </Modal>
       <Modal
-        title="Update user's informations"
+        title="Change to employee"
         visible={isModalUpdateVisible}
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>UPDATE {modelCurrentAction.name}'s INFORMATIONS</p>
+        <p>ARE YOU SURE TO CHANGE {name} INTO EMPLOYEE'S ROLE</p>
         <div class="form-group">
-          <label for="id">ID: </label>
+        <label for="id">ID: </label>
           <input
             type="text"
             readonly
@@ -292,74 +285,52 @@ const UserManager = () => {
           <label for="name">Name: </label>
           <input
             type="name"
+            name="name"
             class="form-control"
             id="name"
             placeholder="Enter username"
             value={modelCurrentAction.name}
+            disabled
           ></input>
         </div>
+
 
         <div class="form-group">
-          <label for="phone_number">Phone number: </label>
-          <input
-            type="phone_number"
-            class="form-control"
-            id="phone_number"
-            placeholder="Enter phone number"
-            value={modelCurrentAction.phone_number}
-            required
-          ></input>
-        </div>
-
-        <label>Is active: </label>
-        <select name="isactive" id="isactive" value={modelCurrentAction.active}>
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
-
-        <label>Gender: </label>
-        <select name="gender" id="gender" value={modelCurrentAction.gender}>
-          <option value="nam">Nam</option>
-          <option value="nu">Nữ</option>
-        </select>
-
-        <div class="date">
-          <label for="birthday">Date of birth: </label>
-          <input
-            type="date"
-            class="form-control"
-            id="birthday"
-            value={modelCurrentAction.date}
-          ></input>
+          <i style={{ color: 'red' }}>{successStatus}</i>
         </div>
       </Modal>
       <Modal
-        title="Delete"
+        title="Update active"
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>ARE YOU SURE TO DELETE {modelCurrentAction.name}</p>
-        {modelCurrentAction.name}
+        <p>ARE YOU SURE TO {modelCurrentAction.active ? ("UNACTIVE") : ("ACTIVE")} {name} </p>
+        <div class="form-group">
+          <label for="name">ID: </label>
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="id"
+            value={modelCurrentAction.id}
+            disabled
+          ></input>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input
+            type="text"
+            readonly
+            class="form-control"
+            id="name"
+            value={modelCurrentAction.name}
+            disabled
+          ></input>
+        </div>
       </Modal>
       <div className="user-utilities">
-        <div className="btn-add-user" onClick={showAddModal}>
-          <div className="left">
-            <div className="percentage positive">
-              <AddCircleIcon />
-            </div>
-            <BookmarksIcon
-              className="icon"
-              style={{
-                color: 'green',
-                backgroundColor: 'rgba(0, 128, 0, 0.2)',
-              }}
-            />
-          </div>
-          <div className="right">
-            <span className="counter">Add new</span>
-          </div>
-        </div>
         <Search
           allowClear
           className="search"

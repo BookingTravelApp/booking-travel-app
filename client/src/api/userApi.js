@@ -11,16 +11,29 @@ const userApi = {
     return axiosClient.get(requestUrl, id);
   },
   getUserList: id => {
-    const requestUrl = url + `/user/get-user`;
+    const requestUrl = url + `/user/get-basic-user`;
     return axiosClient.get(requestUrl);
-  },
-  updateUser: params => {
-    const requestUrl = url + `/user/`;
-    return axiosClient.put(requestUrl, params);
   },
   getEmployeeList: id => {
     const requestUrl = url + `/user/get-employee`;
     return axiosClient.get(requestUrl);
+  },
+
+  // createUser: params => {
+  //   const requestUrl = url + `/user/`;
+  //   return axiosClient.post(requestUrl, params);
+  // },
+  UserToEmployee: params => {
+    const requestUrl = url + `/user/to-employee`;
+    return axiosClient.put(requestUrl, params);
+  },
+  EmployeeToUser: params => {
+    const requestUrl = url + `/user/to-user`;
+    return axiosClient.put(requestUrl, params);
+  },
+  activeUser: params => {
+    const requestUrl = url + `/user/active-user`;
+    return axiosClient.put(requestUrl, params);
   },
 };
 
