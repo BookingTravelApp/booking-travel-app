@@ -18,15 +18,15 @@ const Service = sequelize.define(
       type: Sequelize.STRING,
       allowNull: true,
     },
-    title:{
-      type: Sequelize.STRING,
+    title: {
+      type: Sequelize.TEXT,
       allowNull: true,
     },
     description: {
       type: Sequelize.TEXT,
       allowNull: true,
     },
-    guide:{
+    guide: {
       type: Sequelize.TEXT,
       allowNull: true,
     },
