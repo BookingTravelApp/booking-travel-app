@@ -105,24 +105,23 @@ module.exports = {
       const tag = await Tag.findOne({ where: { slug: req.params.slug } });
       if (!tag)
         return res.json({ success: false, message: "Tag does not exist" });
-      const listService = await Service.findAll(
-        {
+      const listService = await Service.findAll({
+        include: {
+          model: TagServices,
+          attributes: [],
           include: {
-            model: TagServices,
+            model: Tag,
             attributes: [],
-            include: {
-              model: Tag,
-              attributes: [],
-            },
           },
         },
-        { where: { "$tag_services.tag.name$": tag.name } }
-      );
+        where: { "$tag_services.tag.name$": tag.name },
+      });
       if (!listService)
         return res.json({
           success: false,
           message: "Tag does not have service",
         });
+      return res.json({ success: true, listService });
     } catch (error) {
       console.log(error);
       res.status(500).json({
