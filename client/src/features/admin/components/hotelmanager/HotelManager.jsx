@@ -16,10 +16,12 @@ const HotelManager = () => {
     name: '',
     title: '',
     description: '',
-    address: '',
+    guide: '',
     price: '',
     is_active: '',
   };
+  const [successStatus, setSuccessStatus] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [listHotel, setListHotel] = useState([]);
   const [listHotelAll, setListHotelAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -30,6 +32,7 @@ const HotelManager = () => {
   const [modelCurrentAction, setModelCurrentAction] = useState({});
   const { name, title, description, guide, price, is_active } =
     modelCurrentAction;
+  const [actionChange, setActionChange] = useState(true);
   useEffect(() => {
     setModelCurrentAction(entryModal);
     serviceApi
@@ -37,35 +40,84 @@ const HotelManager = () => {
       .then(response => {
         setListHotelAll(response.data.hotelBookingList);
         setListHotel(response.data.hotelBookingList);
+        setCategoryId(response.data.categoryId);
       })
       .catch(error => {
         console.log(error);
       });
-  }, [
-    isModalAddVisible,
-    isModalImageVisible,
-    isModalUpdateVisible,
-    isModalDeleteVisible,
-  ]);
+  }, [actionChange]);
   const showAddModal = () => {
+    setSuccessStatus('');
     setIsModalAddVisible(true);
     setModelCurrentAction(entryModal);
   };
   const handleAddOk = async () => {
     if (name == '' || title == '' || description == '' || price == '') {
-      alert('Please fill full infomation');
+      setSuccessStatus('Not enough infomation');
       return;
     }
+    var temp = modelCurrentAction;
+    temp.categoryId = categoryId;
+    setModelCurrentAction(temp);
+    serviceApi
+      .create(modelCurrentAction)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Add service successful');
+          setActionChange(!actionChange);
+          setIsModalAddVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
-  const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
-  const handleImageCancel = () => setIsModalImageVisible(false);
-  const showUpdateModal = () => setIsModalUpdateVisible(true);
-  const handleUpdateOk = () => setIsModalUpdateVisible(false);
+  const showUpdateModal = () => {
+    setSuccessStatus('');
+    setIsModalUpdateVisible(true);
+  };
+  const handleUpdateOk = () => {
+    if (name == '' || title == '' || description == '' || price == '') {
+      setSuccessStatus('Not enough infomation');
+      return;
+    }
+    var temp = modelCurrentAction;
+    temp.categoryId = categoryId;
+    setModelCurrentAction(temp);
+    serviceApi
+      .update(modelCurrentAction)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Service update successful');
+          setActionChange(!actionChange);
+          setIsModalUpdateVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const handleUpdateCancel = () => setIsModalUpdateVisible(false);
   const showDeleteModal = () => setIsModalDeleteVisible(true);
-  const handleDeleteOk = () => setIsModalDeleteVisible(false);
+  const handleDeleteOk = () => {
+    serviceApi
+      .delete(modelCurrentAction.id)
+      .then(response => {
+        if (response.data.success) {
+          setModelCurrentAction(entryModal);
+          alert('Service deleted successful');
+          setActionChange(!actionChange);
+          setIsModalDeleteVisible(false);
+        } else setSuccessStatus(response.data.message);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const handleDeleteCancel = () => setIsModalDeleteVisible(false);
 
   const searchClick = () => {
@@ -194,7 +246,6 @@ const HotelManager = () => {
         title="Add"
         visible={isModalAddVisible}
         onOk={handleAddOk}
-        onCancel={handleAddCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
@@ -234,6 +285,17 @@ const HotelManager = () => {
         </div>
 
         <div class="form-group">
+          <label for="Title">Address: </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter address"
+            value={guide}
+            name="guide"
+            onChange={onchangeModelCurrentAction}
+          ></input>
+        </div>
+        <div class="form-group">
           <label for="name">Price: </label>
           <input
             type="price"
@@ -255,12 +317,14 @@ const HotelManager = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
+        <div class="form-group">
+          <i style={{ color: 'red' }}>{successStatus}</i>
+        </div>
       </Modal>
       <Modal
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
-        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
@@ -271,10 +335,15 @@ const HotelManager = () => {
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>UPDATE "{modelCurrentAction.name}"</p>
+        <p>UPDATE "{modelCurrentAction.id}"</p>
         <div class="form-group">
           <label for="name">Name: </label>
-          <input type="name" class="form-control" value={name}></input>
+          <input
+            name="name"
+            class="form-control"
+            value={name}
+            onChange={onchangeModelCurrentAction}
+          ></input>
         </div>
 
         <div class="form-group">
@@ -332,6 +401,10 @@ const HotelManager = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
+
+        <div class="form-group">
+          <i style={{ color: 'red' }}>{successStatus}</i>
+        </div>
       </Modal>
       <Modal
         title="Delete"

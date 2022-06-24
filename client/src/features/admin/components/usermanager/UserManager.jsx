@@ -21,6 +21,7 @@ const UserManager = () => {
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(false);
 
+  // const {name}
   useEffect(() => {
     userApi
       .getAll()

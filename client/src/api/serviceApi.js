@@ -24,11 +24,11 @@ const serviceAPI = {
   },
   create: params => {
     const requestUrl = url + `/service/`;
-    return axiosClient.patch(requestUrl, params);
+    return axiosClient.post(requestUrl, params);
   },
-  update: (id, credentials) => {
-    const requestUrl = url + `/service/${id}`;
-    return axiosClient.patch(requestUrl, credentials);
+  update: credentials => {
+    const requestUrl = url + `/service/`;
+    return axiosClient.put(requestUrl, credentials);
   },
   delete: id => {
     const requestUrl = url + `/service/${id}`;

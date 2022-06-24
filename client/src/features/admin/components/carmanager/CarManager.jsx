@@ -11,6 +11,7 @@ import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
 const CarManager = () => {
+  const [categoryId, setCategoryId] = useState([]);
   const [listCar, setListCar] = useState([]);
   const [listCarAll, setListCarAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
@@ -26,6 +27,7 @@ const CarManager = () => {
       .then(response => {
         setListCarAll(response.data.carRentalList);
         setListCar(response.data.carRentalList);
+        setCategoryId(response.data.categoryId);
       })
       .catch(error => {
         console.log(error);
@@ -172,12 +174,12 @@ const CarManager = () => {
 
         <div class="form-group">
           <label for="name">Description: </label>
-          <textarea 
-            class="form-control"  
-            id="description" 
-            type="description" 
-            rows="5" 
-            placeholder="Enter description" 
+          <textarea
+            class="form-control"
+            id="description"
+            type="description"
+            rows="5"
+            placeholder="Enter description"
           ></textarea>
         </div>
 
@@ -199,9 +201,8 @@ const CarManager = () => {
 
         <div class="date">
           <label for="createat">Create at: </label>
-          <input type="date" class="form-control" id="createat" ></input>
+          <input type="date" class="form-control" id="createat"></input>
         </div>
-
       </Modal>
       <Modal
         title="Image Modal"
@@ -230,12 +231,12 @@ const CarManager = () => {
 
         <div class="form-group">
           <label for="name">Description: </label>
-          <textarea 
-            class="form-control"  
-            id="description" 
-            type="description" 
-            rows="5" 
-            placeholder="Enter description" 
+          <textarea
+            class="form-control"
+            id="description"
+            type="description"
+            rows="5"
+            placeholder="Enter description"
             value={modelCurrentAction.description}
           ></textarea>
         </div>
@@ -252,19 +253,29 @@ const CarManager = () => {
         </div>
 
         <label>Is active: </label>
-        <select name="isactive" id="isactive" class="form-control" value={modelCurrentAction.is_active}>
+        <select
+          name="isactive"
+          id="isactive"
+          class="form-control"
+          value={modelCurrentAction.is_active}
+        >
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
 
         <div class="date">
           <label for="createat">Create at: </label>
-          <input type="date" class="form-control" name="createat" id="createat" value={modelCurrentAction.createdAt} ></input>
-          
+          <input
+            type="date"
+            class="form-control"
+            name="createat"
+            id="createat"
+            value={modelCurrentAction.createdAt}
+          ></input>
+
           <label for="updateat">Update at: </label>
-          <input type="date" class="form-control" id="updateat" ></input>
+          <input type="date" class="form-control" id="updateat"></input>
         </div>
-        
       </Modal>
       <Modal
         title="Delete"
