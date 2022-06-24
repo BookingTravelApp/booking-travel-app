@@ -32,6 +32,11 @@ router.put(
   [verifyToken, role.admin],
   UserController.updateRoleToUser
 );
+router.put(
+  "/active-user",
+  [verifyToken, role.admin],
+  UserController.updateActiveUser
+);
 router.put("/", verifyToken, UserController.update);
 
 //@Relationship

@@ -175,6 +175,8 @@ module.exports = {
   updateRoleToEmployee: async (req, res) => {
     const { userId } = req.body;
     try {
+      if (!userId)
+        return res.json({ success: false, message: "User id not found" });
       const role = await Role.findOne({ where: { name: "employee" } });
       const user = await User.findOne({
         include: {
@@ -218,6 +220,8 @@ module.exports = {
   updateRoleToUser: async (req, res) => {
     const { userId } = req.body;
     try {
+      if (!userId)
+        return res.json({ success: false, message: "User id not found" });
       const role = await Role.findOne({ where: { name: "user" } });
       const user = await User.findOne({
         include: {
@@ -250,6 +254,28 @@ module.exports = {
       return res.json({
         success: true,
         message: "Update role to user successful",
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+  updateActiveUser: async (req, res) => {
+    const { userId } = req.body;
+    try {
+      if (!userId)
+        return res.json({ success: false, message: "User id not found" });
+      var user = await User.findOne({ where: { id: userId } });
+      if (!user)
+        return res.json({ success: false, message: "User doest not exist" });
+      await User.update({ active: !user.active }, { where: { id: user.id } });
+      return res.json({
+        success: true,
+        message: user.active
+          ? "Unactive user successful"
+          : "Active user successful",
       });
     } catch (error) {
       console.log(error);

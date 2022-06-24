@@ -183,6 +183,7 @@ module.exports = {
         await User.create({
           name: name,
           accountId: userId,
+          active: true,
         });
       } catch (error) {
         res.status(500).json({
