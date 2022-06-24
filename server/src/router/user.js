@@ -22,6 +22,16 @@ router.get(
   UserController.showBasicUser
 );
 
+router.put(
+  "/to-employee",
+  [verifyToken, role.admin],
+  UserController.updateRoleToEmployee
+);
+router.put(
+  "/to-user",
+  [verifyToken, role.admin],
+  UserController.updateRoleToUser
+);
 router.put("/", verifyToken, UserController.update);
 
 //@Relationship

@@ -172,7 +172,92 @@ module.exports = {
         .json({ success: false, message: "Internal server error" });
     }
   },
-  updateRole: async (req, res) => {},
+  updateRoleToEmployee: async (req, res) => {
+    const { userId } = req.body;
+    try {
+      const role = await Role.findOne({ where: { name: "employee" } });
+      const user = await User.findOne({
+        include: {
+          model: Account,
+          attributes: ["id"],
+          include: {
+            model: RoleAccounts,
+            attributes: ["id"],
+            include: {
+              model: Role,
+              attributes: [],
+            },
+          },
+        },
+        where: { id: userId, "$account.role_accounts.role.name$": "user" },
+      });
+      if (!user)
+        return res.json({
+          success: false,
+          message: "User does not exist or invalid",
+        });
+      await RoleAccounts.destroy({
+        where: { id: user.account.role_accounts[0].id },
+      });
+      const newRoleAccount = new RoleAccounts({
+        accountId: user.accountId,
+        roleId: role.id,
+      });
+      newRoleAccount.save();
+      return res.json({
+        success: true,
+        message: "Update role to employee successful",
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
+  updateRoleToUser: async (req, res) => {
+    const { userId } = req.body;
+    try {
+      const role = await Role.findOne({ where: { name: "user" } });
+      const user = await User.findOne({
+        include: {
+          model: Account,
+          attributes: ["id"],
+          include: {
+            model: RoleAccounts,
+            attributes: ["id"],
+            include: {
+              model: Role,
+              attributes: [],
+            },
+          },
+        },
+        where: { id: userId, "$account.role_accounts.role.name$": "employee" },
+      });
+      if (!user)
+        return res.json({
+          success: false,
+          message: "User does not exist or invalid",
+        });
+      await RoleAccounts.destroy({
+        where: { id: user.account.role_accounts[0].id },
+      });
+      const newRoleAccount = new RoleAccounts({
+        accountId: user.accountId,
+        roleId: role.id,
+      });
+      newRoleAccount.save();
+      return res.json({
+        success: true,
+        message: "Update role to user successful",
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  },
   getCart: async (req, res) => {
     try {
       const user = await User.findOne({ where: { accountId: req.userId } });
