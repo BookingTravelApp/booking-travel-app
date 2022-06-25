@@ -1,5 +1,5 @@
 import React from 'react';
-import './carmanager.scss';
+import './tourmanager.scss';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import serviceApi from '../../../../api/serviceApi';
@@ -10,7 +10,7 @@ import moment from 'moment';
 import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
-const CarManager = () => {
+const TagManager = () => {
   const entryModal = {
     name: '',
     title: '',
@@ -21,23 +21,23 @@ const CarManager = () => {
   };
   const [successStatus, setSuccessStatus] = useState('');
   const [categoryId, setCategoryId] = useState([]);
-  const [listCar, setListCar] = useState([]);
-  const [listCarAll, setListCarAll] = useState([]);
+  const [listTour, setListTour] = useState([]);
+  const [listTourAll, setListTourAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(false);
+  const [actionChange, setActionChange] = useState(true);
   const { name, title, description, guide, price, is_active } =
     modelCurrentAction;
-  const [actionChange, setActionChange] = useState(true);
   useEffect(() => {
     serviceApi
-      .getCarList()
+      .getTourList()
       .then(response => {
-        setListCarAll(response.data.carRentalList);
-        setListCar(response.data.carRentalList);
+        setListTourAll(response.data.tourList);
+        setListTour(response.data.tourList);
         setCategoryId(response.data.categoryId);
       })
       .catch(error => {
@@ -72,10 +72,8 @@ const CarManager = () => {
         setSuccessStatus('Can not create service');
       });
   };
-  const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
-  const handleImageCancel = () => setIsModalImageVisible(false);
   const showUpdateModal = () => {
     setSuccessStatus('');
     setIsModalUpdateVisible(true);
@@ -123,7 +121,7 @@ const CarManager = () => {
   const handleDeleteCancel = () => setIsModalDeleteVisible(false);
 
   const searchClick = () => {
-    const filteredData = listCarAll.filter(
+    const filteredData = listTourAll.filter(
       entry =>
         entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
         entry.name
@@ -132,7 +130,7 @@ const CarManager = () => {
           .includes(searchValue.toLowerCase()) ||
         entry.price.toString().toLowerCase() == searchValue.toLowerCase()
     );
-    setListCar(filteredData);
+    setListTour(filteredData);
   };
   const searchChange = event => setSearchValue(event.target.value);
   const onchangeModelCurrentAction = event => {
@@ -157,6 +155,12 @@ const CarManager = () => {
       fixed: 'left',
     },
     {
+      title: 'Title',
+      dataIndex: 'title',
+      sorter: (a, b) => a.name.length - b.name.length,
+      width: 550,
+    },
+    {
       title: 'Description',
       dataIndex: 'description',
       width: 550,
@@ -167,6 +171,12 @@ const CarManager = () => {
       dataIndex: 'price',
       sorter: (a, b) => a.price - b.price,
       width: 120,
+    },
+    {
+      title: 'Guide',
+      dataIndex: 'guide',
+      width: 1000,
+      sorter: (a, b) => a.description.length - b.description.length,
     },
     {
       title: 'Is active',
@@ -230,13 +240,13 @@ const CarManager = () => {
       ),
     },
   ];
+
   return (
     <>
       <Modal
-        title="Add Modal"
+        title="Add new tour"
         visible={isModalAddVisible}
         onOk={handleAddOk}
-        onCancel={handleAddCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
@@ -274,8 +284,9 @@ const CarManager = () => {
             onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
+
         <div class="form-group">
-          <label for="Title">Address: </label>
+          <label for="Title">Guide: </label>
           <input
             type="text"
             class="form-control"
@@ -307,7 +318,6 @@ const CarManager = () => {
           <option value="true">True</option>
           <option value="false">False</option>
         </select>
-
         <div class="form-group">
           <i style={{ color: 'red' }}>{successStatus}</i>
         </div>
@@ -316,17 +326,17 @@ const CarManager = () => {
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
-        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
       </Modal>
       <Modal
-        title="Update Modal"
+        title="Update"
         visible={isModalUpdateVisible}
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
+        <p>UPDATE "{modelCurrentAction.name}"</p>
         <div class="form-group">
           <label for="name">Name: </label>
           <input
@@ -400,15 +410,15 @@ const CarManager = () => {
         </div>
       </Modal>
       <Modal
-        title="Delete"
+        title="Delete Modal"
         visible={isModalDeleteVisible}
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>ARE YOU SURE TO DELETE "{modelCurrentAction.name}"</p>
+        <p>ARE YOU SUTE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
-      <div className="car-utilities">
-        <div className="btn-add-car" onClick={showAddModal}>
+      <div className="tour-utilities">
+        <div className="btn-add-tour" onClick={showAddModal}>
           <div className="left">
             <div className="percentage positive">
               <AddCircleIcon />
@@ -435,18 +445,18 @@ const CarManager = () => {
           onChange={searchChange}
         />
       </div>
-      <div className="car-table-container">
+      <div className="tour-table-container">
         <Table
-          className="car-table"
+          className="tour-table"
           scroll={{
             x: 1200,
           }}
           columns={columns}
-          dataSource={listCar}
+          dataSource={listTour}
         />
       </div>
     </>
   );
 };
 
-export default CarManager;
+export default TagManager;

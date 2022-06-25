@@ -72,8 +72,11 @@ const TourManager = () => {
         setSuccessStatus('Can not create service');
       });
   };
+  const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
+  const handleImageCancel = () => setIsModalImageVisible(false);
+
   const showUpdateModal = () => {
     setSuccessStatus('');
     setIsModalUpdateVisible(true);
@@ -158,7 +161,7 @@ const TourManager = () => {
       title: 'Title',
       dataIndex: 'title',
       sorter: (a, b) => a.name.length - b.name.length,
-      width: 200,
+      width: 550,
     },
     {
       title: 'Description',
@@ -175,7 +178,7 @@ const TourManager = () => {
     {
       title: 'Guide',
       dataIndex: 'guide',
-      width: 550,
+      width: 1000,
       sorter: (a, b) => a.description.length - b.description.length,
     },
     {
@@ -247,6 +250,7 @@ const TourManager = () => {
         title="Add new tour"
         visible={isModalAddVisible}
         onOk={handleAddOk}
+        onCancel={handleAddCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
@@ -326,6 +330,7 @@ const TourManager = () => {
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
+        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
