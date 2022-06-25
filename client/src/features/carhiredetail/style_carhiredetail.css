@@ -1,0 +1,63 @@
+.container {
+    max-width: 1200px;
+    align-items: center;
+}
+
+.car-img {
+    max-width: 500px;
+}
+
+.car-name {
+    margin-top: 30px;
+    font-size: 24px;
+}
+
+.car-description {
+    margin-top: 20px;
+    max-width: 900px;
+    font-style: italic;
+   
+}
+
+.car-title {
+    font-weight: 600;
+}
+
+.car-price label{
+    color: var(--highlight-color);
+}
+
+.car-guide {
+    margin-top: 16px;
+}
+
+.car-guide label{
+    margin-right: 8px;
+}
+
+.car-cart-book {
+    margin-top: 20px;
+}
+
+.car-cart {
+    background-color: var(--primary-color);
+    padding: 6px 12px;
+    color: #EFEFEF;
+    font-weight: 600;
+    margin-right: 10px;    
+}
+
+.car-cart:hover {
+    color: rgb(168, 191, 231)
+}
+
+.car-book {
+    background-color: var(--highlight-color);
+    padding: 6px 16px;
+    color: #010101;
+    font-weight: 600;    
+}
+
+.car-book:hover {
+    color: hwb(240 81% 14%);
+}

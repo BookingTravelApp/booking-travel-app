@@ -6,13 +6,15 @@ import Footer from '../src/components/footer/footer.jsx';
 import ButtonSrollTop from '../src/components/button-scroll-top.jsx';
 
 import HomePage from './features/home/homepage.jsx';
-import TourList from './features/tourlist/index.jsx';
 import { Route, Routes } from 'react-router-dom';
+import TourList from './features/tourlist/index.jsx';
 import TourDetail from './features/tourdetail/tourdetail.jsx';
+import HotelList from './features/hotellist/hotellist.jsx';
+import HotelDetail from './features/hoteldetail/hoteldetail.jsx';
+import CarHireList from './features/carehirelist/carhirelist.jsx';
+import CareHireDetail from './features/carhiredetail/carhiredetail.jsx';
 import AuthContextProvider from './contexts/AuthContext.js';
-import Cart from './features/cart/cart.jsx';
-import TourCard from './features/tourlist/tourcard.jsx';
-import CartItem from './features/cart/cartitem.jsx';
+import Carts  from './features/cart/carts.jsx';
 import Profile from './features/profile/profile.jsx';
 import Auth from './features/auth/auth';
 import Admin from './features/admin/Admin';
@@ -116,13 +118,22 @@ function App() {
           <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
         </Routes>
         <Routes>
+          <Route path="/hotelList" axact element={<HotelList/>}/>
+        </Routes>
+        <Routes>
+          <Route path="hotelDetail/:slug" axact element={<HotelDetail/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/carHireList" exact element={<CarHireList/>}/>
+        </Routes>
+        <Routes>
+          <Route path="/carHireDetail/:slug" exact element={<CareHireDetail/>}/>
+        </Routes>
+        <Routes>
           <Route path="/profile" exact element={<Profile />} />
         </Routes>
         <Routes>
-          <Route path="/cart" axact element={<Cart />} />
-        </Routes>
-        <Routes>
-          <Route path="/cartItem" axact element={<CartItem />} />
+          <Route path="/cart" exact element={<Carts />}/>
         </Routes>
         <Footer />
       </Box>

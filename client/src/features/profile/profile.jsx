@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { BiUserCircle } from 'react-icons/bi';
 import { FaUserLock } from 'react-icons/fa';
 import './style.css';
+import AccountApi from '../../api/accountApi';
+import CartApi from '../../api/cartApi';
 
 const Profile = () => {
   const [showInfo, setShowInfo] = useState(true);
   const [editPassword, setEditPassword] = useState(false);
+
+  const [username, setUsername] = useState('');
+  const [gender, setGender] = useState(false);
+  const [numberPhone, setNumberPhone] = useState('');
+
+  useEffect( () => {
+      AccountApi.getUser().then(res => {
+        console.log(res.data);
+        setUsername(res.data.user.name);
+      })
+  }, []);
 
 
   return (
@@ -47,7 +60,7 @@ const Profile = () => {
           <label className="title">Thông tin cá nhân</label>
           <div className="username">
             <label>Tên: </label>
-            <input type="text" value={'Phương Trâm'}></input>
+            <input type="text" value={username}></input>
           </div>
           <div className="gender">
             <label>Giới tính</label>

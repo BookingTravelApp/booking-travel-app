@@ -7,7 +7,11 @@ const CartApi = {
         const requestUrl = url + "/user/cart";
         return axiosClient.get(requestUrl);
     },
-
+    
+    addCart : (service) => {
+        const requestUrl = url + "/user/cart";
+        return axiosClient.post(requestUrl, service);
+    }
 
 }
 

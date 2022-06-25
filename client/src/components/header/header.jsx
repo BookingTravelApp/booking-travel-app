@@ -27,12 +27,12 @@ const MenuBar = [
     path: '/tourList',
   },
   {
-    name: 'Contact',
-    path: '/contact',
+    name: 'Hotel',
+    path: '/hotelList',
   },
   {
-    name: 'About',
-    path: '/path',
+    name: 'Car rental',
+    path: '/carHireList',
   },
 ];
 

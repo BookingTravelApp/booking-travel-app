@@ -11,7 +11,6 @@ const TourCard = ({ item }) => {
 
   const resRandom = randomStar();
  
-
   return (
       <Box
         px={'15px'}
@@ -36,10 +35,12 @@ const TourCard = ({ item }) => {
             <Image maxW={'full'} src={tour}></Image>
           </Box>
           <Box pt={'10px'} px={'16px'} minH={'80px'}>
-            <Text color={"var(--text-color)"} fontWeight={"500"} fontSize={"18px"}>
-              Địa điểm du lịch {item.name}
+            <Text color={"var(--black-color)"} fontWeight={"500"} fontSize={"17px"}>
+              {item.name}
             </Text>          
-            <Text color={'#e8604c'}>{item.price} VNĐ</Text>           
+            <Text color={'#e8604c'}>
+              {item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) } 
+            </Text>           
           </Box>
           <Box px={'16px'} display={'flex'}>
               <Box color={resRandom > 0 ? "#FFCD38" : "unset"}>
@@ -60,8 +61,9 @@ const TourCard = ({ item }) => {
           </Box>
           <Link to={`/tourDetail/${item.slug}`}>
             <Box py={'10px'} px={'16px'}>
-              <Box maxWidth={"150px"} 
-                        px={"30px"} 
+              <Box maxWidth={"130px"} 
+                        textAlign={"center"}
+                        px={"8px"} 
                         py={"8px"} 
                         bgColor='var(--button-color)'
                         color={"blackAlpha.900"} 

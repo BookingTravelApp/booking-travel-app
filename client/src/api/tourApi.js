@@ -10,6 +10,10 @@ const tourApi = {
     const requestUrl = url + `/service/${id}`;
     return axiosClient.get(requestUrl);
   },
+  getTour: slug => {
+    const requestUrl = url + `/service/${slug}`;
+    return axiosClient.get(requestUrl);
+  },
   getTourList: id => {
     const requestUrl = url + `/service/get-tour-list`;
     return axiosClient.get(requestUrl);
