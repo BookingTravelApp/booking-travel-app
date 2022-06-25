@@ -337,7 +337,7 @@ const HotelManager = () => {
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
-        onCancel={handelImageCancel}
+        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
