@@ -80,7 +80,10 @@ const HotelManager = () => {
     setActionChange(!actionChange);
     setIsModalImageVisible(false);
   };
-  const handelImageCancel = () => setIsModalImageVisible(false);
+  const handleImageCancel = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
   const showUpdateModal = () => {
     setSuccessStatus('');
     setIsModalUpdateVisible(true);

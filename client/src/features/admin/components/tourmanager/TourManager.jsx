@@ -78,7 +78,10 @@ const TourManager = () => {
     setActionChange(!actionChange);
     setIsModalImageVisible(false);
   };
-  const handleImageCancel = () => setIsModalImageVisible(false);
+  const handleImageCancel = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
 
   const showUpdateModal = () => {
     setSuccessStatus('');
