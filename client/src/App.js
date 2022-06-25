@@ -82,12 +82,6 @@ function App() {
           />
         </Routes>
         <Routes>
-<<<<<<< HEAD
-          <Route
-            path="/admin/tag"
-            exact
-            element={<Admin adminRoute="tag" />}
-=======
           <Route path="/admin/tag" exact element={<Admin adminRoute="tag" />} />
         </Routes>
         <Routes>
@@ -95,7 +89,6 @@ function App() {
             path="/admin/profile"
             exact
             element={<Admin adminRoute="profile" />}
->>>>>>> edb981776eb1c2c7c7f74274d7a4f59248f89234
           />
         </Routes>
         <Header />
