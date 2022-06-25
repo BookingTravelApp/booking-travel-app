@@ -347,7 +347,6 @@ const TourManager = () => {
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>UPDATE "{modelCurrentAction.name}"</p>
         <div class="form-group">
           <label for="name">Name: </label>
           <input

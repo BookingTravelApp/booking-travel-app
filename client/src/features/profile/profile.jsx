@@ -41,6 +41,10 @@ const Profile = () => {
     setIsModalUpdateVisible(true);
   };
   const handleUpdateOk = () => {
+    if (name == '') {
+      setSuccessStatus('Name required');
+      return;
+    }
     userApi
       .updateUser(modelCurrentAction)
       .then(response => {
@@ -111,7 +115,7 @@ const Profile = () => {
               class="form-control"
               id="name"
               name="name"
-              value={name}
+              value={modelCurrentAction.name}
               onChange={onchangeModelCurrentAction}
               disabled
             ></input>
@@ -124,7 +128,7 @@ const Profile = () => {
               class="form-control"
               id="phone_number"
               name="phone_number"
-              value={phone_number}
+              value={modelCurrentAction.phone_number}
               onChange={onchangeModelCurrentAction}
               disabled
             ></input>
@@ -150,7 +154,7 @@ const Profile = () => {
             name="date"
             class="form-control"
             id="birthday"
-            value={modelCurrentAction.date}
+            value={modelCurrentAction.date_of_birth}
             disabled
           ></input>
           <button 
@@ -208,7 +212,7 @@ const Profile = () => {
             type="name"
             id='"name'
             class="form-control"
-            value={name}
+            value={modelCurrentAction.name}
             name="name"
             onChange={onchangeModelCurrentAction}
           ></input>

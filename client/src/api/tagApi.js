@@ -2,20 +2,20 @@ import axiosClient from './axiosClient';
 import { url } from './constants';
 
 const tagApi = {
-  showAll: params => {
-    const requestUrl = url + `/event`;
+  getListTag: params => {
+    const requestUrl = url + `/tag`;
     return axiosClient.get(requestUrl, { params });
   },
   create: params => {
-    const requestUrl = url + `/event/`;
+    const requestUrl = url + `/tag/`;
     return axiosClient.post(requestUrl, params);
   },
   update: params => {
-    const requestUrl = url + `/event/`;
+    const requestUrl = url + `/tag/`;
     return axiosClient.put(requestUrl, params);
   },
   delete: id => {
-    const requestUrl = url + `/event/${id}`;
+    const requestUrl = url + `/tag/${id}`;
     return axiosClient.delete(requestUrl);
   },
 };

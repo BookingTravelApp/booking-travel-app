@@ -81,6 +81,13 @@ function App() {
             element={<Admin adminRoute="event" />}
           />
         </Routes>
+        <Routes>
+          <Route
+            path="/admin/tag"
+            exact
+            element={<Admin adminRoute="tag" />}
+          />
+        </Routes>
         <Header />
         <Routes>
           <Route path="/sign-in" exact element={<Auth authRoute="login" />} />
@@ -142,6 +149,7 @@ function App() {
         <Routes>
           <Route path="/cart" exact element={<Carts />}/>
         </Routes>
+        
         <Footer />
       </Box>
     </AuthContextProvider>
