@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
 import { Table, Space, Input, Modal, Button } from 'antd';
 
-=======
->>>>>>> 9afc870da953fa1280c736a1814d15a3b710aace
 import { AiTwotoneEdit } from 'react-icons/ai';
 import { BiUserCircle } from 'react-icons/bi';
 import { FaUserLock } from 'react-icons/fa';
@@ -68,22 +65,8 @@ const Profile = () => {
       ...modelCurrentAction,
       [user.target.name]: user.target.value,
 
-<<<<<<< HEAD
     });
   };
-=======
-  const [username, setUsername] = useState('');
-  const [gender, setGender] = useState(false);
-  const [numberPhone, setNumberPhone] = useState('');
-
-  useEffect( () => {
-      AccountApi.getUser().then(res => {
-        console.log(res.data);
-        setUsername(res.data.user.name);
-      })
-  }, []);
-
->>>>>>> 9afc870da953fa1280c736a1814d15a3b710aace
 
     return (
       <div className="container">
@@ -95,7 +78,6 @@ const Profile = () => {
           ></img>
           <AiTwotoneEdit className="icon_edit_img" />
         </div>
-<<<<<<< HEAD
         <div className="info">
           <div className="nav">
             <label>Trang tài khoản cá nhân</label>
@@ -118,25 +100,6 @@ const Profile = () => {
               >
               <FaUserLock className="icon" />
               <div>Bảo mật</div>
-=======
-        <form className="form_info" style={{ display: showInfo ? 'block' : 'none' }}>
-          <label className="title">Thông tin cá nhân</label>
-          <div className="username">
-            <label>Tên: </label>
-            <input type="text" value={username}></input>
-          </div>
-          <div className="gender">
-            <label>Giới tính</label>
-            <div className="gender_radio">
-              <div className="gender_male">
-                <input type="radio" id="gender" value="Male"></input>
-                <label>Nam</label>
-              </div>
-              <div className="gender_female">
-                <input type="radio" id="gender" value="Female"></input>
-                <label>Nữ</label>
-              </div>
->>>>>>> 9afc870da953fa1280c736a1814d15a3b710aace
             </div>
           </div>
           <form className="form_info" style={{ display: showInfo ? 'block' : 'none' }}>
