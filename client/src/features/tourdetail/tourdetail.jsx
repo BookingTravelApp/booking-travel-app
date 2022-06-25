@@ -116,6 +116,7 @@ const TourDetail = () => {
     CartApi.addCart(service)
       .then(res => {
         console.log(res);
+        console.log("Phuong Tram")
       })
       .catch(err => {
         console.log(err);

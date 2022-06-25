@@ -21,6 +21,10 @@ const Carts = () => {
                         item.service.price*(item.numberOfPeople - item.numberOfChild), 0
     );
 
+    const ShowNotiFy = () => {
+        alert("Bạn đã đặt dịch vụ thành công \nHệ thống sẽ liên hệ với bạn ngay bây giờ.")
+    }
+
   return (
     <div className="container">
         <table class="table">
@@ -60,7 +64,7 @@ const Carts = () => {
                 {(totalPrice+0).toLocaleString('vi', {style : 'currency', currency : 'VND'})} 
             </div>
             <div className="book-service">
-                <button>Đặt ngay</button>
+                <button onClick={ShowNotiFy}>Đặt ngay</button>
             </div>
         </div>  
     </div>

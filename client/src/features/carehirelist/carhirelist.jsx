@@ -66,7 +66,7 @@ const CarHireList = () => {
                 list.map((item, index) => (                    
                         <div className="car-item" key={index}>
                             <div className="car-image">                            
-                                <img src="http://product.hstatic.net/200000281285/product/sirius_phanh_co_trang_xanh_75dff4decc974e7393d2e6ef3f913c8c_grande.png" alt="" width={"200px"}/>
+                                <img src={item.images[0].path} alt="" width={"240px"}/>
                             </div>
                             <div className="car-info">
                                 <div className="car-name">{item.name}</div>

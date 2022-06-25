@@ -27,7 +27,6 @@ const HotelDetail = () => {
           .catch(err => {
             console.log(err);
           });
-    
       }, []);
       console.log(typeof title);
     return (

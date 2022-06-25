@@ -13,6 +13,7 @@ const CareHireDetail = () => {
     const [guide, setGuide] = useState('');
     const [des, setDes] = useState('')
     const [price, setPrice] = useState();
+    const [img, setImg] = useState('');
 
     useEffect(() => {
         ServiceApi
@@ -25,7 +26,7 @@ const CareHireDetail = () => {
                 setGuide(car.guide);
                 setDes(car.description);
                 setPrice(car.price);
-                
+                setImg(car.images[0].path)                
           })
           .catch(err => {
             console.log(err);
@@ -36,7 +37,7 @@ const CareHireDetail = () => {
     return (
         <div className="container">
             <div className="car-img">
-                <img src="http://product.hstatic.net/200000281285/product/sirius_phanh_co_trang_xanh_75dff4decc974e7393d2e6ef3f913c8c_grande.png"></img>
+                <img src={img}></img>
             </div>
             <div className="car-name">{name}</div>
             <div className="car-description">{des}</div>
