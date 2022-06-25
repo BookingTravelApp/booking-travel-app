@@ -74,7 +74,10 @@ const CarManager = () => {
   };
   const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
-  const handleImageOk = () => setIsModalImageVisible(false);
+  const handleImageOk = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
   const handleImageCancel = () => setIsModalImageVisible(false);
   const showUpdateModal = () => {
     setSuccessStatus('');

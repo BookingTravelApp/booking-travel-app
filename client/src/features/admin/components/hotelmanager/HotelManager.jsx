@@ -76,7 +76,10 @@ const HotelManager = () => {
   };
   const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
-  const handleImageOk = () => setIsModalImageVisible(false);
+  const handleImageOk = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
   const handelImageCancel = () => setIsModalImageVisible(false);
   const showUpdateModal = () => {
     setSuccessStatus('');
