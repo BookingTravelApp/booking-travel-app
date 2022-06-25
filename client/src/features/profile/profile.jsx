@@ -30,7 +30,6 @@ const Profile = () => {
       .getUser()
       .then(response => {
         setModelCurrentAction(response.data.user);
-        console.log("User hiện tại: ", response.data.user);
       })
       .catch(error => {
         console.log('Failed to fetch UserList:', error);
@@ -60,7 +59,7 @@ const Profile = () => {
     setIsModalUpdateVisible(false);
   };
   const onchangeModelCurrentAction = user => {
-    console.log(modelCurrentAction);
+    // console.log(modelCurrentAction);
     setModelCurrentAction({
       ...modelCurrentAction,
       [user.target.name]: user.target.value,
