@@ -10,6 +10,10 @@ import HotelManager from './components/hotelmanager/HotelManager';
 import CarManager from './components/carmanager/CarManager';
 import EventManager from './components/eventmanager/EventManager';
 import TagManager from './components/tagmanager/TagManager';
+<<<<<<< HEAD
+=======
+import ProfileManager from './components/profilemanager/ProfileManager';
+>>>>>>> edb981776eb1c2c7c7f74274d7a4f59248f89234
 import { AuthContext } from '../../contexts/AuthContext';
 import React, { useContext } from 'react';
 // import { Navigate } from 'react-router-dom';
@@ -43,6 +47,10 @@ const Amin = ({ adminRoute }) => {
     else if (adminRoute === 'car') content = <CarManager />;
     else if (adminRoute === 'event') content = <EventManager />;
     else if (adminRoute === 'tag') content = <TagManager />;
+<<<<<<< HEAD
+=======
+    else if (adminRoute === 'profile') content = <ProfileManager />;
+>>>>>>> edb981776eb1c2c7c7f74274d7a4f59248f89234
     else content = <Statistical />;
 
     body = (

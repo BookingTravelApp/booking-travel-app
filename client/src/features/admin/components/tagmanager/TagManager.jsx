@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import './tagmanager.scss';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
@@ -352,6 +353,13 @@ const TagManager = () => {
           dataSource={listTag}
         />
       </div>
+=======
+
+const TagManager = () => {
+  return (
+    <>
+      <div>Tagmanager</div>
+>>>>>>> edb981776eb1c2c7c7f74274d7a4f59248f89234
     </>
   );
 };

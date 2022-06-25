@@ -14,7 +14,7 @@ import HotelDetail from './features/hoteldetail/hoteldetail.jsx';
 import CarHireList from './features/carehirelist/carhirelist.jsx';
 import CareHireDetail from './features/carhiredetail/carhiredetail.jsx';
 import AuthContextProvider from './contexts/AuthContext.js';
-import Carts  from './features/cart/carts.jsx';
+import Carts from './features/cart/carts.jsx';
 import Profile from './features/profile/profile.jsx';
 import Auth from './features/auth/auth';
 import Admin from './features/admin/Admin';
@@ -82,10 +82,20 @@ function App() {
           />
         </Routes>
         <Routes>
+<<<<<<< HEAD
           <Route
             path="/admin/tag"
             exact
             element={<Admin adminRoute="tag" />}
+=======
+          <Route path="/admin/tag" exact element={<Admin adminRoute="tag" />} />
+        </Routes>
+        <Routes>
+          <Route
+            path="/admin/profile"
+            exact
+            element={<Admin adminRoute="profile" />}
+>>>>>>> edb981776eb1c2c7c7f74274d7a4f59248f89234
           />
         </Routes>
         <Header />
@@ -132,22 +142,26 @@ function App() {
           <Route path="/tourDetail/:slug" exact element={<TourDetail />} />
         </Routes>
         <Routes>
-          <Route path="/hotelList" axact element={<HotelList/>}/>
+          <Route path="/hotelList" axact element={<HotelList />} />
         </Routes>
         <Routes>
-          <Route path="hotelDetail/:slug" axact element={<HotelDetail/>}/>
+          <Route path="hotelDetail/:slug" axact element={<HotelDetail />} />
         </Routes>
         <Routes>
-          <Route path="/carHireList" exact element={<CarHireList/>}/>
+          <Route path="/carHireList" exact element={<CarHireList />} />
         </Routes>
         <Routes>
-          <Route path="/carHireDetail/:slug" exact element={<CareHireDetail/>}/>
+          <Route
+            path="/carHireDetail/:slug"
+            exact
+            element={<CareHireDetail />}
+          />
         </Routes>
         <Routes>
           <Route path="/profile" exact element={<Profile />} />
         </Routes>
         <Routes>
-          <Route path="/cart" exact element={<Carts />}/>
+          <Route path="/cart" exact element={<Carts />} />
         </Routes>
         
         <Footer />
