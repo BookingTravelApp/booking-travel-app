@@ -5,7 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 function Login(props) {
-  const { loginUser } = useContext(AuthContext);
+  const {
+    loginUser,
+    authState: { role },
+  } = useContext(AuthContext);
+
+  const {} = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -25,7 +30,7 @@ function Login(props) {
       event.preventDefault();
       const loginData = await loginUser(loginForm);
       if (loginData.success) {
-        navigate('/');
+        window.location.reload();
       } else {
         setLoginError(loginData.message);
       }

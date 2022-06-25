@@ -15,6 +15,7 @@ const AuthContextProvider = ({ children }) => {
     authLoading: true,
     isAuthenticated: false,
     user: null,
+    role: null,
   });
   // Authenticate user
   const loadUser = async () => {
@@ -30,7 +31,11 @@ const AuthContextProvider = ({ children }) => {
       if (response.data.success) {
         dispatch({
           type: 'SET_AUTH',
-          payload: { isAuthenticated: true, user: response.data.user },
+          payload: {
+            isAuthenticated: true,
+            user: response.data.user,
+            role: response.data.role,
+          },
         });
       } else
         dispatch({
@@ -38,6 +43,7 @@ const AuthContextProvider = ({ children }) => {
           payload: {
             isAuthenticated: false,
             user: null,
+            role: null,
           },
         });
     } catch (error) {
@@ -49,6 +55,7 @@ const AuthContextProvider = ({ children }) => {
         payload: {
           isAuthenticated: false,
           user: null,
+          role: null,
         },
       });
     }
@@ -112,6 +119,34 @@ const AuthContextProvider = ({ children }) => {
       else return { success: false, message: error.message };
     }
   };
+  //forget password
+  const forgetPassword = async forgetPasswordForm => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/forget-password`,
+        forgetPasswordForm
+      );
+      // await loadUser();
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+  //reset password
+  const resetPassword = async resetPasswordForm => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/reset-password`,
+        resetPasswordForm
+      );
+      // await loadUser();
+      return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
   //logout
   const logoutUser = async () => {
     try {
@@ -138,6 +173,8 @@ const AuthContextProvider = ({ children }) => {
     loginUser,
     authState,
     logoutUser,
+    forgetPassword,
+    resetPassword,
   };
 
   return (

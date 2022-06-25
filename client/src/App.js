@@ -100,6 +100,13 @@ function App() {
           />
         </Routes>
         <Routes>
+          <Route
+            path="/reset-password/:token"
+            exact
+            element={<Auth authRoute="reset-password" />}
+          />
+        </Routes>
+        <Routes>
           <Route path="/logout" exact element={<Auth authRoute="logout" />} />
         </Routes>
         <Routes>

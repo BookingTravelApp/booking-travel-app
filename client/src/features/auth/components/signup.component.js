@@ -4,7 +4,10 @@ import '../style.css';
 import { useNavigate } from 'react-router-dom';
 
 function SignUp(props) {
-  const { registerUser } = useContext(AuthContext);
+  const {
+    registerUser,
+    authState: { role },
+  } = useContext(AuthContext);
   const [registerError, setRegisterError] = useState('');
   const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState({

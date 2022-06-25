@@ -71,7 +71,14 @@ const Sidebar = () => {
           <Link href="/admin/event">
             <li>
               <QueryStatsIcon className="icon" />
-              <span>event</span>
+              <span>Event</span>
+            </li>
+          </Link>
+          <p className="title">Tag</p>
+          <Link href="/admin/tag">
+            <li>
+              <QueryStatsIcon className="icon" />
+              <span>Tag</span>
             </li>
           </Link>
           <p className="title">ACCOUNT</p>
@@ -81,7 +88,7 @@ const Sidebar = () => {
               <span>Profile</span>
             </li>
           </Link>
-          <Link href="/admin/user">
+          <Link href="/logout">
             <li>
               <ExitToAppIcon className="icon" />
               <span>Logout</span>

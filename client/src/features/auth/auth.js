@@ -7,10 +7,11 @@ import Logout from './components/logout.component.js';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import ResetPassword from './resetpassword';
 
 function Auth({ authRoute }) {
   const {
-    authState: { authLoading, isAuthenticated },
+    authState: { authLoading, isAuthenticated, role },
   } = useContext(AuthContext);
   let body;
   if (authLoading) {
@@ -26,13 +27,18 @@ function Auth({ authRoute }) {
           <Logout />
         </>
       );
-    else return <Navigate to="/home" />;
+    else {
+      if (role === 'admin' || role === 'employee')
+        return <Navigate to="/admin" />;
+      return <Navigate to="/home" />;
+    }
   } else
     body = (
       <>
         {authRoute === 'login' && <Login />}
         {authRoute === 'register' && <SignUp />}
         {authRoute === 'forget-password' && <ForgetPassword />}
+        {authRoute === 'reset-password' && <ResetPassword />}
       </>
     );
 
