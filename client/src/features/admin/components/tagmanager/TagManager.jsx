@@ -10,7 +10,7 @@ import moment from 'moment';
 import UploadBox from '../../../../components/upload-box/upload-box';
 const { Search } = Input;
 
-const TourManager = () => {
+const TagManager = () => {
   const entryModal = {
     name: '',
     title: '',
@@ -72,17 +72,8 @@ const TourManager = () => {
         setSuccessStatus('Can not create service');
       });
   };
-  const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
-  const handleImageOk = () => {
-    setActionChange(!actionChange);
-    setIsModalImageVisible(false);
-  };
-  const handleImageCancel = () => {
-    setActionChange(!actionChange);
-    setIsModalImageVisible(false);
-  };
-
+  const handleImageOk = () => setIsModalImageVisible(false);
   const showUpdateModal = () => {
     setSuccessStatus('');
     setIsModalUpdateVisible(true);
@@ -256,7 +247,6 @@ const TourManager = () => {
         title="Add new tour"
         visible={isModalAddVisible}
         onOk={handleAddOk}
-        onCancel={handleAddCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
@@ -336,7 +326,6 @@ const TourManager = () => {
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
-        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
@@ -426,7 +415,7 @@ const TourManager = () => {
         onOk={handleDeleteOk}
         onCancel={handleDeleteCancel}
       >
-        <p>ARE YOU SURE TO DELETE "{modelCurrentAction.name}"</p>
+        <p>ARE YOU SUTE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
       <div className="tour-utilities">
         <div className="btn-add-tour" onClick={showAddModal}>
@@ -470,4 +459,4 @@ const TourManager = () => {
   );
 };
 
-export default TourManager;
+export default TagManager;

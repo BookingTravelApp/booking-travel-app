@@ -2,8 +2,7 @@ import { Box, Button, Container, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import {AiFillStar} from 'react-icons/ai';
-import tour from '../../assets/tour-img/tour-1.jpg'
-const TourCard = ({ item }) => {
+const HotelCard = (item) => {
 
   const randomStar = () => {
     return  Math.floor(Math.random()*6)+1;  
@@ -11,6 +10,7 @@ const TourCard = ({ item }) => {
 
   const resRandom = randomStar();
  
+
   return (
       <Box
         px={'15px'}
@@ -32,15 +32,13 @@ const TourCard = ({ item }) => {
           }}
         >
           <Box>
-            <Image maxW={'full'} src={tour}></Image>
+            <Image maxW={'full'} src='https://holidaybeachdanang.com/wp-content/uploads/2018/04/President-Suite-Beachfront-Bedroom-4.jpg'></Image>
           </Box>
           <Box pt={'10px'} px={'16px'} minH={'80px'}>
-            <Text color={"var(--black-color)"} fontWeight={"500"} fontSize={"17px"}>
-              {item.name}
+            <Text color={"var(--text-color)"} fontWeight={"500"} fontSize={"18px"}>
+              Khách sạn Mường Thanh
             </Text>          
-            <Text color={'#e8604c'}>
-              {item.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) } 
-            </Text>           
+            <Text color={'#e8604c'}>12000 VNĐ</Text>           
           </Box>
           <Box px={'16px'} display={'flex'}>
               <Box color={resRandom > 0 ? "#FFCD38" : "unset"}>
@@ -59,11 +57,11 @@ const TourCard = ({ item }) => {
                 <AiFillStar/>
               </Box>
           </Box>
-          <Link to={`/tourDetail/${item.slug}`}>
+          {/* {`/tourDetail/${item.slug}`} */}
+          <Link to="">
             <Box py={'10px'} px={'16px'}>
-              <Box maxWidth={"130px"} 
-                        textAlign={"center"}
-                        px={"8px"} 
+              <Box maxWidth={"150px"} 
+                        px={"30px"} 
                         py={"8px"} 
                         bgColor='var(--button-color)'
                         color={"blackAlpha.900"} 
@@ -81,4 +79,4 @@ const TourCard = ({ item }) => {
   );
 };
 
-export default TourCard;
+export default HotelCard;

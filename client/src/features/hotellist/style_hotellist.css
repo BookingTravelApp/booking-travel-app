@@ -1,0 +1,128 @@
+.container {
+    max-width: 1200px;
+    align-items: center;
+}
+
+/*Introduce*/
+.introduce {
+    align-items: center;
+}
+.introduce-title {
+    text-transform: capitalize !important;    
+    font-size: 28px;
+    color: rgb(56, 54, 54) !important;
+}
+.introduce-des {
+    max-width: 500px;
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.introduce-img {
+    margin-top: 30px;
+    display: flex;
+    
+}
+
+.introduce-img--left img {
+    border-radius: 30px;
+    padding: 10px;    
+}
+
+.introduce-img--left img:hover {
+    transform: scale(1.008);
+    transition: all 0.8s ease-in-out;
+}
+
+.introduce-img--right img {
+    border-radius: 30px;
+    padding: 10px;   
+}
+
+.introduce-img--right img:hover {
+    transform: scale(1.008);
+    transition: all 0.8s ease-in-out;
+}
+
+/*introduce two*/
+.introduce-two {
+    margin-top: 30px;
+}
+.introduct-list {
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.introduce-card {
+    border: 3px solid ;
+    max-width: 240px;
+    padding: 10px ;
+    border-radius: 10px;
+}
+
+.introduce-card:hover {
+    transform: translateY(-1.5%);
+    transition: all 0.1s linear
+}
+.card-icon {
+    color: #F77E21;
+    font-size: 20px;
+}
+.introduce-card-title {
+    font-weight: 600;
+    margin-top: 5px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+/*Hotel list*/
+
+.hotel {
+    margin-top: 50px;
+}
+
+.hotel-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.hotel-card {
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    padding: 20px;
+    max-width: 540px;
+    margin-top: 50px;
+    background-color: rgb(173, 207, 159,0.2);
+}
+
+.hotel-card:hover {
+    transform: translateY(-1.5%);
+    transition: all 0.1s linear;
+    background-color: rgb(173, 207, 159,0.4);
+}
+
+.hotel-img {
+    min-width: 50%;
+}
+
+.hotel-info {
+    margin-left: 10px;
+}
+
+.hotel-name {
+    font-weight: 600;
+    font-size: 17px !important;
+}
+
+.hotel-guide {
+    margin-top: 10px;
+}
+
+.hotel-price label {
+    margin-right: 5px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+

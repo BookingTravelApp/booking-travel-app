@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-
+import FBChat from '../social/FbChat';
 import { Link } from 'react-router-dom';
 
 import logo from '../../assets/logo.png';
@@ -27,12 +27,12 @@ const MenuBar = [
     path: '/tourList',
   },
   {
-    name: 'Contact',
-    path: '/contact',
+    name: 'Hotel',
+    path: '/hotelList',
   },
   {
-    name: 'About',
-    path: '/path',
+    name: 'Car rental',
+    path: '/carHireList',
   },
 ];
 
@@ -297,6 +297,7 @@ const Header = () => {
           </Box>
         </Box>
       </VStack>
+      <FBChat></FBChat>
     </Container>
   );
 };

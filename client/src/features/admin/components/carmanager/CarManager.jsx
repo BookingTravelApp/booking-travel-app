@@ -72,8 +72,16 @@ const CarManager = () => {
         setSuccessStatus('Can not create service');
       });
   };
+  const handleAddCancel = () => setIsModalAddVisible(false);
   const showImageModal = () => setIsModalImageVisible(true);
-  const handleImageOk = () => setIsModalImageVisible(false);
+  const handleImageOk = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
+  const handleImageCancel = () => {
+    setActionChange(!actionChange);
+    setIsModalImageVisible(false);
+  };
   const showUpdateModal = () => {
     setSuccessStatus('');
     setIsModalUpdateVisible(true);
@@ -234,6 +242,7 @@ const CarManager = () => {
         title="Add Modal"
         visible={isModalAddVisible}
         onOk={handleAddOk}
+        onCancel={handleAddCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <div class="form-group">
@@ -313,6 +322,7 @@ const CarManager = () => {
         title="Image Modal"
         visible={isModalImageVisible}
         onOk={handleImageOk}
+        onCancel={handleImageCancel}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
