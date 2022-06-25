@@ -83,6 +83,7 @@ module.exports = {
     try {
       const carRentalList = await Service.findAll({
         where: { "$category.name$": "car-rental" },
+        order: [["createdAt", "DESC"]],
         include: [{ model: Category, attributes: ["name"] }, { model: Image }],
       });
       const category = await Category.findOne({
