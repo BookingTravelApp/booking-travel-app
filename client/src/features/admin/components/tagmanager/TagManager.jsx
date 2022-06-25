@@ -1,9 +1,11 @@
 import React from 'react';
 
 const TagManager = () => {
-  <>
-    <div>Tagmanager</div>
-  </>;
+  return (
+    <>
+      <div>Tagmanager</div>
+    </>
+  );
 };
 
 export default TagManager;

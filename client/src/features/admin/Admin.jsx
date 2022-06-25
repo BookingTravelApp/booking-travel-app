@@ -9,7 +9,7 @@ import TourManager from './components/tourmanager/TourManager';
 import HotelManager from './components/hotelmanager/HotelManager';
 import CarManager from './components/carmanager/CarManager';
 import EventManager from './components/eventmanager/EventManager';
-import TagManager from './components/eventmanager/TagManager';
+import TagManager from './components/tagmanager/TagManager';
 import ProfileManager from './components/profilemanager/ProfileManager';
 import { AuthContext } from '../../contexts/AuthContext';
 import React, { useContext } from 'react';
