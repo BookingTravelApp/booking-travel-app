@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-
+import FBChat from '../social/FbChat';
 import { Link } from 'react-router-dom';
 
 import logo from '../../assets/logo.png';
@@ -297,6 +297,7 @@ const Header = () => {
           </Box>
         </Box>
       </VStack>
+      <FBChat></FBChat>
     </Container>
   );
 };

@@ -3,7 +3,7 @@ import ImageSlider from '../tourdetail/slide/index.jsx';
 import { SliderData } from './slide/slidedata.jsx';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import {RiGuideFill, RiLeafLine} from 'react-icons/ri';
+import { RiGuideFill, RiLeafLine } from 'react-icons/ri';
 import {
   Box,
   Container,
@@ -20,13 +20,14 @@ import { MdCheckCircle } from 'react-icons/md';
 import style from './style.css';
 import CartApi from '../../api/cartApi.js';
 import tourApi from '../../api/tourApi.js';
+import FBComment from '../../components/social/FbComment';
 
 const TourDetail = () => {
   const slug = useParams().slug;
   const [id, setId] = useState('');
   const [tour, setTour] = useState();
   const [name, setName] = useState('');
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [guide, setGuide] = useState('');
   const [price, setPrice] = useState();
@@ -37,14 +38,13 @@ const TourDetail = () => {
 
   let incNumChild = () => {
     setNumChild(Number(++numChild));
-    console.log(numChild)
+    console.log(numChild);
   };
 
   let decNumChild = () => {
     if (numChild > 0) {
       setNumChild(--numChild);
     }
-
   };
 
   let handleChangeChild = e => {
@@ -59,7 +59,6 @@ const TourDetail = () => {
     if (numAdults > 0) {
       setNumAdults(--numAdults);
     }
-
   };
 
   let handleChangeAdults = e => {
@@ -86,23 +85,21 @@ const TourDetail = () => {
         setDescription(tour.description);
         setTitle(tour.title);
         setGuide(tour.guide);
-        
       })
       .catch(err => {
         console.log(err);
       });
-
   }, []);
 
-  const handleClick = () => {  
-    const child = numChild
-    
-    console.log(child)
-    console.log(typeof(child))
+  const handleClick = () => {
+    const child = numChild;
+
+    console.log(child);
+    console.log(typeof child);
     const adults = Number(
       document.getElementById('numberOfAdults_input').value
     );
-    console.log(adults)
+    console.log(adults);
     const quanlity = child + adults;
     const total = Number(totalPrice.value);
 
@@ -116,13 +113,13 @@ const TourDetail = () => {
     CartApi.addCart(service)
       .then(res => {
         console.log(res);
-        console.log("Phuong Tram")
+        console.log('Phuong Tram');
       })
       .catch(err => {
         console.log(err);
       });
 
-      setShow(!show);
+    setShow(!show);
   };
 
   return (
@@ -133,32 +130,29 @@ const TourDetail = () => {
           {name}
         </Text>
         <Text>
-          {
-              title.split('-').map((tit, index) => (
-                <Box my={'10px'} key={index} >
-                  {tit === '' ? '' : 
-                  <Text display={'flex'}>
-                    <RiLeafLine/>
-                    <Text my={'-5px'} mx={'10px'}>{tit}</Text>
-                  </Text>}
-                </Box>
-              ))
-          }
+          {title.split('-').map((tit, index) => (
+            <Box my={'10px'} key={index}>
+              {tit === '' ? (
+                ''
+              ) : (
+                <Text display={'flex'}>
+                  <RiLeafLine />
+                  <Text my={'-5px'} mx={'10px'}>
+                    {tit}
+                  </Text>
+                </Text>
+              )}
+            </Box>
+          ))}
         </Text>
-        <Box>
-          {/** Description */}
-        </Box>
+        <Box>{/** Description */}</Box>
         <Text fontWeight={'600'} mt={'20px'} color={'var(--text-color)'}>
           LỊCH TRÌNH BAO GỒM
         </Text>
-        <List  mt={'20px'}>
-            {
-              guide.split('-').map((gui, index) => (
-                <ListItem key={index}>
-                    {gui}
-                </ListItem>
-              ))
-            }
+        <List mt={'20px'}>
+          {guide.split('-').map((gui, index) => (
+            <ListItem key={index}>{gui}</ListItem>
+          ))}
         </List>
         <Box fontWeight={'600'} mt={'20px'} display={'flex'}>
           <Text mr={'5px'}>CHI PHÍ:</Text>
@@ -168,10 +162,12 @@ const TourDetail = () => {
             fontSize={'18px'}
           >
             {
-            //  price.toLocaleString('vi', {style : 'currency', currency : 'VND'})
-             (price+0).toLocaleString('vi', {style : 'currency', currency : 'VND'})
+              //  price.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+              (price + 0).toLocaleString('vi', {
+                style: 'currency',
+                currency: 'VND',
+              })
             }
-
           </Text>
         </Box>
 
@@ -276,7 +272,7 @@ const TourDetail = () => {
                 </button>
                 <button
                   type="button"
-                  className="button_buy"        
+                  className="button_buy"
                   onClick={handleClick}
                 >
                   Thêm vào giỏ hàng
@@ -286,6 +282,7 @@ const TourDetail = () => {
           </Box>
         </Box>
       </Box>
+      <FBComment></FBComment>
     </Container>
   );
 };
