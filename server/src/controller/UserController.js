@@ -361,7 +361,7 @@ module.exports = {
       } else {
         await Cart.update(
           {
-            amount: amount || cart.amount,
+            amount: cart.amount + amount || cart.amount,
             serviceId: serviceId || cart.serviceId,
           },
           { where: { id: cart.id } }
