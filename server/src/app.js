@@ -1,16 +1,19 @@
 const express = require('express');
 require('dotenv').config();
-require('./model');
-const authRouter = require('./router/auth');
-const tourRouter = require('./router/event');
+require('./database/config');
+global.__basedir = __dirname;
+const {authRoute, serviceRoute, uploadRoute} = require('./router');
 
 const app = express();
 const PORT = process.env.PORT || 4000; 
 app.use(express.json());
-//router
-app.use('/', authRouter);
-app.use('/', tourRouter);
 
+console.log(process.cwd());
+
+//router
+app.use('/', authRoute);
+app.use('/', serviceRoute);
+app.use('/', uploadRoute);
 
 app.listen(PORT, () => {
     console.log(`Listening: http://localhost:${PORT}`);

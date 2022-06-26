@@ -1,21 +1,20 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
-
-const Image = sequelize.define("image", {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  is_avatar: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
-  path: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-});
-module.exports = Image;
+module.exports = (sequelize, DataTypes) => {
+  sequelize.define("image", {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNULL: false,
+      primaryKey: true,
+    },
+    service_id: {
+      type: DataTypes.TEXT,
+    },
+    is_avatar: {
+      type: DataTypes.BOOLEAN,
+    },
+    path: {
+      type: DataTypes.TEXT,
+      allowNULL: false,
+    },
+  });
+};
