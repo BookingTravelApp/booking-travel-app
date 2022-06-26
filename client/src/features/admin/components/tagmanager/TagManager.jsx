@@ -1,8 +1,8 @@
 import React from 'react';
-import './tourmanager.scss';
+import './tagmanager.scss';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import serviceApi from '../../../../api/serviceApi';
+import tagApi from '../../../../api/tagApi';
 import { useState, useEffect } from 'react';
 import { Table, Space, Input, Modal, Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -20,9 +20,9 @@ const TagManager = () => {
     is_active: '',
   };
   const [successStatus, setSuccessStatus] = useState('');
-  const [categoryId, setCategoryId] = useState([]);
-  const [listTour, setListTour] = useState([]);
-  const [listTourAll, setListTourAll] = useState([]);
+  // const [categoryId, setCategoryId] = useState([]);
+  const [listTag, setListTag] = useState([]);
+  const [listTagAll, setListTagAll] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [isModalAddVisible, setIsModalAddVisible] = useState(false);
   const [isModalImageVisible, setIsModalImageVisible] = useState(false);
@@ -30,15 +30,14 @@ const TagManager = () => {
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(false);
   const [actionChange, setActionChange] = useState(true);
-  const { name, title, description, guide, price, is_active } =
-    modelCurrentAction;
+  const { name, description } = modelCurrentAction;
   useEffect(() => {
-    serviceApi
-      .getTourList()
+    tagApi
+      .getListTag()
       .then(response => {
-        setListTourAll(response.data.tourList);
-        setListTour(response.data.tourList);
-        setCategoryId(response.data.categoryId);
+        setListTag(response.data.listTag);
+        console.log(response.data.listTag);
+        // setCategoryId(response.data.categoryId);
       })
       .catch(error => {
         console.log(error);
@@ -50,27 +49,30 @@ const TagManager = () => {
     setModelCurrentAction(entryModal);
   };
   const handleAddOk = async () => {
-    if (name == '' || title == '' || description == '' || price == '') {
+    if (name == '' || description == '' ) {
       setSuccessStatus('Not enough infomation');
       return;
     }
-    var temp = modelCurrentAction;
-    temp.categoryId = categoryId;
-    setModelCurrentAction(temp);
-    serviceApi
+    // var temp = modelCurrentAction;
+    // // temp.categoryId = categoryId;
+    // setModelCurrentAction(temp);
+    tagApi
       .create(modelCurrentAction)
       .then(response => {
         if (response.data.success) {
           setModelCurrentAction(entryModal);
-          alert('Add service successful');
+          alert('Add tag successfully');
           setActionChange(!actionChange);
           setIsModalAddVisible(false);
         } else setSuccessStatus(response.data.message);
       })
       .catch(error => {
         console.log(error);
-        setSuccessStatus('Can not create service');
+        setSuccessStatus('Can not create tag');
       });
+  };
+  const handleAddCancel = () => {
+    setIsModalAddVisible(false);
   };
   const showImageModal = () => setIsModalImageVisible(true);
   const handleImageOk = () => setIsModalImageVisible(false);
@@ -79,32 +81,32 @@ const TagManager = () => {
     setIsModalUpdateVisible(true);
   };
   const handleUpdateOk = () => {
-    if (name == '' || title == '' || description == '' || price == '') {
+    if (name == '' || description == '' ) {
       setSuccessStatus('Not enough infomation');
       return;
     }
-    var temp = modelCurrentAction;
-    temp.categoryId = categoryId;
-    setModelCurrentAction(temp);
-    serviceApi
+    // var temp = modelCurrentAction;
+    // temp.categoryId = categoryId;
+    // setModelCurrentAction(temp);
+    tagApi
       .update(modelCurrentAction)
       .then(response => {
         if (response.data.success) {
           setModelCurrentAction(entryModal);
-          alert('Service update successful');
+          alert('Updated tag successfully');
           setActionChange(!actionChange);
           setIsModalUpdateVisible(false);
         } else setSuccessStatus(response.data.message);
       })
       .catch(error => {
         console.log(error);
-        setSuccessStatus('Can not update service');
+        setSuccessStatus('Can not update tag');
       });
   };
   const handleUpdateCancel = () => setIsModalUpdateVisible(false);
   const showDeleteModal = () => setIsModalDeleteVisible(true);
   const handleDeleteOk = () => {
-    serviceApi
+    tagApi
       .delete(modelCurrentAction.id)
       .then(response => {
         if (response.data.success) {
@@ -121,7 +123,7 @@ const TagManager = () => {
   const handleDeleteCancel = () => setIsModalDeleteVisible(false);
 
   const searchClick = () => {
-    const filteredData = listTourAll.filter(
+    const filteredData = listTagAll.filter(
       entry =>
         entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
         entry.name
@@ -130,7 +132,7 @@ const TagManager = () => {
           .includes(searchValue.toLowerCase()) ||
         entry.price.toString().toLowerCase() == searchValue.toLowerCase()
     );
-    setListTour(filteredData);
+    setListTag(filteredData);
   };
   const searchChange = event => setSearchValue(event.target.value);
   const onchangeModelCurrentAction = event => {
@@ -144,7 +146,7 @@ const TagManager = () => {
       title: 'id',
       dataIndex: 'id',
       filterMode: 'tree',
-      width: 200,
+      width: 100,
       fixed: 'left',
     },
     {
@@ -155,35 +157,10 @@ const TagManager = () => {
       fixed: 'left',
     },
     {
-      title: 'Title',
-      dataIndex: 'title',
-      sorter: (a, b) => a.name.length - b.name.length,
-      width: 550,
-    },
-    {
       title: 'Description',
       dataIndex: 'description',
       width: 550,
       sorter: (a, b) => a.description.length - b.description.length,
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      sorter: (a, b) => a.price - b.price,
-      width: 120,
-    },
-    {
-      title: 'Guide',
-      dataIndex: 'guide',
-      width: 1000,
-      sorter: (a, b) => a.description.length - b.description.length,
-    },
-    {
-      title: 'Is active',
-      dataIndex: 'is_active',
-      render: text => String(text),
-      sorter: (a, b) => a.is_active - b.is_active,
-      width: 100,
     },
     {
       title: 'Create At',
@@ -244,10 +221,10 @@ const TagManager = () => {
   return (
     <>
       <Modal
-        title="Add new tour"
+        title="Add new tag"
         visible={isModalAddVisible}
         onOk={handleAddOk}
-        cancelButtonProps={{ style: { display: 'none' } }}
+        onCancel={handleAddCancel}
       >
         <div class="form-group">
           <label for="name">Name: </label>
@@ -260,18 +237,7 @@ const TagManager = () => {
             onChange={onchangeModelCurrentAction}
           ></input>
         </div>
-        <div class="form-group">
-          <label for="Title">Title: </label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter title"
-            value={title}
-            name="title"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-
+        
         <div class="form-group">
           <label for="name">Description: </label>
           <textarea
@@ -284,40 +250,6 @@ const TagManager = () => {
             onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
-
-        <div class="form-group">
-          <label for="Title">Guide: </label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter address"
-            value={guide}
-            name="guide"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-        <div class="form-group">
-          <label for="name">Price: </label>
-          <input
-            type="price"
-            class="form-control"
-            placeholder="Enter price (VND)"
-            value={price}
-            name="price"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-
-        <label>Is active: </label>
-        <select
-          name="is_active"
-          class="form-control"
-          value={is_active}
-          onChange={onchangeModelCurrentAction}
-        >
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
         <div class="form-group">
           <i style={{ color: 'red' }}>{successStatus}</i>
         </div>
@@ -328,7 +260,7 @@ const TagManager = () => {
         onOk={handleImageOk}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
-        <UploadBox service={modelCurrentAction} />
+        <UploadBox tag={modelCurrentAction} />
       </Modal>
       <Modal
         title="Update"
@@ -336,7 +268,17 @@ const TagManager = () => {
         onOk={handleUpdateOk}
         onCancel={handleUpdateCancel}
       >
-        <p>UPDATE "{modelCurrentAction.name}"</p>
+        <div class="form-group">
+          <label for="name">ID: </label>
+          <input
+            name="id"
+            class="form-control"
+            value={modelCurrentAction.id}
+            onChange={onchangeModelCurrentAction}
+            disabled
+          ></input>
+        </div>
+
         <div class="form-group">
           <label for="name">Name: </label>
           <input
@@ -348,17 +290,6 @@ const TagManager = () => {
         </div>
 
         <div class="form-group">
-          <label for="Title">Title: </label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter title"
-            value={title}
-            name="title"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-        <div class="form-group">
           <label for="name">Description: </label>
           <textarea
             class="form-control"
@@ -370,40 +301,6 @@ const TagManager = () => {
             onChange={onchangeModelCurrentAction}
           ></textarea>
         </div>
-        <div class="form-group">
-          <label for="Title">Address: </label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter address"
-            value={guide}
-            name="guide"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-
-        <div class="form-group">
-          <label for="name">Price: </label>
-          <input
-            type="price"
-            class="form-control"
-            placeholder="Enter price (VND)"
-            value={price}
-            name="price"
-            onChange={onchangeModelCurrentAction}
-          ></input>
-        </div>
-
-        <label>Is active: </label>
-        <select
-          name="is_active"
-          class="form-control"
-          value={is_active}
-          onChange={onchangeModelCurrentAction}
-        >
-          <option value="true">True</option>
-          <option value="false">False</option>
-        </select>
 
         <div class="form-group">
           <i style={{ color: 'red' }}>{successStatus}</i>
@@ -417,8 +314,8 @@ const TagManager = () => {
       >
         <p>ARE YOU SUTE TO DELETE "{modelCurrentAction.name}"</p>
       </Modal>
-      <div className="tour-utilities">
-        <div className="btn-add-tour" onClick={showAddModal}>
+      <div className="tag-utilities">
+        <div className="btn-add-tag" onClick={showAddModal}>
           <div className="left">
             <div className="percentage positive">
               <AddCircleIcon />
@@ -445,14 +342,14 @@ const TagManager = () => {
           onChange={searchChange}
         />
       </div>
-      <div className="tour-table-container">
+      <div className="tag-table-container">
         <Table
-          className="tour-table"
+          className="tag-table"
           scroll={{
             x: 1200,
           }}
           columns={columns}
-          dataSource={listTour}
+          dataSource={listTag}
         />
       </div>
     </>

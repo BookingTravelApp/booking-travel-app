@@ -14,15 +14,20 @@ const userApi = {
     const requestUrl = url + `/user/get-basic-user`;
     return axiosClient.get(requestUrl);
   },
+  getUser: id => {
+    const requestUrl = url + `/user/get-user`;
+    return axiosClient.get(requestUrl);
+  },
   getEmployeeList: id => {
     const requestUrl = url + `/user/get-employee`;
     return axiosClient.get(requestUrl);
   },
 
-  // createUser: params => {
-  //   const requestUrl = url + `/user/`;
-  //   return axiosClient.post(requestUrl, params);
-  // },
+  updateUser: params => {
+    const requestUrl = url + `/user/`;
+    return axiosClient.put(requestUrl, params);
+  },
+
   UserToEmployee: params => {
     const requestUrl = url + `/user/to-employee`;
     return axiosClient.put(requestUrl, params);
