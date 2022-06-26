@@ -1,0 +1,53 @@
+
+GET http://localhost:4000
+
+###
+POST http://localhost:4000/register
+Content-Type: application/json
+
+{
+    "username": "user123",
+    "email": "user123@gmail.com",
+    "password": "12345678"
+}
+
+###
+
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+    "username": "user124",
+    "password": "12345678"
+}
+
+###
+GET http://localhost:4000/service
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWVkNzE2LTc4MjItNDIzNS05ZDYyLTczNDQxYTI0NDc0ZiIsInVzZXJuYW1lIjoidXNlcjEyNCIsImlhdCI6MTY1MTQxNjEwOSwiZXhwIjoxNjUxNDE5NzA5fQ.7IM1Qy58uBUu0YkITzm1ksWOChCBKU76Ar-On1IGtxc
+
+###
+
+POST http://localhost:4000/service:create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWVkNzE2LTc4MjItNDIzNS05ZDYyLTczNDQxYTI0NDc0ZiIsInVzZXJuYW1lIjoidXNlcjEyNCIsImlhdCI6MTY1MDg4MzA1MSwiZXhwIjoxNjUwODg2NjUxfQ.-7p_3qsMfCbJPqahdeV_ZewgN9N_paQhgYkpFT-50Eg
+
+{
+    "service_name": "Vé Cáp Treo Sun World Bà Nà Hills Đà Nẵng",
+    "description": "Tặng voucher buffet trưa trị giá 260,000 VND, sử dụng tại nhà hàng Beer Plaza (11:00 - 15:00). Áp dụng cho khách tham quan Bà Nà Hills từ ngày 18/3/2022 đến ngày 24/4/2022\n\t\tVui lòng kiểm tra  trước khi mua vé!\n\t\tĐến Bà Nà Hills để trải nghiệm tuyến cáp treo thuộc top 10 thế giới với quang cảnh hùng vĩ từ đỉnh núi Chúa\n\t\tChụp ảnh tại Cầu Vàng, cây cầu đi bộ ấn tượng nhất thế giới với khung cảnh tuyệt vời\n\t\tChiêm ngưỡng công trình kiến trúc đặc sắc của làng Pháp cổ kính cùng không gian văn hoá linh thiêng\n\t\tKhám phá Bà Nà Hills trong 01 ngày cùng Klook với \n\t\tChọn ngay các combo độc quyền với xe đưa đón khứ hồi Đà Nẵng, thuyền thúng dừa và thuyền sông Hoài ở Hội An để có kì nghỉ hoàn hảo",
+    "role_service_id": "user",
+    "image_url": "https://res.klook.com/image/upload/u_activities:lvnxfcz989rlat8jndf0,h_1.0,ar_1160:460,c_scale,e_blur:10000/c_fill,w_960,h_460,f_auto/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/lvnxfcz989rlat8jndf0.webp",
+    "price": "300000"
+}
+
+
+###
+DELETE  http://localhost:4000/service:delete/123lkdjflk324
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWVkNzE2LTc4MjItNDIzNS05ZDYyLTczNDQxYTI0NDc0ZiIsInVzZXJuYW1lIjoidXNlcjEyNCIsImlhdCI6MTY1MDg4MzA1MSwiZXhwIjoxNjUwODg2NjUxfQ.-7p_3qsMfCbJPqahdeV_ZewgN9N_paQhgYkpFT-50Eg
+
+###
+
+POST http://localhost:4000/avatar
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWVkNzE2LTc4MjItNDIzNS05ZDYyLTczNDQxYTI0NDc0ZiIsInVzZXJuYW1lIjoidXNlcjEyNCIsImlhdCI6MTY1MTQ4ODkwOSwiZXhwIjoxNjUxNDkyNTA5fQ.1iv09uC_me6cPPs9obXS5a9nPXxfmUTJkJM9MHYxeDM
+
