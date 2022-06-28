@@ -16,8 +16,6 @@ const Profile = () => {
     gender: '',
     date_of_birth: '',
   };
-  const [listUser, setListUser] = useState([]);
-  const [listUserAll, setListUserAll] = useState([]);
   const [showInfo, setShowInfo] = useState(true);
   const [editPassword, setEditPassword] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState(entryModal);
@@ -165,21 +163,10 @@ const Profile = () => {
               showUpdateModal();
             }}
             >
-              Cập nhật</button>
-          <div class="form-group">
-            <i style={{ color: 'red' }}>{successStatus}</i>
-          </div>
-          {/* <div className="button">
-            <button 
-              className="btn_edit" 
-              type="submit" 
-              >
               Cập nhật
             </button>
-            <button className="btn_reset" type="reset">
-              Cancel
-            </button>
-          </div> */}
+          
+          
         </div>
         </form>
         <form className="form_password" style={{ display: editPassword ? 'block' : 'none' }}>
