@@ -19,7 +19,7 @@ Server develop demo (developing): https://effortless-cucurucho-293c29.netlify.ap
 - Luu Van Huu Phuoc<br>
 - Huynh Viet Trieu<br>
   <br>
-<h2>Use case<h2>
+<h2>Use case</h2>
 ![image](https://user-images.githubusercontent.com/91477215/178227934-3e08ed3a-1f6d-4e8a-8ae5-90718959e340.png)
 <h2>Class diagram</h2>
 ![image](https://user-images.githubusercontent.com/91477215/178228137-ccdcc6d0-383c-4d93-8f0c-c3817b98e9c6.png)
