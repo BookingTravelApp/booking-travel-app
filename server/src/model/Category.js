@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
 const sequelize = require("../database/config");
 
-const Permission = sequelize.define("permission", {
+const Category = sequelize.define("category", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -10,15 +10,12 @@ const Permission = sequelize.define("permission", {
   },
   name: {
     type: Sequelize.STRING,
-    allowNull: true,
+    allownull: true,
   },
-  action: {
+  description: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  description: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
 });
-module.exports = Permission;
+
+module.exports = Category;

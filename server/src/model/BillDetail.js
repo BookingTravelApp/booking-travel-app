@@ -5,7 +5,7 @@ const BillDetail = sequelize.define("billDetail", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
-    autoIncrement: true,
+    allowNull: false,
     primaryKey: true,
   },
   amount: {

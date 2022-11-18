@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-const RoleAccounts = sequelize.define("role_account", {
+
+const TagServices = sequelize.define("tag_service", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -8,4 +9,4 @@ const RoleAccounts = sequelize.define("role_account", {
     allowNull: false,
   },
 });
-module.exports = RoleAccounts;
+module.exports = TagServices;

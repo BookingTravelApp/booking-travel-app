@@ -10,28 +10,30 @@ const Bill = sequelize.define(
       primaryKey: true,
       allowNull: false,
     },
-    date: {
-      type: Sequelize.NOW,
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
     },
-    total_amount: {
+    date: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW,
+    },
+    totalPrice: {
       type: Sequelize.DOUBLE,
       allowNull: true,
       defaultValue: 0,
     },
-    createdAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+    status: {
+      type: Sequelize.ENUM("unpaid", "paid", "cancelled"),
       allowNull: false,
+      defaultValue: "unpaid",
     },
-    updatedAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
-        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-      ),
-      allowNull: false,
+    managerId: {
+      type: Sequelize.STRING,
+      allowNull: true,
     },
   },
-  { timestamps: false }
+  { timestamps: true }
 );
 
 module.exports = Bill;

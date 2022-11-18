@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
 const sequelize = require("../database/config");
 
-const Event = sequelize.define("event", {
+const Tag = sequelize.define("tag", {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
@@ -14,27 +14,12 @@ const Event = sequelize.define("event", {
   },
   name: {
     type: Sequelize.STRING,
+    allownull: true,
   },
   description: {
-    type: Sequelize.STRING,
-  },
-  discount: {
-    type: Sequelize.DECIMAL,
-  },
-  startAt: {
-    type: Sequelize.DATE,
-  },
-  endAt: {
-    type: Sequelize.DATE,
-  },
-  isActive: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true,
-  },
-  imagePath: {
     type: Sequelize.STRING,
     allowNull: true,
   },
 });
 
-module.exports = Event;
+module.exports = Tag;
