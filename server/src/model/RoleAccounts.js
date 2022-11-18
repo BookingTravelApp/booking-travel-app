@@ -1,10 +1,9 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-
 const RoleAccounts = sequelize.define("role_account", {
   id: {
     type: Sequelize.UUID,
-    autoIncrement: Sequelize.UUIDV4,
+    defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
     allowNull: false,
   },

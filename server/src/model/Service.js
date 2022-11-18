@@ -1,30 +1,37 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define(
-    "service",
-    {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-      },
-      service_name: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-      },
-      description: {
-        type: DataTypes.TEXT,
-      },
-      role_service_id: {
-        type: DataTypes.STRING,
-      },
-      image_url: {
-        type: DataTypes.STRING,
-      },
-      price: {
-        type: DataTypes.STRING,
-      },
+const Sequelize = require("sequelize");
+const sequelize = require("../database/config");
+
+const Service = sequelize.define(
+  "service",
+  {
+    id: {
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.UUIDV4,
+      primaryKey: true,
+      allowNull: false,
     },
-    { timestamps: false }
-  );
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    },
+    description: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+    },
+    price: {
+      type: Sequelize.DOUBLE,
+      allowNull: true,
+    },
+    is_active: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+  },
+  { timestamps: true }
+);
+module.exports = Service;

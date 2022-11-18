@@ -13,7 +13,10 @@ const { Search } = Input;
 const EmployeeManager = () => {
 
   const [successStatus, setSuccessStatus] = useState('');
-  const [listEmployee, setListEmployee] = useState([]); 
+  const [listEmployee, setListEmployee] = useState([]);
+  const [listEmployeeAll, setListEmployeeAll] = useState([]); 
+  const [searchValue, setSearchValue] = useState('');
+
   const [actionChange, setActionChange] = useState(true);
 
   const [isModalShowVisible, setIsModalShowVisible] = useState(false);
@@ -93,6 +96,20 @@ const EmployeeManager = () => {
   const handleDeleteCancel = () => {
     setIsModalDeleteVisible(false);
   };
+  const searchClick = () => {
+    const filteredData = listEmployeeAll.filter(
+      entry =>
+        entry.id.toString().toLowerCase().includes(searchValue.toLowerCase()) ||
+        (entry.name || '')
+          .toString()
+          .toLowerCase()
+          .includes(searchValue.toLowerCase()) ||
+        (entry.phone_number || '').toLowerCase() == searchValue.toLowerCase()
+    );
+    setListEmployee(filteredData);
+  };
+
+  const searchChange = user => setSearchValue(user.target.value);
 
   const columns = [
     {
@@ -233,6 +250,9 @@ const EmployeeManager = () => {
         <label for="name">Name: </label>
         <input type="text" class="form-control" id="name" value={modelCurrentAction.name} disabled></input>
       </div>
+      <div class="form-group">
+        <i style={{ color: 'red' }}>{successStatus}</i>
+      </div>
     </Modal>
     <Modal
       title="Delete"
@@ -259,9 +279,13 @@ const EmployeeManager = () => {
     </Modal>
     <div className="employee-utilities">
       <Search
+        allowClear
         className="search"
         placeholder="Input search text"
         enterButton
+        onSearch={searchClick}
+        value={searchValue}
+        onChange={searchChange}
       />
     </div>
     <div className="employee-table-container">

@@ -4,7 +4,7 @@ const sequelize = require("../database/config");
 const Permission = sequelize.define("permission", {
   id: {
     type: Sequelize.UUID,
-    autoIncrement: Sequelize.UUIDV4,
+    defaultValue: Sequelize.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },

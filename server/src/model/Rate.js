@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/config");
-
 const Rate = sequelize.define(
   "rate",
   {
@@ -10,24 +9,16 @@ const Rate = sequelize.define(
       allowNULL: false,
       primaryKey: true,
     },
+    slug: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
     quality: {
       type: Sequelize.INTEGER,
       allowNULL: false,
       defaultValue: 0,
     },
-    createdAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
-      allowNull: false,
-    },
-    updatedAt: {
-      type: "TIMESTAMP",
-      defaultValue: sequelize.literal(
-        "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
-      ),
-      allowNull: false,
-    },
   },
-  { timestamps: false }
+  { timestamps: true }
 );
 module.exports = Rate;

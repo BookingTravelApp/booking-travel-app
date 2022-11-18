@@ -12,7 +12,7 @@ import {
 import FBChat from '../social/FbChat';
 import { Link } from 'react-router-dom';
 
-import logo from '../../assets/logo.png';
+import redbull from '../../assets/redbull.png';
 
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -31,7 +31,7 @@ const MenuBar = [
     path: '/hotelList',
   },
   {
-    name: 'Car rental',
+    name: 'Car',
     path: '/carHireList',
   },
 ];
@@ -61,6 +61,7 @@ const Header = () => {
         inset={0}
         zIndex={1}
         h={'170px'}
+        
       >
         <Box
           py={showMenu ? '0px' : '12px'}
@@ -73,6 +74,7 @@ const Header = () => {
           boxShadow={showMenu ? '0 10px 50px 0 rgb(46 56 220 / 20%)' : 'unset'}
           transition={'all 0.3s ease'}
           zIndex={999}
+          background={'DeepSkyBlue'}
         >
           <Box
             maxW={'1200px'}
@@ -92,9 +94,12 @@ const Header = () => {
               <Box maxW={'185px'} px={'15px'} flex={1} w={'full'}>
                 <Link to={'/'}>
                   <Box
-                    style={{ backgroundImage: `url(${logo})` }}
-                    h={'38px'}
-                    w={'165px'}
+                    // style={{ backgroundImage: `url(${logo})` }}
+                    style={{ backgroundImage: `url(${redbull})` }}
+                    // h={'38px'}
+                    // w={'165px'}
+                    h={'75px'}
+                    w={'100px'}
                     bgSize={'cover'}
                     bgPosition={'center'}
                     bgRepeat={'no-repeat'}

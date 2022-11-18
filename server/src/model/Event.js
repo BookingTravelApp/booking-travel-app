@@ -1,25 +1,40 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define(
-    "event",
-    {
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-      },
-      date: {
-        type: DataTypes.DATE,
-      },
-      event_name: {
-        type: DataTypes.STRING,
-      },
-      discount: {
-        type: DataTypes.DECIMAL,
-      },
-      end_at: {
-        type: DataTypes.DATE,
-      },
-    },
-    { timestamps: false }
-  );
+const { Sequelize } = require("sequelize");
+const sequelize = require("../database/config");
+
+const Event = sequelize.define("event", {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
+    primaryKey: true,
+  },
+  slug: {
+    type: Sequelize.STRING,
+    unique: true,
+  },
+  name: {
+    type: Sequelize.STRING,
+  },
+  description: {
+    type: Sequelize.STRING,
+  },
+  discount: {
+    type: Sequelize.DECIMAL,
+  },
+  startAt: {
+    type: Sequelize.DATE,
+  },
+  endAt: {
+    type: Sequelize.DATE,
+  },
+  isActive: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true,
+  },
+  imagePath: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+});
+
+module.exports = Event;
