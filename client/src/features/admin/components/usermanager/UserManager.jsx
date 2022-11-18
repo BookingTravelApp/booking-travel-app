@@ -87,7 +87,7 @@ const UserManager = () => {
     })
     .catch(error => {
       console.log(error);
-      setSuccessStatus('Can no  t update user');
+      setSuccessStatus('Can not update user');
     }); 
   };
   const handleDeleteCancel = () => {
