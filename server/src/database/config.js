@@ -5,8 +5,9 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     dialect: "mysql",
-    // host: "remotemysql.com",
-    host: "localhost",
+    host: "mysql-100328-0.cloudclusters.net",
+    port: 10118,
+    // host: "localhost",
     // logging: false,
   }
 );
