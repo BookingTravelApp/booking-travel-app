@@ -98,12 +98,12 @@ function Login(props) {
           </button>
         </div>
         <p className="forgot-password text-right">
-          <a href="forget-password">Forgot password?</a>
+          <a href="/forget-password">Forgot password?</a>
         </p>
         <br />
         <hr width="100%" align="center" />
         <p className="forgot-password text-right">
-          Not a member? <a href="sign-up">Sign up now</a>
+          Not a member? <a href="/sign-up">Sign up now</a>
         </p>
       </form>
     </div>

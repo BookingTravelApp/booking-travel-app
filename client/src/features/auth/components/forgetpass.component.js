@@ -78,7 +78,7 @@ function ForgetPassword(props) {
             </div>
 
             <p className="forgot-password text-right">
-              <a href="sign-in">Return to sign-in?</a>
+              <a href="/sign-in">Return to sign-in?</a>
             </p>
           </fieldset>
         </form>
