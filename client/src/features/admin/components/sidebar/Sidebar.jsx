@@ -74,13 +74,13 @@ const Sidebar = () => {
               <span>Event</span>
             </li>
           </Link>
-          <p className="title">Tag</p>
+          {/* <p className="title">Tag</p>
           <Link href="/admin/tag">
             <li>
               <QueryStatsIcon className="icon" />
               <span>Tag</span>
             </li>
-          </Link>
+          </Link> */}
           <p className="title">ACCOUNT</p>
           <Link href="/admin/profile">
             <li>

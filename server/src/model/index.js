@@ -16,4 +16,10 @@ module.exports = {
   Category: require('./Category'),
   Association: require('./Association'),
   Slugify: require('./Slugify'),
+  Cart: require('./Cart'),
+  Event: require('./Event'),
+  Bill: require('./Bill'),
+  BillDetail: require('./BillDetail'),
+  Tag: require('./Tag'), 
+  TagServices: require('./TagServices'),
 };

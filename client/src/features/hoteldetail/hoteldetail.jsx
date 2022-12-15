@@ -55,7 +55,7 @@ const HotelDetail = () => {
           </div>
         </div>
       </div>
-      <FBComment></FBComment>
+      <FBComment />
     </div>
   );
 };

@@ -56,7 +56,7 @@ const UserManager = () => {
       .UserToEmployee({userId: modelCurrentAction.id})
       .then(response => {
         if (response.data.success) {
-          alert('Update user successful');
+          alert('Change user role successful');
           setActionChange(!actionChange);
           setIsModalUpdateVisible(false);
         } else setSuccessStatus('Cannot get to update user',response.data.message);
@@ -175,7 +175,7 @@ const UserManager = () => {
               showUpdateModal();
             }}
           >
-            Update
+            Change role
           </button>
           <button
             type="button"

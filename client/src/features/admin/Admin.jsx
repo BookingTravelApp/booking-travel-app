@@ -13,9 +13,7 @@ import TagManager from './components/tagmanager/TagManager';
 import ProfileManager from './components/profilemanager/ProfileManager';
 import { AuthContext } from '../../contexts/AuthContext';
 import React, { useContext } from 'react';
-// import { Navigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import FBChat from '../../components/social/FbChat';
 
 const Amin = ({ adminRoute }) => {
   const {
@@ -49,7 +47,6 @@ const Amin = ({ adminRoute }) => {
 
     body = (
       <div className="home">
-        {/* <FBChat /> */}
         <Sidebar />
         <div className="homeContainer">
           <Navbar />
