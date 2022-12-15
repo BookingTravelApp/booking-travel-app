@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
 const Bill = sequelize.define(
-  "bill",
+  'bill',
   {
     id: {
       type: Sequelize.UUID,
@@ -24,9 +24,9 @@ const Bill = sequelize.define(
       defaultValue: 0,
     },
     status: {
-      type: Sequelize.ENUM("unpaid", "paid", "cancelled"),
+      type: Sequelize.ENUM('unpaid', 'paid', 'cancelled'),
       allowNull: false,
-      defaultValue: "unpaid",
+      defaultValue: 'unpaid',
     },
     managerId: {
       type: Sequelize.STRING,

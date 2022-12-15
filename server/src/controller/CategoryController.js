@@ -1,4 +1,4 @@
-const Category = require("../model/Category");
+const Category = require('../model/Category');
 
 module.exports = {
   index: async (req, res) => {
@@ -9,26 +9,26 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
     const { name, description } = req.body;
     try {
-      if (!name || name == "") {
-        return res.json({ success: false, message: "Require category name" });
+      if (!name || name == '') {
+        return res.json({ success: false, message: 'Require category name' });
       }
       const newCategory = new Category({
         name,
-        description: description || "",
+        description: description || '',
       });
       await newCategory.save();
-      res.json({ success: true, message: "Created category successful" });
+      res.json({ success: true, message: 'Created category successful' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   update: async (req, res) => {
@@ -37,12 +37,12 @@ module.exports = {
       if (!id)
         return res
           .status(404)
-          .json({ success: false, message: "Category id not found" });
+          .json({ success: false, message: 'Category id not found' });
       const oldCategory = await Category.findOne({ where: { id } });
       if (!oldCategory) {
         return res
           .status(404)
-          .json({ success: false, message: "Category does not exist" });
+          .json({ success: false, message: 'Category does not exist' });
       }
       await Category.update(
         {
@@ -53,13 +53,13 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "Updated category successful",
+        message: 'Updated category successful',
       });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   destroy: async (req, res) => {
@@ -70,15 +70,15 @@ module.exports = {
       if (!oldCategory) {
         return res
           .status(404)
-          .json({ success: false, message: "Category does not exist" });
+          .json({ success: false, message: 'Category does not exist' });
       }
       await Category.destroy({ where: { id: req.params.id } });
-      res.json({ success: true, message: "Deleted category successful" });
+      res.json({ success: true, message: 'Deleted category successful' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

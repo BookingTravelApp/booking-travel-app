@@ -1,47 +1,47 @@
-const { User, Cart, Service } = require("../model");
+const { User, Cart, Service } = require('../model');
 
 module.exports = {
   index: async (req, res) => {
     try {
       const listUser = await User.findAll({
-        attributes: { exclude: ["accountId"] },
+        attributes: { exclude: ['accountId'] },
       });
       res.json({ success: true, listUser });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   show: async (req, res) => {
     try {
       const user = await User.findOne({
         where: { slug: req.params.slug },
-        attributes: { exclude: ["id", "accountId"] },
+        attributes: { exclude: ['id', 'accountId'] },
       });
       res.json({ success: true, user });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   showMyUser: async (req, res) => {
     try {
       const user = await User.findOne({
         where: { accountId: req.userId },
-        attributes: { exclude: ["id", "accountId"] },
+        attributes: { exclude: ['id', 'accountId'] },
       });
       if (!user)
-        res.status(404).json({ success: false, message: "User not found" });
+        res.status(404).json({ success: false, message: 'User not found' });
       res.json({ success: true, user });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   update: async (req, res) => {
@@ -49,10 +49,10 @@ module.exports = {
       req.body;
     try {
       if (!req.userId)
-        return res.json({ success: false, message: "User id not found" });
+        return res.json({ success: false, message: 'User id not found' });
       const oldUser = await User.findOne({ where: { accountId: req.userId } });
       if (!oldUser)
-        return res.json({ success: false, message: "User is not exist" });
+        return res.json({ success: false, message: 'User is not exist' });
       await User.update(
         {
           name: name || oldUser.name,
@@ -64,12 +64,12 @@ module.exports = {
         },
         { where: { accountId: req.userId } }
       );
-      res.json({ success: true, message: "Updated user successful" });
+      res.json({ success: true, message: 'Updated user successful' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   getCart: async (req, res) => {
@@ -81,7 +81,7 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   createCart: async (req, res) => {
@@ -91,14 +91,14 @@ module.exports = {
       if (!user)
         return res
           .status(404)
-          .json({ message: false, message: "User does not exist" });
+          .json({ message: false, message: 'User does not exist' });
       if (amount < 1)
-        return res.json({ success: false, message: "Invalid amount" });
+        return res.json({ success: false, message: 'Invalid amount' });
       const service = await Service.findOne({ where: { id: serviceId } });
       if (!service)
         return res
           .status(404)
-          .json({ success: false, message: "Service does not exist" });
+          .json({ success: false, message: 'Service does not exist' });
       const cart = await Cart.findOne({
         where: { userId: user.id, serviceId },
       });
@@ -118,12 +118,12 @@ module.exports = {
           { where: { id: cart.id } }
         );
       }
-      res.json({ success: true, message: "Update cart successful" });
+      res.json({ success: true, message: 'Update cart successful' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

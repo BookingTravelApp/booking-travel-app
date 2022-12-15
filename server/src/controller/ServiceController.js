@@ -1,6 +1,6 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const { Service, Rate, User, Category } = require("../model");
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+const { Service, Rate, User, Category } = require('../model');
 
 module.exports = {
   index: async (req, res) => {
@@ -8,7 +8,7 @@ module.exports = {
       const listService = await Service.findAll();
       res.json({ success: true, listService });
     } catch (error) {
-      res.json({ success: false, message: "Internal server error" });
+      res.json({ success: false, message: 'Internal server error' });
     }
   },
   show: async (req, res) => {
@@ -18,7 +18,7 @@ module.exports = {
       });
       res.json({ success: true, service });
     } catch (error) {
-      res.json({ success: false, message: "Internal server error" });
+      res.json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
@@ -26,18 +26,18 @@ module.exports = {
 
     try {
       if (!name)
-        return res.json({ success: false, message: "Require service name" });
+        return res.json({ success: false, message: 'Require service name' });
       if (!categoryId)
-        return res.json({ success: false, message: "Require category" });
+        return res.json({ success: false, message: 'Require category' });
       const category = await Category.findOne({ where: { id: categoryId } });
       if (!category)
         return res
           .status(404)
-          .json({ success: false, message: "Category does not exist" });
+          .json({ success: false, message: 'Category does not exist' });
 
       const newService = new Service({
         name,
-        description: description || "",
+        description: description || '',
         price: price || 0,
         is_active: is_active || true,
         categoryId,
@@ -45,14 +45,14 @@ module.exports = {
       await newService.save();
       return res.json({
         success: true,
-        message: "Service created successfully",
+        message: 'Service created successfully',
         newService,
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -61,12 +61,12 @@ module.exports = {
 
     try {
       if (!id)
-        return res.json({ success: false, message: "Service id not found" });
+        return res.json({ success: false, message: 'Service id not found' });
       let oldService = await Service.findOne({ where: { id } });
       if (!oldService)
         return res
           .status(404)
-          .json({ success: false, message: "Service does not exist" });
+          .json({ success: false, message: 'Service does not exist' });
       await Service.update(
         {
           name: name || oldService.name,
@@ -79,13 +79,13 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "Service updated successfully",
+        message: 'Service updated successfully',
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -93,17 +93,17 @@ module.exports = {
     try {
       const service = Service.findOne({ id: req.params.id });
       if (!service)
-        return res.json({ success: false, message: "Service does not exist" });
+        return res.json({ success: false, message: 'Service does not exist' });
       await Service.destroy({ where: { id: req.params.id } });
       return res.json({
         success: true,
-        message: "Deleted service successful",
+        message: 'Deleted service successful',
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -120,25 +120,25 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   createRate: async (req, res) => {
     const { quality, userId, serviceId } = req.body;
     try {
       if (parseInt(quality) < 1 || parseInt(quality) > 5)
-        return res.json({ success: false, message: "Invalid quality" });
+        return res.json({ success: false, message: 'Invalid quality' });
       if (!userId || !serviceId)
         return res.json({
           success: false,
-          message: "Require user and service",
+          message: 'Require user and service',
         });
       const user = await User.findOne({ where: { id: userId } });
       const service = await Service.findOne({ where: { id: serviceId } });
       if (!user || !service)
         return res
           .status(404)
-          .json({ success: false, message: "User or service does not exist" });
+          .json({ success: false, message: 'User or service does not exist' });
       const rate = await Rate.findOne({ where: { userId, serviceId } });
       if (!rate) {
         const newRate = new Rate({
@@ -158,12 +158,12 @@ module.exports = {
             { where: { id: rate.id } }
           );
       }
-      res.json({ success: true, message: "Updated rate" });
+      res.json({ success: true, message: 'Updated rate' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

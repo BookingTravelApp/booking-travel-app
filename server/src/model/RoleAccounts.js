@@ -1,6 +1,6 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
-const RoleAccounts = sequelize.define("role_account", {
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
+const RoleAccounts = sequelize.define('role_account', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

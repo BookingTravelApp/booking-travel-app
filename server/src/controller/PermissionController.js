@@ -1,4 +1,4 @@
-const { Permission } = require("../model");
+const { Permission } = require('../model');
 
 module.exports = {
   index: async (req, res) => {
@@ -9,7 +9,7 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
@@ -18,14 +18,14 @@ module.exports = {
       if (!name)
         return res
           .status(404)
-          .json({ success: false, message: "Require permission name" });
+          .json({ success: false, message: 'Require permission name' });
       const newPermission = new Permission({
         name,
-        action: action || "",
-        description: description || "",
+        action: action || '',
+        description: description || '',
       });
       newPermission.save();
-      res.json({ success: true, message: "Created permission successful" });
+      res.json({ success: true, message: 'Created permission successful' });
     } catch (error) {
       console.log(error);
       res.status(500).json({ success: false, mess });
@@ -35,12 +35,12 @@ module.exports = {
     const { id, name, action, description } = req.body;
     try {
       if (!id)
-        return res.json({ success: false, message: "Permission id not found" });
+        return res.json({ success: false, message: 'Permission id not found' });
       const oldPermission = Permission.findOne({ where: { id } });
       if (!oldPermission)
         return res
           .status(500)
-          .json({ success: false, message: "Permission is not exist" });
+          .json({ success: false, message: 'Permission is not exist' });
       await Permission.update(
         {
           name: name || oldPermission.name,
@@ -51,13 +51,13 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "Updated permission successful",
+        message: 'Updated permission successful',
       });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   destroy: async (req, res) => {
@@ -68,15 +68,15 @@ module.exports = {
       if (!permission)
         return res.json({
           success: false,
-          message: "Permission does not exist",
+          message: 'Permission does not exist',
         });
       await Permission.destroy({ where: { id: req.params.id } });
-      res.json({ success: true, message: "Deleted permission successful" });
+      res.json({ success: true, message: 'Deleted permission successful' });
     } catch (error) {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

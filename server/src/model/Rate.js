@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 const Rate = sequelize.define(
-  "rate",
+  'rate',
   {
     id: {
       type: Sequelize.UUID,

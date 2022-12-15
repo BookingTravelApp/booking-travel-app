@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
-const BillDetail = sequelize.define("billDetail", {
+const BillDetail = sequelize.define('billDetail', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

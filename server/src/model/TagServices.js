@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
-const TagServices = sequelize.define("tag_service", {
+const TagServices = sequelize.define('tag_service', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

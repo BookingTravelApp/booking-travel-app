@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
-const Permission = sequelize.define("permission", {
+const Permission = sequelize.define('permission', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

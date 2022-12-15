@@ -1,7 +1,7 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
-const { Account, User, Role, RoleAccounts } = require("../model");
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const { Account, User, Role, RoleAccounts } = require('../model');
 
 const generateToken = (payload) => {
   const { id, username } = payload;
@@ -10,7 +10,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "1h",
+      expiresIn: '1h',
     }
   );
 
@@ -18,7 +18,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "10s",
+      expiresIn: '10s',
     }
   );
 
@@ -36,7 +36,7 @@ module.exports = {
           {
             model: Account,
             attributes: {
-              exclude: ["password"],
+              exclude: ['password'],
             },
             include: [{ model: RoleAccounts, include: Role }],
           },
@@ -47,7 +47,7 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
@@ -60,11 +60,11 @@ module.exports = {
         message: error.array(),
       });
     }
-    if (!listRole.includes("admin"))
+    if (!listRole.includes('admin'))
       if (!name)
         return res.status(400).json({
           success: false,
-          message: "Require name",
+          message: 'Require name',
         });
 
     try {
@@ -73,7 +73,7 @@ module.exports = {
       if (existingUsername || existingEmail) {
         return res.status(400).json({
           success: false,
-          message: "username and/or email already taken",
+          message: 'username and/or email already taken',
         });
       }
       //hash password
@@ -94,19 +94,19 @@ module.exports = {
           roleTemp = await Role.findOne({ where: { name: listRole[i] } });
           await RoleAccounts.create({
             roleId: roleTemp.id,
-            accountId: newAccount.getDataValue("id"),
+            accountId: newAccount.getDataValue('id'),
           });
         }
       }
 
       //return token
       token = generateToken({
-        id: newAccount.getDataValue("id"),
+        id: newAccount.getDataValue('id'),
         username: username,
       });
       //create instance Role and User table
       try {
-        let userId = newAccount.getDataValue("id");
+        let userId = newAccount.getDataValue('id');
         await User.create({
           name: name,
           accountId: userId,
@@ -114,19 +114,19 @@ module.exports = {
       } catch (error) {
         res.status(500).json({
           success: false,
-          message: "Create user fail",
+          message: 'Create user fail',
         });
       }
       return res.json({
         success: true,
-        message: "User created successfully",
+        message: 'User created successfully',
         token,
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -149,7 +149,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({
           success: false,
-          message: "User not found",
+          message: 'User not found',
         });
       }
 
@@ -157,22 +157,22 @@ module.exports = {
       if (!passwordValid) {
         return res.status(400).json({
           success: false,
-          message: "Password not valid",
+          message: 'Password not valid',
         });
       }
 
-      const userId = user.getDataValue("id");
+      const userId = user.getDataValue('id');
       const token = generateToken({ id: userId, username: username });
       return res.json({
         success: true,
-        message: "Login successful",
+        message: 'Login successful',
         token,
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Interval server error",
+        message: 'Interval server error',
       });
     }
   },

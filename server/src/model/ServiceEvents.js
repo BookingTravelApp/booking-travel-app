@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../database/config");
+const Sequelize = require('sequelize');
+const sequelize = require('../database/config');
 
-const ServiceEvents = sequelize.define("service_event", {
+const ServiceEvents = sequelize.define('service_event', {
   id: {
     type: Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,

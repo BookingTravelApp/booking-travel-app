@@ -1,23 +1,23 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const verifyToken = require("../middleware/verify-token");
-const role = require("../middleware/role");
-const ServiceController = require("../controller/ServiceController");
+const verifyToken = require('../middleware/verify-token');
+const role = require('../middleware/role');
+const ServiceController = require('../controller/ServiceController');
 
-router.get("/", ServiceController.index);
+router.get('/', ServiceController.index);
 
-router.get("/:slug", ServiceController.show);
+router.get('/:slug', ServiceController.show);
 
-router.post("/", [verifyToken, role.employee], ServiceController.create);
+router.post('/', [verifyToken, role.employee], ServiceController.create);
 
-router.put("/", [verifyToken, role.employee], ServiceController.update);
+router.put('/', [verifyToken, role.employee], ServiceController.update);
 
-router.delete("/:id", [verifyToken, role.employee], ServiceController.destroy);
+router.delete('/:id', [verifyToken, role.employee], ServiceController.destroy);
 
 //@Relationship
 //@Rate
-router.get("/rate/:id", ServiceController.getRate);
+router.get('/rate/:id', ServiceController.getRate);
 
-router.post("/rate", ServiceController.createRate);
+router.post('/rate', ServiceController.createRate);
 
 module.exports = router;

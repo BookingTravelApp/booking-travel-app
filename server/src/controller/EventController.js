@@ -1,4 +1,4 @@
-const Event = require("../model/Event");
+const Event = require('../model/Event');
 
 module.exports = {
   index: async (req, res) => {
@@ -9,7 +9,7 @@ module.exports = {
       console.log(error);
       res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
@@ -18,11 +18,11 @@ module.exports = {
       if (!name || !discount || !startAt || !endAt)
         return res.json({
           success: false,
-          message: "Insufficient information",
+          message: 'Insufficient information',
         });
       const newEvent = new Event({
         name,
-        description: description || "",
+        description: description || '',
         discount,
         startAt,
         endAt,
@@ -31,13 +31,13 @@ module.exports = {
       await newEvent.save();
       return res.json({
         success: true,
-        message: "Created event successful",
+        message: 'Created event successful',
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -46,10 +46,10 @@ module.exports = {
       req.body;
     try {
       if (!id)
-        return res.json({ success: false, message: "Event id not found" });
+        return res.json({ success: false, message: 'Event id not found' });
       let oldEvent = await Event.findOne({ where: { id } });
       if (!oldEvent)
-        return res.json({ success: false, message: "Event does not exist" });
+        return res.json({ success: false, message: 'Event does not exist' });
       await Event.update(
         {
           name: name || oldEvent.name,
@@ -63,13 +63,13 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "Event update successfully",
+        message: 'Event update successfully',
       });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -77,16 +77,16 @@ module.exports = {
     try {
       const event = await Event.findOne({ where: { id: req.params.id } });
       if (!event)
-        return res.json({ success: false, message: "Event does not exist" });
+        return res.json({ success: false, message: 'Event does not exist' });
 
       await Event.destroy({ where: { id: req.params.id } });
       return res.json({
         success: true,
-        message: "Delete event successful",
+        message: 'Delete event successful',
       });
     } catch (error) {
       console.log(error);
-      res.status(500).json({ success: true, message: "Internal server error" });
+      res.status(500).json({ success: true, message: 'Internal server error' });
     }
   },
 };

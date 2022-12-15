@@ -1,4 +1,4 @@
-const { Image, User } = require("../model");
+const { Image, User } = require('../model');
 
 module.exports = {
   //Index
@@ -11,7 +11,7 @@ module.exports = {
     try {
       await User.update(
         { avatar_path: req.file.filename },
-        { where: { accountId: "49623fff-3bb2-42db-b9d3-b55a791d2b24" } }
+        { where: { accountId: '49623fff-3bb2-42db-b9d3-b55a791d2b24' } }
       );
 
       const newAvatar = new Image({
@@ -22,12 +22,12 @@ module.exports = {
 
       return res.json({
         success: true,
-        message: "upload resource successfull",
+        message: 'upload resource successfull',
       });
     } catch (error) {
       return res.json({
         success: false,
-        message: "Server internal error",
+        message: 'Server internal error',
       });
     }
   },
@@ -38,7 +38,7 @@ module.exports = {
     if (filename) {
       try {
         const filepath = `${__basedir}\\public\\upload\\avatar\\${filename}`;
-        if (require("fs").existsSync(filepath)) {
+        if (require('fs').existsSync(filepath)) {
           return res.sendFile(filepath);
         } else {
           return res.sendFile(
@@ -47,15 +47,15 @@ module.exports = {
         }
       } catch (error) {
         return res.json({
-          success: "false",
-          message: "server internal error",
+          success: 'false',
+          message: 'server internal error',
         });
       }
     }
 
     return res.status(404).json({
       susscess: false,
-      message: "file not found",
+      message: 'file not found',
     });
   },
   //Create media
@@ -65,13 +65,13 @@ module.exports = {
 
     if (!serviceId || serviceId.length < 10) {
       return res.status(400).json({
-        message: "bad request",
+        message: 'bad request',
       });
     }
 
     if (!filename || req.files.length <= 0) {
       return res.status(400).json({
-        message: "You must select at least 1 file.",
+        message: 'You must select at least 1 file.',
       });
     }
 
@@ -92,7 +92,7 @@ module.exports = {
 
     return res.json({
       success: true,
-      message: "upload resource successful",
+      message: 'upload resource successful',
     });
   },
   //Show media
@@ -102,20 +102,20 @@ module.exports = {
     if (filename) {
       try {
         const filepath = `${__basedir}\\public\\upload\\media\\${filename}`;
-        if (require("fs").existsSync(filepath)) {
+        if (require('fs').existsSync(filepath)) {
           return res.sendFile(filepath);
         }
       } catch (error) {
         return res.json({
-          success: "false",
-          message: "server internal error",
+          success: 'false',
+          message: 'server internal error',
         });
       }
     }
 
     return res.status(404).json({
       susscess: false,
-      message: "file not found",
+      message: 'file not found',
     });
   },
 };
