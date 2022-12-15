@@ -1,6 +1,9 @@
-const argon2 = require('argon2');
-const jwt = require('jsonwebtoken');
-const { Service, Rate, User, Category } = require('../model');
+const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
+const { Service, Rate, User, Category } = require("../model");
+const Image = require("../model/Image");
+const Tag = require("../model/Tag");
+const TagServices = require("../model/TagServices");
 
 module.exports = {
   index: async (req, res) => {
@@ -14,15 +17,123 @@ module.exports = {
   show: async (req, res) => {
     try {
       const service = await Service.findOne({
+        include: {
+          model: Image,
+        },
         where: { slug: req.params.slug },
       });
-      res.json({ success: true, service });
+      return res.json({ success: true, service });
     } catch (error) {
-      res.json({ success: false, message: 'Internal server error' });
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showTourList: async (req, res) => {
+    try {
+      const tourList = await Service.findAll({
+        where: { "$category.name$": "tour" },
+        order: [["createdAt", "DESC"]],
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+      });
+      const category = await Category.findOne({ where: { name: "tour" } });
+      if (!tourList)
+        return res.json({ success: false, message: "Tour not found" });
+      return res.json({ success: true, tourList, categoryId: category.id });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showHotelBookingList: async (req, res) => {
+    try {
+      const hotelBookingList = await Service.findAll({
+        where: { "$category.name$": "hotel" },
+        order: [["createdAt", "DESC"]],
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+      });
+      const category = await Category.findOne({ where: { name: "hotel" } });
+      if (!hotelBookingList)
+        return res.json({ success: false, message: "Hotel not found" });
+      return res.json({
+        success: true,
+        hotelBookingList,
+        categoryId: category.id,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showPlaneList: async (req, res) => {
+    try {
+      const planeList = await Service.findAll({
+        where: { "$category.name$": "plane" },
+        order: [["createdAt", "DESC"]],
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+      });
+      if (!planeList)
+        return res.json({ success: false, message: "Plane not found" });
+      return res.json({ success: true, planeList });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showCarRentalList: async (req, res) => {
+    try {
+      const carRentalList = await Service.findAll({
+        where: { "$category.name$": "car-rental" },
+        order: [["createdAt", "DESC"]],
+        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+      });
+      const category = await Category.findOne({
+        where: { name: "car-rental" },
+      });
+      if (!carRentalList)
+        return res.json({ success: false, message: "Car renter not found" });
+      return res.json({
+        success: true,
+        carRentalList,
+        categoryId: category.id,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.json({ success: false, message: "Internal server error" });
+    }
+  },
+  showServiceFromTag: async (req, res) => {
+    try {
+      const tag = await Tag.findOne({ where: { slug: req.params.slug } });
+      if (!tag)
+        return res.json({ success: false, message: "Tag does not exist" });
+      const listService = await Service.findAll({
+        include: {
+          model: TagServices,
+          attributes: [],
+          include: {
+            model: Tag,
+            attributes: [],
+          },
+        },
+        where: { "$tag_services.tag.name$": tag.name },
+      });
+      if (!listService)
+        return res.json({
+          success: false,
+          message: "Tag does not have service",
+        });
+      return res.json({ success: true, listService });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
     }
   },
   create: async (req, res) => {
-    const { name, description, price, is_active, categoryId } = req.body;
+    const { name, title, description, guide, price, is_active, categoryId } =
+      req.body;
 
     try {
       if (!name)
@@ -37,7 +148,9 @@ module.exports = {
 
       const newService = new Service({
         name,
-        description: description || '',
+        title: title || "",
+        description: description || "",
+        guide: guide || "",
         price: price || 0,
         is_active: is_active || true,
         categoryId,
@@ -57,7 +170,16 @@ module.exports = {
     }
   },
   update: async (req, res) => {
-    const { id, name, description, price, is_active, categoryId } = req.body;
+    const {
+      id,
+      name,
+      title,
+      description,
+      guide,
+      price,
+      is_active,
+      categoryId,
+    } = req.body;
 
     try {
       if (!id)
@@ -70,7 +192,9 @@ module.exports = {
       await Service.update(
         {
           name: name || oldService.name,
+          title: title || oldService.title,
           description: description || oldService.description,
+          guide: guide || oldService.guide,
           price: price || oldService.price,
           is_active: is_active || oldService.is_active,
           categoryId: categoryId || oldService.categoryId,

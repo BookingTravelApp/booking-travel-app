@@ -16,7 +16,7 @@ const Event = sequelize.define('event', {
     type: Sequelize.STRING,
   },
   description: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
   },
   discount: {
     type: Sequelize.DECIMAL,
