@@ -52,7 +52,7 @@ module.exports = {
   },
   create: async (req, res) => {
     const error = validationResult(req);
-    const { name, username, email, password, listRole } = req.body;
+    const { name, username, email, password, listRole=[] } = req.body;
 
     if (!error.isEmpty()) {
       return res.status(400).json({
