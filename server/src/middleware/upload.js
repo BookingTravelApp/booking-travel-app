@@ -46,11 +46,11 @@ const multerS3Config = multerS3({
 });
 
 const singleUpload = multer({
-  storage: multerS3Config,
+  storage: storage,
   fileFilter: fileFilter,
 });
 const multipleUpload = multer({
-  storage: multerS3Config,
+  storage: storage,
   fileFilter: fileFilter,
 }).array('media', LIMIT_UNEXPECTED_FILE);
 

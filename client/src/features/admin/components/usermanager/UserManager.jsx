@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import userApi from '../../../../api/userApi';
 import './usermanager.scss';
 import 'antd/dist/antd.css';
-import { ClassNames } from '@emotion/react';
-import moment from 'moment';
-import { Table, Space, Input, Modal, Button } from 'antd';
+import { Table, Space, Input, Modal } from 'antd';
 
 const { Search } = Input;
 
@@ -21,7 +18,7 @@ const UserManager = () => {
   const [isModalUpdateVisible, setIsModalUpdateVisible] = useState(false);
   const [isModalDeleteVisible, setIsModalDeleteVisible] = useState(false);
   const [modelCurrentAction, setModelCurrentAction] = useState({});
-  const { name, active, phone_number, gender, date_of_birth } = modelCurrentAction;
+  const { name } = modelCurrentAction;
   const [actionChange, setActionChange] = useState(true);
   // const {name}
   useEffect(() => {
@@ -102,7 +99,7 @@ const UserManager = () => {
           .toString()
           .toLowerCase()
           .includes(searchValue.toLowerCase()) ||
-        (entry.phone_number || '').toLowerCase() == searchValue.toLowerCase()
+        (entry.phone_number || '').toLowerCase() === searchValue.toLowerCase()
     );
     setListUser(filteredData);
   };
@@ -116,6 +113,7 @@ const UserManager = () => {
       [user.target.name]: user.target.value,
     });
   };
+
   const columns = [
     {
       title: 'Id',

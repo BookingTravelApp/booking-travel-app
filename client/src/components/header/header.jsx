@@ -41,7 +41,7 @@ const Header = () => {
   const [optionUser, setOptionUser] = useState(false);
 
   const {
-    authState: { authLoading, isAuthenticated },
+    authState: { isAuthenticated },
   } = useContext(AuthContext);
 
   const ScrollShowMenu = () => {

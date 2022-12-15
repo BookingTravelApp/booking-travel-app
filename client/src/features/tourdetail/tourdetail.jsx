@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ImageSlider from '../tourdetail/slide/index.jsx';
 import { SliderData } from './slide/slidedata.jsx';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { RiGuideFill, RiLeafLine } from 'react-icons/ri';
+import { RiLeafLine } from 'react-icons/ri';
 import {
   Box,
   Container,
   List,
   Text,
-  ListIcon,
   ListItem,
-  Button,
-  FormControl,
 } from '@chakra-ui/react';
-import { BiMinus } from 'react-icons/bi';
-import { BiPlus } from 'react-icons/bi';
-import { MdCheckCircle } from 'react-icons/md';
+import { BiMinus, BiPlus } from 'react-icons/bi';
 import style from './style.css';
 import CartApi from '../../api/cartApi.js';
 import tourApi from '../../api/tourApi.js';
@@ -69,10 +63,6 @@ const TourDetail = () => {
     setShow(!show);
   };
 
-  const numberOfChild = document.getElementById('numberOfChild_input');
-  const numberOfAdults = document.getElementById('numberOfAdults_input');
-  const totalPrice = document.getElementById('price_input');
-
   useEffect(() => {
     tourApi
       .getTour(slug)
@@ -101,7 +91,6 @@ const TourDetail = () => {
     );
     console.log(adults);
     const quanlity = child + adults;
-    const total = Number(totalPrice.value);
 
     const service = {
       amount: 1,
@@ -229,7 +218,7 @@ const TourDetail = () => {
                 </Text>
                 <hr></hr>
                 <div className="input_time">
-                  <div className="title_input">Ngày khởi hành</div>
+                  <div className="title_input">Ngày khởi hành:</div>
 
                   <input type="date" id="time_input"></input>
                 </div>
