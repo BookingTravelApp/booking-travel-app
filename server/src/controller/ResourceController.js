@@ -1,5 +1,5 @@
-const { Image, User } = require("../model");
-const AWS = require("aws-sdk");
+const { Image, User } = require('../model');
+const AWS = require('aws-sdk');
 const s3Config = new AWS.S3({
   accessKeyId: process.env.AWS_IAM_USER_KEY,
   secretAccessKey: process.env.AWS_IAM_USER_SECRET,
@@ -15,7 +15,7 @@ module.exports = {
     try {
       if (!req.file || req.file.length <= 0) {
         return res.status(400).json({
-          message: "You must select 1 file.",
+          message: 'You must select 1 file.',
         });
       }
       await User.update(
@@ -24,7 +24,7 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "upload user avatar successfull",
+        message: 'upload user avatar successfull',
       });
     } catch (error) {
       return res.json({
@@ -37,10 +37,10 @@ module.exports = {
     const { eventId } = req.body;
     try {
       if (!eventId)
-        return res.json({ success: false, message: "Event id not found" });
+        return res.json({ success: false, message: 'Event id not found' });
       if (!req.file || req.file.length <= 0) {
         return res.status(400).json({
-          message: "You must select 1 file.",
+          message: 'You must select 1 file.',
         });
       }
       await Event.update(
@@ -49,12 +49,12 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "upload event image successfull",
+        message: 'upload event image successfull',
       });
     } catch (error) {
       return res.json({
         success: false,
-        message: "Server internal error",
+        message: 'Server internal error',
       });
     }
   },
@@ -101,7 +101,7 @@ module.exports = {
     try {
       const image = await Image.findOne({ where: { id: req.params.id } });
       if (!image) {
-        return res.json({ success: false, message: "Image not found" });
+        return res.json({ success: false, message: 'Image not found' });
       }
       s3Config.deleteObject(
         { Bucket: process.env.AWS_BUCKET_NAME, Key: image.name },
@@ -110,12 +110,12 @@ module.exports = {
         }
       );
       await Image.destroy({ where: { id: req.params.id } });
-      return res.json({ success: true, message: "Image delete success" });
+      return res.json({ success: true, message: 'Image delete success' });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

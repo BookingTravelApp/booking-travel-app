@@ -1,21 +1,21 @@
 const express = require('express');
 const verifyToken = require('../middleware/verify-token');
 const router = express.Router();
-const upload = require("../middleware/upload");
-const ResourceController = require("../controller/ResourceController");
-const role = require("../middleware/role");
-router.get("/avatar", ResourceController.avatarIndex);
+const upload = require('../middleware/upload');
+const ResourceController = require('../controller/ResourceController');
+const role = require('../middleware/role');
+router.get('/avatar', ResourceController.avatarIndex);
 
 router.post(
-  "/avatar/user",
+  '/avatar/user',
   verifyToken,
-  upload.singleUpload.single("avatar"),
+  upload.singleUpload.single('avatar'),
   ResourceController.createAvatarUser
 );
 router.post(
-  "/avatar/event",
+  '/avatar/event',
   [verifyToken, role.employee],
-  upload.singleUpload.single("avatar"),
+  upload.singleUpload.single('avatar'),
   ResourceController.createAvatarEvent
 );
 
@@ -25,6 +25,6 @@ router.post(
   upload.multipleUpload,
   ResourceController.createMedia
 );
-router.delete("/delete/:id", ResourceController.destroy);
+router.delete('/delete/:id', ResourceController.destroy);
 
 module.exports = router;

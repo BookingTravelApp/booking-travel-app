@@ -7,7 +7,7 @@ const {
   RoleAccounts,
   Role,
   Cart,
-} = require("../model");
+} = require('../model');
 
 module.exports = {
   index: async (req, res) => {
@@ -38,13 +38,13 @@ module.exports = {
       if (userAccount.user.id != bill.userId) {
         checkCondition = false;
         userAccount.RoleAccounts.forEach((item) => {
-          if (item.role.name == "employee" || item.role.name == "admin") {
+          if (item.role.name == 'employee' || item.role.name == 'admin') {
             checkCondition = true;
           }
         });
       }
       if (!checkCondition)
-        return res.json({ success: false, message: "Bill not found" });
+        return res.json({ success: false, message: 'Bill not found' });
       const bill = await Bill.findOne({
         where: { id: req.params.id },
         include: {
@@ -57,13 +57,13 @@ module.exports = {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   showUserBills: async (req, res) => {
     try {
       const listBill = await Bill.findAll({
-        where: { "$user.accountId$": req.userId },
+        where: { '$user.accountId$': req.userId },
         include: {
           model: User,
           attributes: [],
@@ -74,7 +74,7 @@ module.exports = {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   create: async (req, res) => {
@@ -83,7 +83,7 @@ module.exports = {
       if (!listCartId)
         return res
           .status(404)
-          .json({ success: false, message: "No service found" });
+          .json({ success: false, message: 'No service found' });
       const account = await Account.findOne({
         include: User,
         where: { id: req.userId },
@@ -91,7 +91,7 @@ module.exports = {
       if (!account)
         return res
           .status(404)
-          .json({ success: false, message: "No user found" });
+          .json({ success: false, message: 'No user found' });
       let checkCart,
         checkService,
         newBillDetail,
@@ -115,13 +115,13 @@ module.exports = {
         }
       }
       if (!checkStatus)
-        return res.json({ success: false, message: "Service doesn't exist" });
+        return res.json({ success: false, message: 'Service doesn\'t exist' });
       const listCart = await Cart.findAll({ where: { id: listCartId } });
       var totalPrice = 0;
       newBill = new Bill({
         totalPrice: 0,
-        status: "unpaid",
-        managerId: "",
+        status: 'unpaid',
+        managerId: '',
         userId: account.user.id,
       });
       var tempService = null;
@@ -149,7 +149,7 @@ module.exports = {
       newBillDetailArray.forEach(async (element) => {
         await element.save();
       });
-      return res.json({ success: true, message: "Bill create successful" });
+      return res.json({ success: true, message: 'Bill create successful' });
     } catch (error) {
       console.log(error);
       res
@@ -162,18 +162,18 @@ module.exports = {
     const { billId } = req.body;
     try {
       if (!billId)
-        return res.json({ success: false, message: "Bill id not found" });
+        return res.json({ success: false, message: 'Bill id not found' });
       const bill = await Bill.findOne({ where: { id: billId } });
-      if (!bill) return res.json({ success: false, message: "Bill not found" });
-      bill.status = "paid";
+      if (!bill) return res.json({ success: false, message: 'Bill not found' });
+      bill.status = 'paid';
       bill.managerId = req.userId;
       bill.save();
-      return res.json({ success: true, message: "Confirm bill success" });
+      return res.json({ success: true, message: 'Confirm bill success' });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   // role basic user or employee
@@ -181,9 +181,9 @@ module.exports = {
     const { billId } = req.body;
     try {
       if (!billId)
-        return res.json({ success: false, message: "Bill id not found" });
+        return res.json({ success: false, message: 'Bill id not found' });
       const bill = await Bill.findOne({ where: { id: billId } });
-      if (!bill) return res.json({ success: false, message: "Bill not found" });
+      if (!bill) return res.json({ success: false, message: 'Bill not found' });
       const userAccount = await Account.findOne({
         include: [
           { model: User },
@@ -195,27 +195,27 @@ module.exports = {
       if (userAccount.user.id != bill.userId) {
         checkCondition = false;
         userAccount.role_accounts.forEach((item) => {
-          if (item.role.name == "employee" || item.role.name == "admin") {
+          if (item.role.name == 'employee' || item.role.name == 'admin') {
             checkCondition = true;
           }
         });
       }
       if (!checkCondition)
-        return res.json({ success: false, message: "Bill not found" });
-      if (bill.status == "paid")
+        return res.json({ success: false, message: 'Bill not found' });
+      if (bill.status == 'paid')
         return res.json({
           success: true,
-          message: "Bill is paid can not cancel",
+          message: 'Bill is paid can not cancel',
         });
       bill.managerId = req.userId;
-      bill.status = "cancelled";
+      bill.status = 'cancelled';
       bill.save();
-      return res.json({ success: true, message: "Cancelled bill successful" });
+      return res.json({ success: true, message: 'Cancelled bill successful' });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   //role basic user
@@ -223,30 +223,30 @@ module.exports = {
     const { billId } = req.body;
     try {
       if (!billId)
-        return res.json({ success: false, message: "Bill id not found" });
+        return res.json({ success: false, message: 'Bill id not found' });
       const bill = await Bill.findOne({ where: { id: billId } });
-      if (!bill) return res.json({ success: false, message: "Bill not found" });
+      if (!bill) return res.json({ success: false, message: 'Bill not found' });
       userAccount = await Account.findOne({
         include: [{ model: User }],
         where: { id: req.userId },
       });
       if (bill.userId != userAccount.user.id) {
-        return res.json({ success: false, message: "Bill not found" });
+        return res.json({ success: false, message: 'Bill not found' });
       }
-      if (bill.status == "unpaid" || bill.status == "paid")
+      if (bill.status == 'unpaid' || bill.status == 'paid')
         return res.json({
           success: false,
-          message: "Can not restore this bill",
+          message: 'Can not restore this bill',
         });
-      bill.status = "unpaid";
+      bill.status = 'unpaid';
       bill.managerId = req.userId;
       bill.save();
-      return res.json({ success: true, message: "Restore bill success" });
+      return res.json({ success: true, message: 'Restore bill success' });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   destroy: async (req, res) => {},

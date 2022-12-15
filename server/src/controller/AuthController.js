@@ -1,9 +1,9 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
-const { Account, User, Role, RoleAccounts } = require("../model");
-const nodemailer = require("nodemailer");
-const emailCheck = require("email-check");
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const { Account, User, Role, RoleAccounts } = require('../model');
+const nodemailer = require('nodemailer');
+const emailCheck = require('email-check');
 
 const generateToken = (payload) => {
   const { id, username } = payload;
@@ -12,7 +12,7 @@ const generateToken = (payload) => {
     { id, username },
     process.env.DB_ACCESS_TOKEN_SECRET,
     {
-      expiresIn: "24h",
+      expiresIn: '24h',
     }
   );
 
@@ -65,13 +65,13 @@ module.exports = {
     if (!name)
       return res.status(400).json({
         success: false,
-        message: "Require name",
+        message: 'Require name',
       });
 
     try {
       await emailCheck(email);
     } catch (error) {
-      return res.json({ success: false, message: "Email does not exist" });
+      return res.json({ success: false, message: 'Email does not exist' });
     }
 
     try {
@@ -80,17 +80,17 @@ module.exports = {
       if (existingUsername || existingEmail) {
         return res.status(400).json({
           success: false,
-          message: "username and/or email already taken",
+          message: 'username and/or email already taken',
         });
       }
       const token = jwt.sign(
         { name, username, email, password },
         process.env.DB_ACTIVE_TOKEN_SECRET,
-        { expiresIn: "20m" }
+        { expiresIn: '20m' }
       );
 
       var transporter = nodemailer.createTransport({
-        service: "gmail",
+        service: 'gmail',
         port: 465,
         secure: true,
         auth: {
@@ -102,7 +102,7 @@ module.exports = {
       var mailOptions = {
         from: `${process.env.ADMIN_EMAIL_NAME}`,
         to: email,
-        subject: "Account activation Link",
+        subject: 'Account activation Link',
         html: `
         <h2>Please click on given link to active your account</h2>
         <p>${process.env.CLIENT_URL}/verify-token/${token}</p>
@@ -113,10 +113,10 @@ module.exports = {
         if (error) {
           // console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log('Email sent: ' + info.response);
         }
       });
-      return res.json({ success: true, message: "Email verify was sent" });
+      return res.json({ success: true, message: 'Email verify was sent' });
       // if (!listRole.includes("admin"))
       // if (!name)
       // return res.status(400).json({
@@ -138,7 +138,7 @@ module.exports = {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -146,7 +146,7 @@ module.exports = {
     const { verifyToken } = req.body;
     try {
       if (!verifyToken)
-        return res.json({ success: false, message: "Token not found" });
+        return res.json({ success: false, message: 'Token not found' });
       const decodedToken = jwt.verify(
         verifyToken,
         process.env.DB_ACTIVE_TOKEN_SECRET
@@ -170,13 +170,13 @@ module.exports = {
       await newAccount.save();
 
       var token = generateToken({
-        id: newAccount.getDataValue("id"),
+        id: newAccount.getDataValue('id'),
         username: username,
       });
-      roleTemp = await Role.findOne({ where: { name: "user" } });
+      roleTemp = await Role.findOne({ where: { name: 'user' } });
       await RoleAccounts.create({
         roleId: roleTemp.id,
-        accountId: newAccount.getDataValue("id"),
+        accountId: newAccount.getDataValue('id'),
       });
       try {
         let userId = newAccount.getDataValue('id');
@@ -200,7 +200,7 @@ module.exports = {
       console.log(error);
       return res
         .status(400)
-        .json({ success: false, message: "Incorrect or Expired link" });
+        .json({ success: false, message: 'Incorrect or Expired link' });
     }
   },
 
@@ -222,7 +222,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({
           success: false,
-          message: "Incorrect username and/or password",
+          message: 'Incorrect username and/or password',
         });
       }
 
@@ -230,7 +230,7 @@ module.exports = {
       if (!passwordValid) {
         return res.status(400).json({
           success: false,
-          message: "Incorrect username and/or password",
+          message: 'Incorrect username and/or password',
         });
       }
 
@@ -262,7 +262,7 @@ module.exports = {
       });
     }
 
-    if (!token) return res.json({ success: false, message: "Token not found" });
+    if (!token) return res.json({ success: false, message: 'Token not found' });
     const decodedToken = jwt.verify(
       token,
       process.env.DB_RESET_PASSWORD_TOKEN_SECRET
@@ -271,9 +271,9 @@ module.exports = {
     try {
       const account = await Account.findOne({ where: { username } });
       if (!account)
-        return res.json({ success: false, message: "Account does not exist" });
+        return res.json({ success: false, message: 'Account does not exist' });
       if (!password)
-        return res.json({ success: false, message: "Invalid password" });
+        return res.json({ success: false, message: 'Invalid password' });
 
       const hashPassword = await argon2.hash(password);
       await Account.update(
@@ -284,13 +284,13 @@ module.exports = {
       );
       return res.json({
         success: true,
-        message: "Reset password successful",
+        message: 'Reset password successful',
       });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 
@@ -308,7 +308,7 @@ module.exports = {
     try {
       await emailCheck(email);
     } catch (error) {
-      return res.json({ success: false, message: "Email does not exist" });
+      return res.json({ success: false, message: 'Email does not exist' });
     }
 
     try {
@@ -316,7 +316,7 @@ module.exports = {
       if (!existingEmailAccount) {
         return res.status(400).json({
           success: false,
-          message: "Email does not exist",
+          message: 'Email does not exist',
         });
       }
 
@@ -324,11 +324,11 @@ module.exports = {
       const token = jwt.sign(
         { username, email },
         process.env.DB_RESET_PASSWORD_TOKEN_SECRET,
-        { expiresIn: "20m" }
+        { expiresIn: '20m' }
       );
 
       var transporter = nodemailer.createTransport({
-        service: "gmail",
+        service: 'gmail',
         port: 465,
         secure: true,
         auth: {
@@ -340,7 +340,7 @@ module.exports = {
       var mailOptions = {
         from: `${process.env.ADMIN_EMAIL_NAME}`,
         to: email,
-        subject: "Account activation Link",
+        subject: 'Account activation Link',
         html: `
         <h2>Please click on given link to reset password</h2>
         <p>${process.env.CLIENT_URL}/reset-password/${token}</p>
@@ -350,18 +350,18 @@ module.exports = {
         if (error) {
           // console.log(error);
         } else {
-          console.log("Email sent: " + info.response);
+          console.log('Email sent: ' + info.response);
         }
       });
       return res.json({
         success: true,
-        message: "Email reset password was sent",
+        message: 'Email reset password was sent',
       });
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
   // check role
@@ -376,13 +376,13 @@ module.exports = {
         },
         where: { id: req.userId },
       });
-      let role = "user";
+      let role = 'user';
       for (let i = 0; i < account.role_accounts.length; i++) {
-        if (account.role_accounts[i].role.name == "admin") {
-          role = "admin";
+        if (account.role_accounts[i].role.name == 'admin') {
+          role = 'admin';
           break;
-        } else if (account.role_accounts[i].role.name == "employee")
-          role = "employee";
+        } else if (account.role_accounts[i].role.name == 'employee')
+          role = 'employee';
       }
 
       return res.json({ success: true, role });
@@ -390,7 +390,7 @@ module.exports = {
       console.log(error);
       return res
         .status(500)
-        .json({ success: false, message: "Internal server error" });
+        .json({ success: false, message: 'Internal server error' });
     }
   },
 };

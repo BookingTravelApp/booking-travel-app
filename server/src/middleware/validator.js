@@ -22,15 +22,15 @@ let loginValidator = () => {
 };
 let resetPasswordValidator = () => {
   return [
-    check("newPassword", "Password must more than 6 digits").isLength({
+    check('newPassword', 'Password must more than 6 digits').isLength({
       min: 6,
     }),
   ];
 };
 let forgetPasswordValidator = () => {
   return [
-    check("email", "Invalid does not Empty").not().isEmpty(),
-    check("email", "Invalid email").isEmail(),
+    check('email', 'Invalid does not Empty').not().isEmpty(),
+    check('email', 'Invalid email').isEmail(),
   ];
 };
 

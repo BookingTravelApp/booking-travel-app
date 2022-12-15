@@ -11,40 +11,40 @@ router.get('/get-user/:slug', UserController.show);
 router.get('/get-user', verifyToken, UserController.showMyUser);
 
 router.get(
-  "/get-employee",
+  '/get-employee',
   //   [verifyToken, role.admin],
   UserController.showStaffUser
 );
 
 router.get(
-  "/get-basic-user",
+  '/get-basic-user',
   [verifyToken, role.admin],
   UserController.showBasicUser
 );
 
 router.put(
-  "/to-employee",
+  '/to-employee',
   [verifyToken, role.admin],
   UserController.updateRoleToEmployee
 );
 router.put(
-  "/to-user",
+  '/to-user',
   [verifyToken, role.admin],
   UserController.updateRoleToUser
 );
 router.put(
-  "/active-user",
+  '/active-user',
   [verifyToken, role.admin],
   UserController.updateActiveUser
 );
-router.put("/", verifyToken, UserController.update);
+router.put('/', verifyToken, UserController.update);
 
 //@Relationship
 //Cart
 router.get('/cart', verifyToken, UserController.getCart);
 
-router.get("/cart/:slug", verifyToken, UserController.showCart);
+router.get('/cart/:slug', verifyToken, UserController.showCart);
 
-router.post("/cart", verifyToken, UserController.createCart);
+router.post('/cart', verifyToken, UserController.createCart);
 
 module.exports = router;

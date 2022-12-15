@@ -21,7 +21,7 @@ SequelizeSlugify.slugifyModel(Event, {
   suffixSource: ['description'],
 });
 SequelizeSlugify.slugifyModel(Bill, {
-  source: ["totalPrice"],
+  source: ['totalPrice'],
 });
 SequelizeSlugify.slugifyModel(Cart, {
   source: ['amount'],

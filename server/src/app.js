@@ -44,16 +44,16 @@ app.use(
 console.log(process.cwd());
 
 //router
-app.use("/service", serviceRouter);
-app.use("/role", roleRouter);
-app.use("/event", eventRouter);
-app.use("/bill", billRouter);
-app.use("/permission", permissionRouter);
-app.use("/category", categoryRouter);
-app.use("/tag", tagRouter);
-app.use("/user", userRouter);
-app.use("/resource", resourceRouter);
-app.use("/", authRouter);
+app.use('/service', serviceRouter);
+app.use('/role', roleRouter);
+app.use('/event', eventRouter);
+app.use('/bill', billRouter);
+app.use('/permission', permissionRouter);
+app.use('/category', categoryRouter);
+app.use('/tag', tagRouter);
+app.use('/user', userRouter);
+app.use('/resource', resourceRouter);
+app.use('/', authRouter);
 
 app.listen(PORT, () => {
   console.log(`Server started on port: ${PORT}`);

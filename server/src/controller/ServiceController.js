@@ -1,9 +1,9 @@
-const argon2 = require("argon2");
-const jwt = require("jsonwebtoken");
-const { Service, Rate, User, Category } = require("../model");
-const Image = require("../model/Image");
-const Tag = require("../model/Tag");
-const TagServices = require("../model/TagServices");
+const argon2 = require('argon2');
+const jwt = require('jsonwebtoken');
+const { Service, Rate, User, Category } = require('../model');
+const Image = require('../model/Image');
+const Tag = require('../model/Tag');
+const TagServices = require('../model/TagServices');
 
 module.exports = {
   index: async (req, res) => {
@@ -25,35 +25,35 @@ module.exports = {
       return res.json({ success: true, service });
     } catch (error) {
       console.log(error);
-      return res.json({ success: false, message: "Internal server error" });
+      return res.json({ success: false, message: 'Internal server error' });
     }
   },
   showTourList: async (req, res) => {
     try {
       const tourList = await Service.findAll({
-        where: { "$category.name$": "tour" },
-        order: [["createdAt", "DESC"]],
-        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+        where: { '$category.name$': 'tour' },
+        order: [['createdAt', 'DESC']],
+        include: [{ model: Category, attributes: ['name'] }, { model: Image }],
       });
-      const category = await Category.findOne({ where: { name: "tour" } });
+      const category = await Category.findOne({ where: { name: 'tour' } });
       if (!tourList)
-        return res.json({ success: false, message: "Tour not found" });
+        return res.json({ success: false, message: 'Tour not found' });
       return res.json({ success: true, tourList, categoryId: category.id });
     } catch (error) {
       console.log(error);
-      return res.json({ success: false, message: "Internal server error" });
+      return res.json({ success: false, message: 'Internal server error' });
     }
   },
   showHotelBookingList: async (req, res) => {
     try {
       const hotelBookingList = await Service.findAll({
-        where: { "$category.name$": "hotel" },
-        order: [["createdAt", "DESC"]],
-        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+        where: { '$category.name$': 'hotel' },
+        order: [['createdAt', 'DESC']],
+        include: [{ model: Category, attributes: ['name'] }, { model: Image }],
       });
-      const category = await Category.findOne({ where: { name: "hotel" } });
+      const category = await Category.findOne({ where: { name: 'hotel' } });
       if (!hotelBookingList)
-        return res.json({ success: false, message: "Hotel not found" });
+        return res.json({ success: false, message: 'Hotel not found' });
       return res.json({
         success: true,
         hotelBookingList,
@@ -61,36 +61,36 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      return res.json({ success: false, message: "Internal server error" });
+      return res.json({ success: false, message: 'Internal server error' });
     }
   },
   showPlaneList: async (req, res) => {
     try {
       const planeList = await Service.findAll({
-        where: { "$category.name$": "plane" },
-        order: [["createdAt", "DESC"]],
-        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+        where: { '$category.name$': 'plane' },
+        order: [['createdAt', 'DESC']],
+        include: [{ model: Category, attributes: ['name'] }, { model: Image }],
       });
       if (!planeList)
-        return res.json({ success: false, message: "Plane not found" });
+        return res.json({ success: false, message: 'Plane not found' });
       return res.json({ success: true, planeList });
     } catch (error) {
       console.log(error);
-      return res.json({ success: false, message: "Internal server error" });
+      return res.json({ success: false, message: 'Internal server error' });
     }
   },
   showCarRentalList: async (req, res) => {
     try {
       const carRentalList = await Service.findAll({
-        where: { "$category.name$": "car-rental" },
-        order: [["createdAt", "DESC"]],
-        include: [{ model: Category, attributes: ["name"] }, { model: Image }],
+        where: { '$category.name$': 'car-rental' },
+        order: [['createdAt', 'DESC']],
+        include: [{ model: Category, attributes: ['name'] }, { model: Image }],
       });
       const category = await Category.findOne({
-        where: { name: "car-rental" },
+        where: { name: 'car-rental' },
       });
       if (!carRentalList)
-        return res.json({ success: false, message: "Car renter not found" });
+        return res.json({ success: false, message: 'Car renter not found' });
       return res.json({
         success: true,
         carRentalList,
@@ -98,14 +98,14 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      return res.json({ success: false, message: "Internal server error" });
+      return res.json({ success: false, message: 'Internal server error' });
     }
   },
   showServiceFromTag: async (req, res) => {
     try {
       const tag = await Tag.findOne({ where: { slug: req.params.slug } });
       if (!tag)
-        return res.json({ success: false, message: "Tag does not exist" });
+        return res.json({ success: false, message: 'Tag does not exist' });
       const listService = await Service.findAll({
         include: {
           model: TagServices,
@@ -115,19 +115,19 @@ module.exports = {
             attributes: [],
           },
         },
-        where: { "$tag_services.tag.name$": tag.name },
+        where: { '$tag_services.tag.name$': tag.name },
       });
       if (!listService)
         return res.json({
           success: false,
-          message: "Tag does not have service",
+          message: 'Tag does not have service',
         });
       return res.json({ success: true, listService });
     } catch (error) {
       console.log(error);
       res.status(500).json({
         success: false,
-        message: "Internal server error",
+        message: 'Internal server error',
       });
     }
   },
@@ -148,9 +148,9 @@ module.exports = {
 
       const newService = new Service({
         name,
-        title: title || "",
-        description: description || "",
-        guide: guide || "",
+        title: title || '',
+        description: description || '',
+        guide: guide || '',
         price: price || 0,
         is_active: is_active || true,
         categoryId,

@@ -9,18 +9,18 @@ router.get('/', TagController.index);
 router.post('/', [verifyToken, role.employee], TagController.create);
 
 router.put(
-  "/add-service",
+  '/add-service',
   [verifyToken, role.employee],
   TagController.addServiceToTag
 );
 
 router.put(
-  "/delete-service",
+  '/delete-service',
   [verifyToken, role.employee],
   TagController.deleteServiceFromTag
 );
 
-router.put("/", TagController.update);
+router.put('/', TagController.update);
 
 router.delete('/:id', [verifyToken, role.employee], TagController.destroy);
 
