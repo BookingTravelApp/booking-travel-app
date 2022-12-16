@@ -75,7 +75,7 @@ const UploadBox = props => {
       await serviceAPI.get(props.service.slug).then(res => {
         if (res.data.success) {
           var list = [];
-          for (let i = 0; i < res.data.service.images.length; i++) {
+          for (let i = 0; i < res.data.service.images?.length; i++) {
             list.push({
               uid: `${-i}`,
               id: res.data.service.images[i].id,

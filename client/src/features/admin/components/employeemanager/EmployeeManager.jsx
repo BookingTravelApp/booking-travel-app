@@ -170,7 +170,7 @@ const EmployeeManager = () => {
               showUpdateModal();
             }}
           >
-            Update
+            Change role
           </button>
           <button
             type="button"

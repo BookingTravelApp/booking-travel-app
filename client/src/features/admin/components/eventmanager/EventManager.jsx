@@ -343,9 +343,9 @@ const EventManager = () => {
         visible={isModalImageVisible}
         onOk={handleImageOk}
         onCancel={handleImageCancel}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
         <UploadBox service={modelCurrentAction} />
-        
       </Modal>
       <Modal
         title="Update events's details"
